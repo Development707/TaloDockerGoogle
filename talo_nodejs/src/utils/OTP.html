@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css" rel="stylesheet" media="all">
+        *:not(tr):not(html) {
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100% !important;
+            height: 100%;
+            margin: 0;
+            line-height: 1.4;
+            -webkit-text-size-adjust: none;
+        }
+
+        a {
+            color: #bfd6ff;
+        }
+
+        .wrapper {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #707070;
+
+        }
+
+        .content {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .masthead {
+            padding: 15px 0;
+            text-align: center;
+            background-color: #b1b1b1
+        }
+
+        .masthead_name {
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 3px 3px #ffffff;
+        }
+
+        .body_inner {
+            width: 600px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .body-action {
+            width: 100%;
+            margin: 30px auto;
+            padding: 0;
+            text-align: center;
+        }
+
+        .content-cell {
+            padding: 35px;
+        }
+
+        p {
+            margin-top: 0;
+            color: #d3d3d3;
+            font-size: 16px;
+            line-height: 1.5em;
+            text-align: left;
+        }
+
+        .footer {
+            width: 600px;
+            margin: 0 auto;
+            padding: 5px;
+            text-align: center;
+            background-color: #b1b1b1
+        }
+
+        .footer-name {
+            font-size: 15px;
+            font-weight: bold;
+            color: #5e5e5e;
+        }
+
+        .button {
+            display: inline-block;
+            width: 200px;
+            background-color: #e7e7e7;
+            border-radius: 5px;
+            color: #555555;
+            font-size: 30px;
+            line-height: 50px;
+            text-align: center;
+            text-decoration: none;
+            -webkit-text-size-adjust: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            .body_inner,
+            .footer {
+                width: 100% !important;
+            }
+        }
+
+        @media only screen and (max-width: 500px) {
+            .button {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <table class="wrapper" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="center">
+                <table class="content" width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="masthead">
+                            <a class="masthead_name">TALO App Chat</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="body" width="100%">
+                            <table class="body_inner" align="center" width="570" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td class="content-cell">
+                                        <p>Mã OTP để xác thực tài khoản của bạn. Có thời hạn là <b> {OTP_TIME} phút </b>
+                                            : </p>
+                                        <table class="body-action" align="center" width="100%" cellpadding="0"
+                                            cellspacing="0">
+                                            <tr>
+                                                <td align="center">
+                                                    <div>
+                                                        <p class="button">{OTP}</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p>Vì lí do bảo mật, tuyệt đối không đưa mã này cho người lạ.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="footer">
+                            <a class="footer-name">Liên hệ TALO App Chat tại đây</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>;
