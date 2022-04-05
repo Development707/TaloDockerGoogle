@@ -93,18 +93,19 @@ class ConversationService {
             userId,
             conversation,
         );
-        summary.managers = conversation.managerIds;
-        if (conversation.leaderId)
-            summary.leader = await redisUtils.getShortUserInfo(
-                conversation.leaderId,
-            );
         return summary;
     }
 
     // return id, name, avatar, type, members, totalMembers, numberUnread, isNotify, isJoinFromLink, lastMessage
     async getSummaryByUserIdConversation(userId, conversation) {
-        const { _id, lastMessageId, type, isJoinFromLink, leaderId } =
-            conversation;
+        const {
+            _id,
+            lastMessageId,
+            type,
+            isJoinFromLink,
+            leaderId,
+            managerIds,
+        } = conversation;
         let { name, avatar, members } = conversation;
         const totalMembers = members.length;
         // Get lastView vs isNotify
@@ -173,6 +174,7 @@ class ConversationService {
             isJoinFromLink,
             lastMessage,
             leaderId,
+            managerIds,
         };
     }
 
