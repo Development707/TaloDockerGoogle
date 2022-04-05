@@ -89,17 +89,11 @@ class ConversationService {
         // Get conversation
         const conversation = await redisUtils.getConversation(conversationId);
         ConversationValidate.validateExists(conversation);
-
-        const promises = await Promise.all([
-            await this.getSummaryByUserIdConversation(userId, conversation),
-            Promise.all(
-                conversation.managerIds.map(async (id) => {
-                    return await redisUtils.getShortUserInfo(id);
-                }),
-            ),
-        ]);
-        let summary = promises[0];
-        summary.managers = promises[1];
+        let summary = await this.getSummaryByUserIdConversation(
+            userId,
+            conversation,
+        );
+        summary.managers = conversation.managerIds;
         if (conversation.leaderId)
             summary.leader = await redisUtils.getShortUserInfo(
                 conversation.leaderId,

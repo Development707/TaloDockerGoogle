@@ -146,3 +146,4 @@ Xem file bằng docker extension
     `ssh-keygen -t rsa -f ~/.ssh/[KEY_FILENAME] -C [USERNAME]`
     `cd ~/.ssh`
     `chmod 400 [KEY_FILENAME]`
+-   Xem user: `sudo su - gitlab-runner`
