@@ -147,3 +147,11 @@ Xem file bằng docker extension
     `cd ~/.ssh`
     `chmod 400 [KEY_FILENAME]`
 -   Xem user: `sudo su - gitlab-runner`
+
+## Nếu lỗi permision
+
+-   `Cd ..` : Khi nào dến thư mục gốc `/`
+-   Vào quyền root
+-   `sudo nano /etc/gitlab-runner/config.toml`
+-   Thêm sau [RUNNER]
+    -   `pre_clone_script = "sudo chown -R gitlab-runner:gitlab-runner ."`
