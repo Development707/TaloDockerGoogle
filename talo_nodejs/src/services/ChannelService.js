@@ -22,7 +22,7 @@ class ChannelService {
             channels[i].numberUnread = await this.getNumberUnread(
                 conversationId,
                 channels[i].id,
-                userId
+                userId,
             );
         }
 
@@ -71,7 +71,7 @@ class ChannelService {
                         lastView: new Date(),
                     },
                 },
-            }
+            },
         );
         // New message
         const message = await MessageService.addText(userId, {
@@ -95,7 +95,7 @@ class ChannelService {
         ChannelValidate.validateExistChannel(channel);
         // Check conversation
         const conversation = await redisUtils.getConversation(
-            channel.conversationId
+            channel.conversationId,
         );
         ConversationValidate.validateConversation(conversation, userId);
         // Check body
@@ -128,14 +128,14 @@ class ChannelService {
         ChannelValidate.validateExistChannel(channel);
         // Check conversation
         const conversation = await redisUtils.getConversation(
-            channel.conversationId
+            channel.conversationId,
         );
         ConversationValidate.validateConversation(conversation, userId);
         // Update channel
         await Channel.deleteOne({ _id: channelId });
         await Member.updateMany(
             { conversationId: channel.conversationId },
-            { $pull: { lastViewOfChannels: { channelId } } }
+            { $pull: { lastViewOfChannels: { channelId } } },
         );
         redisUtils.removeChannel(channelId);
         redisUtils.removeAllMembers();
@@ -171,7 +171,7 @@ class ChannelService {
         ChannelValidate.validateExistChannel(channel);
         // Check conversation
         const conversation = await redisUtils.getConversation(
-            channel.conversationId
+            channel.conversationId,
         );
         ConversationValidate.validateConversation(conversation, userId);
 
@@ -202,7 +202,7 @@ class ChannelService {
             members.map(async (member) => {
                 const user = await redisUtils.getShortUserInfo(member.userId);
                 return { user, lastView: member.lastView };
-            })
+            }),
         );
     }
 }

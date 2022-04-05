@@ -7,7 +7,7 @@ class MemberService {
         conversationId,
         userId,
         name = null,
-        lastViewOfChannels = null
+        lastViewOfChannels = [],
     ) {
         await new Member({
             conversationId,
@@ -20,7 +20,7 @@ class MemberService {
     async updateLastView(conversationId, userId, lastView = new Date()) {
         const member = await this.findByConversationIdAndUserId(
             conversationId,
-            userId
+            userId,
         );
         member.lastView = lastView;
         member.save();
@@ -30,14 +30,14 @@ class MemberService {
     async updateLastViewByChannelId(conversationId, userId, channelId) {
         const member = await this.findByConversationIdAndUserId(
             conversationId,
-            userId
+            userId,
         );
 
         const lastViewOfChannels = member.lastViewOfChannels;
 
         const index = lastViewOfChannels.findIndex(
             (lastViewOfChannel) =>
-                lastViewOfChannel.channelId.toString() == channelId + ''
+                lastViewOfChannel.channelId.toString() == channelId + '',
         );
 
         // not exists
@@ -52,7 +52,7 @@ class MemberService {
     async updateName(conversationId, userId, name) {
         const member = await this.findByConversationIdAndUserId(
             conversationId,
-            userId
+            userId,
         );
         member.name = name;
         member.save();
@@ -62,7 +62,7 @@ class MemberService {
     async updateIsNotify(conversationId, isNotify, userId) {
         const member = await this.findByConversationIdAndUserId(
             conversationId,
-            userId
+            userId,
         );
         member.isNotify = isNotify;
         member.save();
@@ -73,7 +73,7 @@ class MemberService {
     async findByConversationIdAndUserId(conversationId, userId) {
         return await Member.findByConversationIdAndUserId(
             conversationId,
-            userId
+            userId,
         );
     }
 

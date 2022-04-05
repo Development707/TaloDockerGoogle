@@ -18,7 +18,7 @@ class ChannelController {
         try {
             const channels = await ChannelService.findByConversationId(
                 conversationId,
-                userId
+                userId,
             );
 
             res.json(channels);
@@ -36,7 +36,7 @@ class ChannelController {
             const { channel, message } = await ChannelService.addChannel(
                 conversationId,
                 req.body,
-                userId
+                userId,
             );
 
             this.io.to(conversationId).emit(Emit.CHANNEL_CREATE, channel);
@@ -59,7 +59,7 @@ class ChannelController {
             const { channel, message } = await ChannelService.updateChannel(
                 channelId,
                 req.body,
-                userId
+                userId,
             );
             const { conversationId } = channel;
             this.io.to(conversationId).emit(Emit.CHANNEL_UPDATE, channel);
@@ -102,7 +102,7 @@ class ChannelController {
         try {
             const lastViews = await ChannelService.getViewLast(
                 channelId,
-                userId
+                userId,
             );
 
             res.json(lastViews);

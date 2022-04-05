@@ -27,7 +27,7 @@ const memberSchema = new mongoose.Schema({
 
 memberSchema.statics.findByConversationIdAndUserId = async (
     conversationId,
-    userId
+    userId,
 ) => {
     const member = await Member.findOne({
         conversationId,
