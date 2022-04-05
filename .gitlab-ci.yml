@@ -2,6 +2,8 @@ image:
     name: docker/compose:latest
 services:
     - docker:dind
+pre_clone_script:
+    - sudo chown -R gitlab-runner:gitlab-runner .
 before_script:
     - docker version
     - docker-compose version
