@@ -10,6 +10,6 @@ build:
     only:
         - main
     script:
-        - docker-compose -f docker-compose.yml down
+        - docker-compose -f docker-compose.yml down --remove-orphan
         - docker-compose -f docker-compose.yml up -d --build
         - docker rmi $(docker images -f dangling=true -q)
