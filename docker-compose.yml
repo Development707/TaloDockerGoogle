@@ -52,7 +52,7 @@ services:
       - CLOUD_BUCKET_GROUP_FILE=talo-group-file
       - CLOUD_BUCKET_STICKER=talo-sticker
     depends_on:
-      - talo-mongo
+      # - talo-mongo
       - talo-redis
     networks:
       - talo
