@@ -32,14 +32,14 @@ const conversationSchema = new mongoose.Schema(
             require: true,
         },
     },
-    { timestamps: true }
+    { timestamps: true },
 );
 
 conversationSchema.index({ name: 'text' });
 
 conversationSchema.statics.existsDualConversation = async (
     userId1,
-    userId2
+    userId2,
 ) => {
     return await Conversation.findOne({
         type: 'DUAL',

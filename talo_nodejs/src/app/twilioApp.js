@@ -16,11 +16,11 @@ const sendOTP = (phone, otp) => {
                 to: phone,
             })
             .then((message) =>
-                console.log(
+                console.warn(
                     `Phone ${phone} send OTP(${otp}): Id message: ${message.sid}`,
                 ),
             )
-            .catch((error) => console.log(error))
+            .catch((error) => console.error(error))
             .done();
     }
 };
