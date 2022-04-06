@@ -21,7 +21,7 @@ class UserService {
     async getShortUserInfo(username) {
         const user = await User.findOne(
             { username },
-            '-_id name username avatar isActived'
+            '-_id name username avatar isActived',
         );
 
         if (!user) throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
@@ -39,28 +39,25 @@ class UserService {
         UserResult.status = await this.getFriendStatus(_id, UserResultId);
         UserResult.numberMutualGroup = await this.countMutualGroup(
             _id,
-            UserResultId
+            UserResultId,
         );
         UserResult.numberMutualFriend = await this.countMutualFriend(
             _id,
-            UserResultId
+            UserResultId,
         );
 
         return UserResult;
     }
 
     async getStatusFriendById(_id, userId) {
-        const UserResult = await User.findByIdIsActive(userId);
-        const UserResultId = UserResult._id;
+        let UserResult = await User.findByIdIsActive(userId);
+        UserResult.id = userId;
 
-        UserResult.status = await this.getFriendStatus(_id, UserResultId);
-        UserResult.numberMutualGroup = await this.countMutualGroup(
-            _id,
-            UserResultId
-        );
+        UserResult.status = await this.getFriendStatus(_id, userId);
+        UserResult.numberMutualGroup = await this.countMutualGroup(_id, userId);
         UserResult.numberMutualFriend = await this.countMutualFriend(
             _id,
-            UserResultId
+            userId,
         );
 
         return UserResult;
@@ -113,7 +110,7 @@ class UserService {
             pagination = commonUtils.getPagination(
                 page,
                 size,
-                await User.countDocuments({ $text: { $search: q } })
+                await User.countDocuments({ $text: { $search: q } }),
             );
 
             users = await User.aggregate([
@@ -145,7 +142,7 @@ class UserService {
             pagination = commonUtils.getPagination(
                 page,
                 size,
-                await User.countDocuments()
+                await User.countDocuments(),
             );
 
             users = await User.aggregate([
