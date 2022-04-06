@@ -19,15 +19,14 @@ db.connectDB();
 app.use(cors());
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.json({ limit: '50mb' }));
+// Handle Error
+app.use(handleError);
 // Create server
 const server = http.createServer(app);
 const io = socketio(server);
 socketApp(io);
 routes(app, io);
 
-// Handle Error
-app.use(handleError);
-
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
