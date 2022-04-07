@@ -7,7 +7,9 @@ const chalk = require('chalk');
 const socket = (io) => {
     io.on(On.TALO_CONNECTION, (socket) => {
         // Kiem tra message
-        socket.on('message', (message) => console.log(message));
+        socket.on('message', (message) =>
+            socket.emit('message-server', message + '-server'),
+        );
 
         socket.on('disconnect', async () => {
             const userId = socket.userId;
