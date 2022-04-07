@@ -57,40 +57,6 @@ services:
     networks:
       - talo
 
-  talo-nodejs-mobile:
-    container_name: talo-nodejs-mobile
-    restart: on-failure:3
-    build: 
-      context: ./talo_nodejs_mobile
-    ports:
-      - 5001:5001
-    environment:
-      - DATABASE_URL=mongodb+srv://talo:talo123456@cluster0.dezz0.mongodb.net/TALO?retryWrites=true&w=majority
-      - REDIS_URL=redis://talo-redis:6379
-      - JWT_SECRET_KEY=TALO
-      - JWT_LIFE_ACCESS_TOKEN=3d
-      - JWT_LIFE_REFRESH_TOKEN=60d
-      - OTP_EXPIRE_MINUTE=2
-      - EMAIL=talo.noreply@gmail.com
-      - EMAIL_PASSWORD=talo123456
-      - TWILIO_ACCOUNT_SID=ACdebfc34a65c640e56367c2f5da6319ed
-      - TWILIO_AUTH_TOKEN=8ad8aa82c62ff8029e51330db09f48ba
-      - MAX_SIZE_FILE=52428800
-      - GOOGLE_CLOUD_PROJECT=talo-342211
-      - CLOUD_BUCKET_AVATAR=talo-avatar
-      - CLOUD_BUCKET_COVER_PHOTO=talo-cover-photo
-      - CLOUD_BUCKET_GROUP_AVATAR=talo-group-avatar
-      - CLOUD_BUCKET_GROUP_IMAGE=talo-group-image
-      - CLOUD_BUCKET_GROUP_VIDEO=talo-group-video
-      - CLOUD_BUCKET_GROUP_FILE=talo-group-file
-      - CLOUD_BUCKET_STICKER=talo-sticker
-    depends_on:
-      # - talo-mongo
-      - talo-redis
-      - talo-nodejs
-    networks:
-      - talo
-
   talo-login:
     container_name: talo-login
     restart: on-failure:3
