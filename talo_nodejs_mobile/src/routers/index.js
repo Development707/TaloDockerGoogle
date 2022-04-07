@@ -31,7 +31,7 @@ const route = (app, io) => {
     // Third-party API
     app.use('/firebase', firebaseRouter);
     // Test Api
-    app.use('/', (req, res) => res.send('Welcome to TALO-API'));
+    app.use('/', (req, res) => res.send('Welcome to TALO-API-MOBILE'));
 };
 
 module.exports = route;

@@ -11,7 +11,7 @@ const socketApp = require('./app/socketApp');
 const handleError = require('./middlewares/handleError');
 
 // Create App
-const port = process.env.PORT || 5000;
+const port = 5001;
 const app = express();
 // Connect DB
 db.connectDB();
