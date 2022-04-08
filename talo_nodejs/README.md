@@ -96,74 +96,102 @@ Talo phone: +17755264592 (SMS, MMS, and voice capable)
 -   `[PUT]`: Sửa phân loại.
     -   body: { id: String, name: String, color: String }
     -   result: boolean
--   `[DELETE]/:id`: Xóa phân loại.
--   `[GET]/conversations/:id`: Danh sách cuộc hội thoại theo id phân loại.
+-   `[DELETE] /:id`: Xóa phân loại.
+-   `[GET] /conversations/:id`: Danh sách cuộc hội thoại theo id phân loại.
     -   result: {id:String, name: String, color: String, conversations: [{ id: String, avatar: {url: String, name: String}, pinMessageIds: [ ], type: String}]}
--   `[POST]/conversations/:id/:conversationId`: Thêm hội thoại vào phân loại.
--   `[DELETE]/conversations/:id/:conversationId`: Xóa hội thoại trong phân loại.
+-   `[POST] /conversations/:id/:conversationId`: Thêm hội thoại vào phân loại.
+-   `[DELETE] /conversations/:id/:conversationId`: Xóa hội thoại trong phân loại.
 
 ### Conversation `/conversations`
 
 -   `[GET]`: Danh sách cuộc hội thoại.
     -   result: [{ id: String, name: String, avatar: {url: String, name: String}, type: String, members: [{ id: String, name: String, avatar: {url: String, name: String} }], totalMembers: int, numberUnread: int, isNotify: boolean, isJoinFromLink: boolean, lastMessage: { manipulatedUserIds, content, tags, type, deletedUserIds...} }]
--   `[GET]/:id`: Chi tiết cuộc hội thoại.
+-   `[GET] /:id`: Chi tiết cuộc hội thoại.
     -   result: { id: String, name: String, avatar: {url: String, name: String}, type: String, members: [{ id: String, name: String, avatar: {url: String, name: String} }], totalMembers: int, numberUnread: int, isNotify: boolean, isJoinFromLink: boolean, lastMessage: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
 -   `[POST]`: Thêm cuộc hội thoại nhóm.
     -   body: { userIds: [ String,... ]}
     -   result: {id: String}
 -   `[POST]/dual/:userId`: Lấy cuộc hội thoại đôi.
     -   result: { conversationId: String, isExists: Boolean }
--   `[POST]/cloud`: Lấy cuộc hội thoại cloud.
+-   `[POST] /cloud`: Lấy cuộc hội thoại cloud.
     -   result: { conversationId: String, isExists: Boolean }
--   `[DELETE]/:id`: Xóa cuộc hội thoại nhóm.
--   `[PATCH]/:id/name`: Đổi tên cuộc hội thoại.
--   `[PATCH]/:id/avatar`: Đổi avatar cuộc hội thoại.
--   `[PATCH]/:id/avatar/base64`: Đổi avatar cuộc hội thoại.
--   `[PATCH]/:id/notify`: Đổi nhận thông báo cuộc hội thoại.
+-   `[DELETE] /:id`: Xóa cuộc hội thoại nhóm.
+-   `[PATCH] /:id/name`: Đổi tên cuộc hội thoại.
+-   `[PATCH] /:id/avatar`: Đổi avatar cuộc hội thoại.
+-   `[PATCH] /:id/avatar/base64`: Đổi avatar cuộc hội thoại.
+-   `[PATCH] /:id/notify`: Đổi nhận thông báo cuộc hội thoại.
     -   body: { isNotify: boolean}
 -   `[PATCH]/:id/join-with-link`: Đổi truy cập bằng link cuộc hội thoại.
     -   body: { isStatus: boolean}
--   `[POST]/:id/join-with-link`: Truy cập bằng link cuộc hội thoại.
--   `[GET]/:id/members`: Danh sách thành viên cuộc hội thoại.
+-   `[POST] /:id/join-with-link`: Truy cập bằng link cuộc hội thoại.
+-   `[GET] /:id/members`: Danh sách thành viên cuộc hội thoại.
     -   result: [{ id: String, name: String, avatar: avatar: {url: String, name: String}}]
--   `[POST]/:id/members`: Thêm danh sách user vào cuộc hội thoại.
+-   `[POST] /:id/members`: Thêm danh sách user vào cuộc hội thoại.
     -   body: [ String,...]
     -   result: { id: String manipulatedUserIds: { id: String, name: String, avatar: {url: String, name: String}}, content: String, tags: [], type: String, deletedUserIds: [], reacts: [], options[], createdAt: Date, user: {id: String, name: String, avatar: {url: String}} }
--   `[DELETE]/:id/members`: Rời khỏi cuộc hội thoại nhóm.
+-   `[DELETE] /:id/members`: Rời khỏi cuộc hội thoại nhóm.
     -   result: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
--   `[DELETE]/:id/members/:userId`: Xóa user khỏi cuộc hội thoại nhóm.
+-   `[DELETE] /:id/members/:userId`: Xóa user khỏi cuộc hội thoại nhóm.
     -   result: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
--   `[POST]/:id/managers`: Thêm các quản lý cho nhóm trò truyện.
+-   `[POST] /:id/managers`: Thêm các quản lý cho nhóm trò truyện.
     -   body: [ String,...]
     -   result: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
--   `[PATCH]/:id/managers`: Xóa các quản lý cho nhóm trò truyện.
+-   `[PATCH] /:id/managers`: Xóa các quản lý cho nhóm trò truyện.
     -   body: [ String,...]
     -   result: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
--   `[GET]/:id/short-info`: Thông tin nhóm trò truyện.
+-   `[GET] /:id/short-info`: Thông tin nhóm trò truyện.
     -   result: { id: String, name: String, avatar: {url: String, name: String}, members: [{ id: String, name: String, avatar: {url: String}}]}
--   `[GET]/:id/view-last`: Danh sách các thành viên đã xem tin nhắn.
+-   `[GET] /:id/view-last`: Danh sách các thành viên đã xem tin nhắn.
     -   result: { id: String, user: { id: String, name: String, avatar: {url: String, name}}, lastView: Date}
--   `[DELETE]/:id/messages`: Xóa tất cả tin nhắn.
+-   `[DELETE] /:id/messages`: Xóa tất cả tin nhắn.
 
 ### Channel `/channels`
 
--   `[GET]/:conversationId`: Danh sách các channel theo convertionId
+-   `[GET] /:conversationId`: Danh sách các channel theo convertionId
     -   result: [ { id: String, name: String, description: String, conversationId: String, createdAt: Date}]
--   `[POST]/:conversationId`: Tạo channel
+-   `[POST] /:conversationId`: Tạo channel
     -   body: { name: String, description: String}
     -   result: { channel: { id: String, name: String, description: String, conversationId: String, createdAt: Date}, message: { id: String type: String, content: String, user: { id: String, name: String, avatar: {url: String, name: String}},...}}
--   `[PUT]/:channelId`: Sửa channel
+-   `[PUT] /:channelId`: Sửa channel
     -   body: { name: String, description: String}
     -   result: { channel: { id: String, name: String, description: String, conversationId: String, createdAt: Date}, message: { id: String type: String, content: String, user: { id: String, name: String, avatar: {url: String, name: String}},...}}
--   `[DELETE]/:channelId`: Xóa channel
+-   `[DELETE] /:channelId`: Xóa channel
     -   result: { conversationId: String, message: { id: String type: String, content: String, user: { id: String, name: String, avatar: {url: String, name: String}},...}}
--   `[GET]/:channelId/view-last`: User xem lần cuối
+-   `[GET] /:channelId/view-last`: User xem lần cuối
     -   result: [ { user: { id: String, name: String, avatar: {url: String, name: String}}, lastView: Date }]
 
 ### Sticker `/sticker`
 
 -   `[GET]`: Danh sách các sticker
     -   result: [ { id: String, name: String, description: String, emoji: [ { url: string, name: String}]}]
+
+### Message `/message`
+
+-   `[GET] /:conversationId`: Danh sách tin nhắn theo id hội thoại
+    -   query: { page: int, size: int }
+    -   result: { data: [ { _id, manipulatedUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user}, page: int, size: int, totalPages: int]}
+-   `[GET] /channel/:channelId`: Danh sách tin nhắn theo id channel
+    -   query: { page: int, size: int }
+    -   result: { data: [ { _id, manipulatedUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user}, page: int, size: int, totalPages: int]}
+-   `[GET] /:conversationId/files`: Danh sách file theo id hội thoại
+    -   query: {userIdSend: String, type: String, startTime: String(yyyy-mm-dd) , endTime: String(yyyy-mm-dd)}
+-   `[POST] /:conversationId/text`: Gửi tin nhắn chữ (TEXT, HTML, NOTIFY, STICKER)
+    -   body: {content: String , tags: [{ String }], replyMessageId: String, type: String, channelId: String}
+    -   result: message
+    -   Socket: emit { 'MessageNew' , conversationId, message}
+        -   Channel: emit { 'MessageNewChannel', conversationId, channelId, message}
+-   `[POST] /:conversationId/file`: Gửi tin nhắn file (IMAGE, VIDEO, FILE)
+    -   body { type: String, channelId: String, file: File}
+    -   result: message
+    -   Socket: emit { 'MessageNew' , conversationId, message}
+        -   Channel: emit { 'MessageNewChannel', conversationId, channelId, message}
+-   `[POST] /reacts/:id/:type`: Cảm xúc cho tin nhắn
+    -   Socket: emit {MessageReactAdd, { conversationId, channelId, messageId, type, user, }}
+-   `[POST] /forward/:id/:conversationId`: Chuyển tiếp tin nhắn
+    -   Socket: Emit { 'MessageNew' , conversationId, message}
+-   `[DELETE] /unsend/:id`: Thu hồi tin nhắn
+    -   Socket: Emit { MessageDelete, { conversationId, channelId, messageId} }
+-   `[DELETE] /unsend/:id/just-me`: Xóa tin nhắn phía mình
 
 ---
 
@@ -181,8 +209,11 @@ Talo phone: +17755264592 (SMS, MMS, and voice capable)
 ### Report `/report`
 
 -   `[POST] /app`: Báo lỗi ứng dụng
+    -   body: {title, description }
 -   `[POST] /convercation`: Báo cáo cuộc hội thoại
+    -   body: {title, description, conversationId}
 -   `[POST] /user`: Báo cáo người dùng
+    -   body: {title, description, userIsReport}
 
 ---
 
