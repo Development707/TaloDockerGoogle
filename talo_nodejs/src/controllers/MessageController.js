@@ -26,7 +26,7 @@ class MessageController {
                 conversationId,
                 userId,
                 parseInt(page),
-                parseInt(size)
+                parseInt(size),
             );
 
             this.io.to(conversationId).emit(Emit.MESSAGE_VIEW_LAST, {
@@ -52,7 +52,7 @@ class MessageController {
                 channelId,
                 userId,
                 parseInt(page),
-                parseInt(size)
+                parseInt(size),
             );
 
             const { conversationId } = messages;
@@ -84,7 +84,7 @@ class MessageController {
                 type,
                 userIdSend,
                 startTime,
-                endTime
+                endTime,
             );
 
             res.json(files);
@@ -117,7 +117,7 @@ class MessageController {
                         Emit.MESSAGE_NEW_CHANNEL,
                         conversationId,
                         channelId,
-                        message
+                        message,
                     );
             } else
                 this.io
@@ -130,7 +130,7 @@ class MessageController {
         }
     }
 
-    //[POST] /files  tin nhắn dạng file
+    //[POST] /:conversationId/file
     async addFile(req, res, next) {
         const userId = req.id;
         const conversationId = req.params.conversationId;
@@ -142,7 +142,7 @@ class MessageController {
                 type,
                 req.file,
                 userId,
-                channelId
+                channelId,
             );
 
             if (channelId) {
@@ -152,7 +152,7 @@ class MessageController {
                         Emit.MESSAGE_NEW_CHANNEL,
                         conversationId,
                         channelId,
-                        message
+                        message,
                     );
             } else
                 this.io
@@ -197,7 +197,7 @@ class MessageController {
             const message = await MessageService.forwardById(
                 id,
                 conversationId,
-                userId
+                userId,
             );
 
             this.io
