@@ -4,6 +4,11 @@ const CustomError = require('../exceptions/CustomError');
 const { ErrorType } = require('../lib/Constants');
 
 class ReportService {
+    async findAll() {
+        let reports = await Report.find().lean();
+        return reports;
+    }
+
     async createReport(userId, body, type) {
         const { title, description = '' } = body;
         if (!title || title.length < 5)
@@ -30,7 +35,7 @@ class ReportService {
                 const { conversationId } = body;
                 if (!conversationId)
                     throw new CustomError(
-                        ErrorType.REPORT_CONVERSATION_INVALID
+                        ErrorType.REPORT_CONVERSATION_INVALID,
                     );
                 this.validateId(conversationId);
                 await new Report({
