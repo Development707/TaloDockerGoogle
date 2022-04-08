@@ -1,15 +1,6 @@
 const ReportService = require('../services/ReportService');
 
 class ReportController {
-    // [GET] /
-    async findAll(req, res, next) {
-        try {
-            const result = await ReportService.findAll();
-            res.json(result);
-        } catch (err) {
-            next(err);
-        }
-    }
     // [POST] /app
     async app(req, res, next) {
         const userId = req.id;
@@ -17,7 +8,7 @@ class ReportController {
             const report = await ReportService.createReport(
                 userId,
                 req.body,
-                'APP',
+                'APP'
             );
             res.status(201).json(report);
         } catch (err) {
@@ -30,7 +21,7 @@ class ReportController {
             const report = await ReportService.createReport(
                 userId,
                 req.body,
-                'CONVERSATION',
+                'CONVERSATION'
             );
             res.status(201).json(report);
         } catch (err) {
@@ -43,7 +34,7 @@ class ReportController {
             const report = await ReportService.createReport(
                 userId,
                 req.body,
-                'USER',
+                'USER'
             );
             res.status(201).json(report);
         } catch (err) {

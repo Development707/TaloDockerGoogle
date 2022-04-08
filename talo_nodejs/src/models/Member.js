@@ -12,16 +12,13 @@ const memberSchema = new mongoose.Schema({
         default: new Date(),
     },
     name: String,
-    lastViewOfChannels: {
-        type: [
-            {
-                channelId: { type: ObjectId, ref: 'Channel' },
-                lastView: Date,
-                _id: false,
-            },
-        ],
-        default: [],
-    },
+    lastViewOfChannels: [
+        {
+            channelId: { type: ObjectId, ref: 'Channel' },
+            lastView: Date,
+            _id: false,
+        },
+    ],
     isNotify: {
         type: Boolean,
         default: true,
