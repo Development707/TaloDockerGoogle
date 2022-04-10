@@ -1,0 +1,92 @@
+version: '3.3'
+
+services:
+  # talo-mongo:
+  #   image: mongo
+  #   container_name: talo-mongo
+  #   restart: always
+  #   ports:
+  #     - 27017:27017
+  #   networks:
+  #     - talo
+  #   volumes:
+  #     - ./talo-mongo:/data/db
+
+  talo-redis:
+    image: redis
+    container_name: talo-redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./talo-redis:/data
+    networks:
+      - talo
+
+  talo-nodejs:
+    container_name: talo-nodejs
+    restart: on-failure:3
+    build: 
+      context: ./talo_nodejs
+    ports:
+      - 5000:5000
+    environment:
+      - PORT=5000
+      - DATABASE_URL=mongodb+srv://talo:talo123456@cluster0.dezz0.mongodb.net/TALO?retryWrites=true&w=majority
+      - REDIS_URL=redis://talo-redis:6379
+      - JWT_SECRET_KEY=TALO
+      - JWT_LIFE_ACCESS_TOKEN=3d
+      - JWT_LIFE_REFRESH_TOKEN=60d
+      - OTP_EXPIRE_MINUTE=2
+      - EMAIL=talo.noreply@gmail.com
+      - EMAIL_PASSWORD=talo123456
+      - TWILIO_ACCOUNT_SID=ACdebfc34a65c640e56367c2f5da6319ed
+      - TWILIO_AUTH_TOKEN=8ad8aa82c62ff8029e51330db09f48ba
+      - MAX_SIZE_FILE=52428800
+      - GOOGLE_CLOUD_PROJECT=talo-342211
+      - CLOUD_BUCKET_AVATAR=talo-avatar
+      - CLOUD_BUCKET_COVER_PHOTO=talo-cover-photo
+      - CLOUD_BUCKET_GROUP_AVATAR=talo-group-avatar
+      - CLOUD_BUCKET_GROUP_IMAGE=talo-group-image
+      - CLOUD_BUCKET_GROUP_VIDEO=talo-group-video
+      - CLOUD_BUCKET_GROUP_FILE=talo-group-file
+      - CLOUD_BUCKET_STICKER=talo-sticker
+    depends_on:
+      # - talo-mongo
+      - talo-redis
+    networks:
+      - talo
+
+  talo-login:
+    container_name: talo-login
+    restart: on-failure:3
+    build: 
+      context: ./talo_login
+    ports:
+      - 3001:3001
+    depends_on:
+      - talo-nodejs
+    networks:
+      - talo
+
+  talo-nginx:
+    image: nginx
+    container_name: talo-nginx
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./talo_nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - talo-nodejs
+      - talo-login
+    networks:
+      - talo
+
+
+networks:
+  talo:
+    driver: bridge
+volumes:
+    talo-mongo:
+    talo-redis:
