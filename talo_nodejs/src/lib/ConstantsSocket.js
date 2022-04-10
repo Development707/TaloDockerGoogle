@@ -1,6 +1,4 @@
 const On = {
-    // Talo
-    TALO_CONNECTION: 'connection',
     // TALO_CALL + conversationId
     TALO_CALL: 'TaloCall',
     // User (userId)

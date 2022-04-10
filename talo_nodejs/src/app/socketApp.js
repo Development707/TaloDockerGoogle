@@ -5,10 +5,10 @@ const { Notification } = require('../lib/Constants');
 const chalk = require('chalk');
 
 const socket = (io) => {
-    io.on(On.TALO_CONNECTION, (socket) => {
+    io.on('connection', (socket) => {
         // Kiem tra message
         socket.on('message', (message) =>
-            socket.emit('message-server', message + '-server'),
+            socket.emit('message-server', 'Server Reply: ' + message),
         );
 
         socket.on('disconnect', async () => {
