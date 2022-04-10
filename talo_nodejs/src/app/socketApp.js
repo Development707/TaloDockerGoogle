@@ -29,7 +29,8 @@ const socket = (io) => {
         });
 
         socket.on(On.CONVERSATIONS_JOIN, (conversationIds) => {
-            conversationIds.forEach((id) => socket.join(id));
+            if (Array.isArray(conversationIds))
+                conversationIds.forEach((id) => socket.join(id));
         });
 
         socket.on(On.CONVERSATION_JOIN, (conversationId) => {
