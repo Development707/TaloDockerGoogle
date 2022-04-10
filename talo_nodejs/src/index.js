@@ -23,7 +23,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(handleError);
 // Create server
 const server = http.createServer(app);
-const io = socketio(server, { transports: ['websocket', 'jsonp-polling'] });
+const io = socketio(server);
 socketApp(io);
 routes(app, io);
 
