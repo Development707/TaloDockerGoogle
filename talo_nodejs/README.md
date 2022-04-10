@@ -241,9 +241,11 @@ Talo phone: +17755264592 (SMS, MMS, and voice capable)
 
 ## SOCKET IO
 
-### IO: TaloConnection
+### IO: connection
 
--   On: TaloConnection
+-   On: connection
+    -   message: mesage
+        -   Emit message-server: message
     -   UserOnline: userId
         -   join: userId
     -   UserOffline: userId
