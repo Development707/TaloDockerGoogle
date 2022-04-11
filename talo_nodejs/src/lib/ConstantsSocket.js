@@ -45,6 +45,7 @@ const Emit = {
     // Conversation member
     CONVERSATION_MEMBER_ADD: 'ConversationMemberAdd',
     CONVERSATION_MEMBER_UPDATE: 'ConversationMemberUpdate',
+    CONVERSATION_REMOVE_YOU: 'ConsersationRemoveYou',
     // Conversation manager
     CONVERSATION_MANAGER_ADD: 'ConversationManagerAdd',
     CONVERSATION_MANAGER_DELETE: 'ConversationManagerDelete',
