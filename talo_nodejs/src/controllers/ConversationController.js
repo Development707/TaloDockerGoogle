@@ -387,7 +387,7 @@ class ConversationController {
                 .to(conversationId)
                 .emit(Emit.CONVERSATION_MEMBER_UPDATE, conversationId);
             this.io
-                .to(userId)
+                .to(memberId)
                 .emit(Emit.CONVERSATION_REMOVE_YOU, conversationId);
             res.status(204).json();
         } catch (err) {
