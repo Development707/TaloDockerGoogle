@@ -35,13 +35,13 @@ class ConversationController {
                 case 'DUAL':
                     conversations = await ConversationService.findDual(
                         id,
-                        name
+                        name,
                     );
                     break;
                 case 'GROUP':
                     conversations = await ConversationService.findGroup(
                         id,
-                        name
+                        name,
                     );
                     break;
                 default:
@@ -66,7 +66,7 @@ class ConversationController {
             const conversationId = await ConversationService.createGroup(
                 id,
                 name,
-                userIds
+                userIds,
             );
 
             const members = [id, ...new Set(userIds)];
@@ -128,7 +128,7 @@ class ConversationController {
             const conversation =
                 await ConversationService.getByUserIdAndConversationId(
                     userId,
-                    conversationId
+                    conversationId,
                 );
 
             res.json(conversation);
@@ -145,7 +145,7 @@ class ConversationController {
         try {
             await ConversationService.deleteByUserIdAndConversationId(
                 userId,
-                conversationId
+                conversationId,
             );
 
             this.io
@@ -167,7 +167,7 @@ class ConversationController {
             const message = await ConversationService.changeName(
                 conversationId,
                 name,
-                userId
+                userId,
             );
 
             if (message) {
@@ -177,7 +177,7 @@ class ConversationController {
                         Emit.CONVERSATION_CHANGE_NAME,
                         conversationId,
                         name,
-                        message
+                        message,
                     );
             }
 
@@ -200,7 +200,7 @@ class ConversationController {
                 conversationId,
                 publicUrl,
                 filename,
-                userId
+                userId,
             );
             if (result) {
                 const { avatar, lastMessage } = result;
@@ -210,7 +210,7 @@ class ConversationController {
                         Emit.CONVERSATION_CHANGE_AVATAR,
                         conversationId,
                         avatar,
-                        lastMessage
+                        lastMessage,
                     );
                 this.io
                     .to(conversationId)
@@ -233,7 +233,7 @@ class ConversationController {
             await ConversationService.changeNotify(
                 conversationId,
                 isNotify,
-                userId
+                userId,
             );
 
             res.json();
@@ -252,7 +252,7 @@ class ConversationController {
             await ConversationService.changeJoinWithLink(
                 conversationId,
                 isStatus,
-                userId
+                userId,
             );
 
             res.json();
@@ -269,7 +269,7 @@ class ConversationController {
         try {
             const message = await ConversationService.joinWithLink(
                 conversationId,
-                userId
+                userId,
             );
 
             this.io
@@ -296,7 +296,7 @@ class ConversationController {
         try {
             const users = await ConversationService.findAllMembers(
                 conversationId,
-                userId
+                userId,
             );
 
             res.json(users);
@@ -314,16 +314,16 @@ class ConversationController {
         try {
             if (!Array.isArray(body)) {
                 throw new CustomError(
-                    ErrorType.CONVERSATION_USERIDS_ADD_INVALID
+                    ErrorType.CONVERSATION_USERIDS_ADD_INVALID,
                 );
             }
             const memberIds = [...new Set(body)].filter(
-                (memberId) => memberId != userId
+                (memberId) => memberId != userId,
             );
             const message = await ConversationService.addMembers(
                 conversationId,
                 memberIds,
-                userId
+                userId,
             );
 
             this.io
@@ -332,7 +332,7 @@ class ConversationController {
             memberIds.forEach((memberId) =>
                 this.io
                     .to(memberId)
-                    .emit(Emit.CONVERSATION_MEMBER_ADD, conversationId)
+                    .emit(Emit.CONVERSATION_MEMBER_ADD, conversationId),
             );
             this.io
                 .to(conversationId)
@@ -352,7 +352,7 @@ class ConversationController {
         try {
             const message = await ConversationService.leftTheGroup(
                 conversationId,
-                userId
+                userId,
             );
 
             this.io
@@ -377,7 +377,7 @@ class ConversationController {
             const message = await ConversationService.removeMember(
                 conversationId,
                 memberId,
-                userId
+                userId,
             );
 
             this.io
@@ -386,7 +386,9 @@ class ConversationController {
             this.io
                 .to(conversationId)
                 .emit(Emit.CONVERSATION_MEMBER_UPDATE, conversationId);
-            this.io.to(userId).emit(Emit.CONVERSATION_DELETE, conversationId);
+            this.io
+                .to(userId)
+                .emit(Emit.CONVERSATION_REMOVE_YOU, conversationId);
             res.status(204).json();
         } catch (err) {
             next(err);
@@ -402,14 +404,14 @@ class ConversationController {
         try {
             if (!Array.isArray(body)) {
                 throw new CustomError(
-                    ErrorType.CONVERSATION_USERIDS_ADD_INVALID
+                    ErrorType.CONVERSATION_USERIDS_ADD_INVALID,
                 );
             }
             const managerIds = [...new Set(body)];
             const message = await ConversationService.addManagers(
                 conversationId,
                 managerIds,
-                userId
+                userId,
             );
             this.io
                 .to(conversationId)
@@ -419,7 +421,7 @@ class ConversationController {
                 .emit(
                     Emit.CONVERSATION_MANAGER_ADD,
                     conversationId,
-                    managerIds
+                    managerIds,
                 );
             res.status(200).json(message);
         } catch (err) {
@@ -436,14 +438,14 @@ class ConversationController {
         try {
             if (!Array.isArray(body)) {
                 throw new CustomError(
-                    ErrorType.CONVERSATION_USERIDS_ADD_INVALID
+                    ErrorType.CONVERSATION_USERIDS_ADD_INVALID,
                 );
             }
             const managerIds = [...new Set(body)];
             const message = await ConversationService.removeManagers(
                 conversationId,
                 managerIds,
-                userId
+                userId,
             );
             this.io
                 .to(conversationId)
@@ -453,7 +455,7 @@ class ConversationController {
                 .emit(
                     Emit.CONVERSATION_MANAGER_DELETE,
                     conversationId,
-                    managerIds
+                    managerIds,
                 );
             res.status(200).json(message);
         } catch (err) {
@@ -467,7 +469,7 @@ class ConversationController {
 
         try {
             const result = await ConversationService.getShortInfo(
-                conversationId
+                conversationId,
             );
 
             res.json(result);
@@ -484,7 +486,7 @@ class ConversationController {
         try {
             const lastViewOfMembers = await ConversationService.getLastView(
                 conversationId,
-                userId
+                userId,
             );
 
             res.json(lastViewOfMembers);
