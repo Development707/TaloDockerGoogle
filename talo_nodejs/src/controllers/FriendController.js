@@ -123,7 +123,7 @@ class FriendController {
             const { name, avatar } = await redisUtils.getUserProfile(id);
             this.io
                 .to(userId)
-                .emit(Emit.FRIEND_REQUEST_SEND, { id, name, avatar });
+                .emit(Emit.FRIEND_REQUEST_SEND, { id, message, name, avatar });
 
             res.status(201).json();
         } catch (err) {
