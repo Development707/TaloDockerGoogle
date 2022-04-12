@@ -1,4 +1,5 @@
 const messageUtils = {
+    // React result react by me
     convertMessageOfGroup: (message) => {
         const { _id, isDeleted } = message;
         let { replyMessageId, reacts, pollId } = message;
@@ -45,10 +46,10 @@ const messageUtils = {
         return { ...message, user };
     },
 
-    // return {user, message}
+    // result user = member
     convertMessageDual: function (message) {
         const { _id, userId, isDeleted } = message;
-        let { replyMessageId, reacts } = message;
+        let { replyMessageId } = message;
         const conversation = message.conversationId;
 
         const user = this.getUserDualConversation(conversation, userId);
