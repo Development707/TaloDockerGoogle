@@ -155,3 +155,16 @@ Xem file bằng docker extension
 -   `sudo nano /etc/gitlab-runner/config.toml`
 -   Thêm sau [RUNNER]
     -   `pre_clone_script = "sudo chown -R gitlab-runner:gitlab-runner ."`
+
+## Fix lỗi CORS
+
+-   Tạo file: `cros-config.json`
+    [
+    {
+    "origin": ["https://example.com"],
+    "method": ["GET"],
+    "responseHeader": ["Access-Control-Allow-Origin"],
+    "maxAgeSeconds": 3600
+    }
+    ]
+-   gsutil cors set `cros-config.json` `gs://name-bucket`
