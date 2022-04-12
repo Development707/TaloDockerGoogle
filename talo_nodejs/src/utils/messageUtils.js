@@ -24,10 +24,8 @@ const messageUtils = {
             }
         }
 
-        if (reacts) {
-            reacts = reacts.filter((react) => {
-                react.userId + '' == user._id;
-            });
+        if (reacts.length > 0) {
+            reacts = reacts.filter((react) => react.userId.id + '' == user.id);
         }
 
         if (pollId) {
@@ -73,15 +71,6 @@ const messageUtils = {
                     replyMessageId;
                 replyMessageId = { _id, userId, content, type, createdAt };
             }
-        }
-
-        if (reacts) {
-            reacts = reacts.map(function (react) {
-                return {
-                    user: getUserDualConversation(conversation, react.userId),
-                    type: react.type,
-                };
-            });
         }
 
         message.id = message._id;

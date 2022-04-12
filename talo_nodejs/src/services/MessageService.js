@@ -70,6 +70,15 @@ class MessageService {
     async getByMessage(message, type) {
         MessageValidate.validateMessage(message);
 
+        message.reacts = await Promise.all(
+            message.reacts.map(async (react) => {
+                return {
+                    userId: await redisUtils.getShortUserInfo(react.userId),
+                    type: react.type,
+                };
+            }),
+        );
+
         switch (type) {
             case 'GROUP':
                 // _id, manipulatedUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user
