@@ -31,6 +31,8 @@ class UserService {
 
     async getStatusFriend(_id, phone) {
         await User.checkById(_id);
+        if (/^([0])+([0-9]{9})\b/.test(phone))
+            phone = '+84' + phone.substring(1);
         const UserResult = await User.findByUsername(phone);
         UserResult.id = UserResult._id;
         delete UserResult._id;
