@@ -167,4 +167,4 @@ Xem file bằng docker extension
     "maxAgeSeconds": 3600
     }
     ]
--   gsutil cors set `cros-config.json` `gs://name-bucket`
+-   `gsutil cors set cros-config.json gs://name-bucket`
