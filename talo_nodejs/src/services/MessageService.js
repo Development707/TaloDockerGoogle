@@ -138,6 +138,18 @@ class MessageService {
                     }),
                 );
                 return messageUtils.convertMessageDual(message);
+            case 'SINGLE':
+                // Reply
+                if (message.replyMessageId) {
+                    message.replyMessageId = await Message.findById(
+                        message.replyMessageId,
+                    ).lean();
+                    message.replyMessageId.userId =
+                        await redisUtils.getShortUserInfo(
+                            message.replyMessageId.userId + '',
+                        );
+                }
+                return messageUtils.convertMessageDual(message);
             default:
                 return null;
         }
