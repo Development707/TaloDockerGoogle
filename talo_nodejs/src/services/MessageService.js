@@ -160,6 +160,7 @@ class MessageService {
     }
 
     async deleteByConversationIdAndUserId(conversationId, userId) {
+        redisUtils.removeConversation(conversationId);
         return await Message.updateMany(
             { conversationId, deletedUserIds: { $nin: [userId] } },
             { $push: { deletedUserIds: userId } },
