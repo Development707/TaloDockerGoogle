@@ -43,7 +43,7 @@ const socket = (io) => {
 
         socket.on(On.CONVERSATION_USER_TYPING, (conversationId, userId) => {
             socket.broadcast
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.CONVERSATION_TYPING, conversationId, userId);
         });
 
@@ -51,7 +51,7 @@ const socket = (io) => {
             On.CONVERSATION_USER_TYPING_FINISH,
             (conversationId, userId) => {
                 socket.broadcast
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(
                         Emit.CONVERSATION_TYPING_FINISH,
                         conversationId,
@@ -94,22 +94,26 @@ const socket = (io) => {
                             userId,
                             channelId,
                         );
-                        socket.to(conversationId).emit(Emit.MESSAGE_VIEW_LAST, {
-                            conversationId,
-                            channelId,
-                            userId,
-                            lastView: new Date(),
-                        });
+                        socket
+                            .to(conversationId + '')
+                            .emit(Emit.MESSAGE_VIEW_LAST, {
+                                conversationId,
+                                channelId,
+                                userId,
+                                lastView: new Date(),
+                            });
                     } else {
                         await MemberService.updateLastView(
                             conversationId,
                             userId,
                         );
-                        socket.to(conversationId).emit(Emit.MESSAGE_VIEW_LAST, {
-                            conversationId,
-                            userId,
-                            lastView: new Date(),
-                        });
+                        socket
+                            .to(conversationId + '')
+                            .emit(Emit.MESSAGE_VIEW_LAST, {
+                                conversationId,
+                                userId,
+                                lastView: new Date(),
+                            });
                     }
                 } catch (error) {
                     console.error(

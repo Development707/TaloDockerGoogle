@@ -41,7 +41,7 @@ class ChannelController {
 
             this.io.to(conversationId + '').emit(Emit.CHANNEL_CREATE, channel);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
 
             res.status(201).json({ channel, message });
@@ -64,7 +64,7 @@ class ChannelController {
             const { conversationId } = channel;
             this.io.to(conversationId + '').emit(Emit.CHANNEL_UPDATE, channel);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
 
             res.json({ channel, message });
@@ -82,10 +82,10 @@ class ChannelController {
             const { conversationId, message } =
                 await ChannelService.deleteChannel(channelId, userId);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.CHANNEL_DELETE, { conversationId, channelId });
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
 
             res.json(message);

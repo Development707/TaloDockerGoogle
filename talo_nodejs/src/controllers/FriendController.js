@@ -69,7 +69,7 @@ class FriendController {
 
             if (isExists)
                 this.io
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(Emit.MESSAGE_NEW, conversationId, message);
             else {
                 this.io
