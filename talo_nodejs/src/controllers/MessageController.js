@@ -29,7 +29,7 @@ class MessageController {
                 parseInt(size),
             );
 
-            this.io.to(conversationId).emit(Emit.MESSAGE_VIEW_LAST, {
+            this.io.to(conversationId + '').emit(Emit.MESSAGE_VIEW_LAST, {
                 conversationId,
                 userId,
                 lastView: new Date(),
@@ -57,7 +57,7 @@ class MessageController {
 
             const { conversationId } = messages;
 
-            this.io.to(conversationId).emit(Emit.MESSAGE_VIEW_LAST, {
+            this.io.to(conversationId + '').emit(Emit.MESSAGE_VIEW_LAST, {
                 conversationId,
                 channelId,
                 userId,
@@ -174,7 +174,7 @@ class MessageController {
             const { conversationId, channelId, user } =
                 await MessageService.reactById(id, type, userId);
 
-            this.io.to(conversationId).emit(Emit.MESSAGE_REACT_ADD, {
+            this.io.to(conversationId + '').emit(Emit.MESSAGE_REACT_ADD, {
                 conversationId,
                 channelId,
                 messageId: id,
@@ -218,7 +218,7 @@ class MessageController {
             const { conversationId, channelId } =
                 await MessageService.unsendById(messageId, userId);
 
-            this.io.to(conversationId).emit(Emit.MESSAGE_DELETE, {
+            this.io.to(conversationId + '').emit(Emit.MESSAGE_DELETE, {
                 conversationId,
                 channelId,
                 messageId,
