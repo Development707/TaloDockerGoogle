@@ -39,7 +39,7 @@ class ChannelController {
                 userId,
             );
 
-            this.io.to(conversationId).emit(Emit.CHANNEL_CREATE, channel);
+            this.io.to(conversationId + '').emit(Emit.CHANNEL_CREATE, channel);
             this.io
                 .to(conversationId)
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
@@ -62,7 +62,7 @@ class ChannelController {
                 userId,
             );
             const { conversationId } = channel;
-            this.io.to(conversationId).emit(Emit.CHANNEL_UPDATE, channel);
+            this.io.to(conversationId + '').emit(Emit.CHANNEL_UPDATE, channel);
             this.io
                 .to(conversationId)
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
