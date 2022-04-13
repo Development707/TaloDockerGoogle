@@ -112,7 +112,7 @@ class MessageController {
 
             if (channelId) {
                 this.io
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(
                         Emit.MESSAGE_NEW_CHANNEL,
                         conversationId,
@@ -121,7 +121,7 @@ class MessageController {
                     );
             } else
                 this.io
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(Emit.MESSAGE_NEW, conversationId, message);
 
             res.status(201).json(message);
@@ -147,7 +147,7 @@ class MessageController {
 
             if (channelId) {
                 this.io
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(
                         Emit.MESSAGE_NEW_CHANNEL,
                         conversationId,
@@ -156,7 +156,7 @@ class MessageController {
                     );
             } else
                 this.io
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(Emit.MESSAGE_NEW, conversationId, message);
 
             res.status(201).json(message);
@@ -201,7 +201,7 @@ class MessageController {
             );
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             res.status(201).json(message);
         } catch (err) {

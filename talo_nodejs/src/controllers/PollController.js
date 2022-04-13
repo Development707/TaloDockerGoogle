@@ -22,7 +22,7 @@ class PollController {
                 conversationId,
                 parseInt(page),
                 parseInt(size),
-                userId
+                userId,
             );
 
             res.json(votes);
@@ -40,11 +40,11 @@ class PollController {
             const message = await PollService.addPoll(
                 conversationId,
                 req.body,
-                userId
+                userId,
             );
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
 
             res.status(201).json(message);
@@ -62,12 +62,12 @@ class PollController {
             const message = await PollService.addOptions(
                 messageId,
                 req.body,
-                userId
+                userId,
             );
             const conversationId = message.conversationId;
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.POLL_OPTION_UPDATE, conversationId, message);
 
             res.status(201).json(message);
@@ -85,12 +85,12 @@ class PollController {
             const message = await PollService.deleteOptions(
                 messageId,
                 req.body,
-                userId
+                userId,
             );
             const conversationId = message.conversationId;
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.POLL_OPTION_UPDATE, conversationId, message);
 
             res.status(201).json(message);
@@ -108,12 +108,12 @@ class PollController {
             const message = await PollService.addChoose(
                 messageId,
                 req.body,
-                userId
+                userId,
             );
             const conversationId = message.conversationId;
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.POLL_CHOOSE_UPDATE, conversationId, message);
 
             res.status(201).json(message);
@@ -131,12 +131,12 @@ class PollController {
             const message = await PollService.deleteChoose(
                 messageId,
                 req.body,
-                userId
+                userId,
             );
             const conversationId = message.conversationId;
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.POLL_CHOOSE_UPDATE, conversationId, message);
 
             res.status(201).json(message);

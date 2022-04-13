@@ -18,7 +18,7 @@ class PinMessageController {
         try {
             const pinMessages = await PinMessageService.findByConversationId(
                 conversationId,
-                userId
+                userId,
             );
 
             res.json(pinMessages);
@@ -35,15 +35,15 @@ class PinMessageController {
         try {
             const message = await PinMessageService.addPinMessage(
                 messageId,
-                userId
+                userId,
             );
             const conversationId = message.conversationId;
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_PIN_ADD, conversationId);
 
             res.status(201).json(message);
@@ -60,15 +60,15 @@ class PinMessageController {
         try {
             const message = await PinMessageService.deletePinMessage(
                 messageId,
-                userId
+                userId,
             );
             const conversationId = message.conversationId;
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_PIN_DELETE, conversationId);
 
             res.status(200).json({ conversationId, message });

@@ -149,7 +149,7 @@ class ConversationController {
             );
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.CONVERSATION_DELETE, conversationId);
             res.status(204).json();
         } catch (err) {
@@ -172,7 +172,7 @@ class ConversationController {
 
             if (message) {
                 this.io
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(
                         Emit.CONVERSATION_CHANGE_NAME,
                         conversationId,
@@ -205,7 +205,7 @@ class ConversationController {
             if (result) {
                 const { avatar, lastMessage } = result;
                 this.io
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(
                         Emit.CONVERSATION_CHANGE_AVATAR,
                         conversationId,
@@ -213,7 +213,7 @@ class ConversationController {
                         lastMessage,
                     );
                 this.io
-                    .to(conversationId)
+                    .to(conversationId + '')
                     .emit(Emit.MESSAGE_NEW, conversationId, lastMessage);
                 res.json({ avatar, lastMessage });
             }
@@ -273,13 +273,13 @@ class ConversationController {
             );
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             this.io
                 .to(userId)
                 .emit(Emit.CONVERSATION_MEMBER_ADD, conversationId);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.CONVERSATION_MEMBER_UPDATE, conversationId);
 
             res.status(200).json(message);
@@ -327,7 +327,7 @@ class ConversationController {
             );
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             memberIds.forEach((memberId) =>
                 this.io
@@ -335,7 +335,7 @@ class ConversationController {
                     .emit(Emit.CONVERSATION_MEMBER_ADD, conversationId),
             );
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.CONVERSATION_MEMBER_UPDATE, conversationId);
 
             res.status(201).json(message);
@@ -356,10 +356,10 @@ class ConversationController {
             );
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.CONVERSATION_MEMBER_UPDATE, conversationId);
 
             res.status(204).json(message);
@@ -381,10 +381,10 @@ class ConversationController {
             );
 
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.CONVERSATION_MEMBER_UPDATE, conversationId);
             this.io
                 .to(memberId)
@@ -414,10 +414,10 @@ class ConversationController {
                 userId,
             );
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(
                     Emit.CONVERSATION_MANAGER_ADD,
                     conversationId,
@@ -448,10 +448,10 @@ class ConversationController {
                 userId,
             );
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(Emit.MESSAGE_NEW, conversationId, message);
             this.io
-                .to(conversationId)
+                .to(conversationId + '')
                 .emit(
                     Emit.CONVERSATION_MANAGER_DELETE,
                     conversationId,
