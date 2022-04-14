@@ -1,2 +1,4 @@
 talo-mongo/*
 talo-redis/*
+talo_nodejs/src/talo-key-google-cloud.json
+talo_nodejs/src/talo-key-google-firebase.json
