@@ -86,6 +86,7 @@ const messageUtils = {
                 return { id: _id, userId, content, type, createdAt };
             }
         }
+        return replyMessageId;
     },
 };
 
