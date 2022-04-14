@@ -1,4 +1,3 @@
-const Conversation = require('../models/Conversation');
 const Message = require('../models/Message');
 const Poll = require('../models/Poll');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -9,7 +8,6 @@ const redisUtils = require('../utils/redisUtils');
 const commonUtils = require('../utils/commonUtils');
 const ConversationValidate = require('../validate/ConversationValidate');
 const MessageValidate = require('../validate/MessageValidate');
-const { Notification } = require('../lib/Constants');
 
 class PollService {
     async findByConversationId(conversationId, page, size, userId) {
