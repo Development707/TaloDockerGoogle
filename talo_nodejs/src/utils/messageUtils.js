@@ -65,7 +65,7 @@ const messageUtils = {
         if (replyMessageId) {
             const { _id, userId, content, isDeleted, createdAt } =
                 replyMessageId;
-            if (replyMessageId.isDeleted) {
+            if (isDeleted) {
                 replyMessageId = {
                     id: _id,
                     userId,
