@@ -53,7 +53,8 @@ const messageUtils = {
                 createdAt: message.createdAt,
             };
 
-        replyMessageId = this.checkReplyMessage(replyMessageId);
+        if (replyMessageId)
+            replyMessageId = this.checkReplyMessage(replyMessageId);
 
         message.id = message._id;
         delete message._id;
