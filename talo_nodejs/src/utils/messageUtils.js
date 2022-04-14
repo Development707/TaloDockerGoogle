@@ -63,19 +63,16 @@ const messageUtils = {
             };
 
         if (replyMessageId) {
+            const { _id, userId, content, isDeleted, createdAt } =
+                replyMessageId;
             if (replyMessageId.isDeleted) {
-                const { _id, userId, content, isDeleted, createdAt } =
-                    replyMessageId;
                 replyMessageId = {
                     id: _id,
                     userId,
-                    content,
                     isDeleted,
                     createdAt,
                 };
             } else {
-                const { _id, userId, content, type, createdAt } =
-                    replyMessageId;
                 replyMessageId = { id: _id, userId, content, type, createdAt };
             }
         }
