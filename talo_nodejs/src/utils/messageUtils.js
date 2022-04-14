@@ -7,23 +7,13 @@ const messageUtils = {
 
         if (isDeleted)
             return {
-                _id,
-                isDeleted,
+                id: _id,
                 user,
+                isDeleted,
                 createdAt: message.createdAt,
             };
 
-        if (replyMessageId) {
-            if (replyMessageId.isDeleted) {
-                const { _id, userId, content, isDeleted, createdAt } =
-                    replyMessageId;
-                replyMessageId = { _id, userId, content, isDeleted, createdAt };
-            } else {
-                const { _id, userId, content, type, createdAt } =
-                    replyMessageId;
-                replyMessageId = { _id, userId, content, type, createdAt };
-            }
-        }
+        replyMessageId = this.checkReplyMessage(replyMessageId);
 
         if (reacts.length > 0) {
             reacts = reacts.filter((react) => react.userId.id + '' == user.id);
@@ -62,20 +52,7 @@ const messageUtils = {
                 createdAt: message.createdAt,
             };
 
-        if (replyMessageId) {
-            const { _id, userId, content, isDeleted, createdAt } =
-                replyMessageId;
-            if (isDeleted) {
-                replyMessageId = {
-                    id: _id,
-                    userId,
-                    isDeleted,
-                    createdAt,
-                };
-            } else {
-                replyMessageId = { id: _id, userId, content, type, createdAt };
-            }
-        }
+        replyMessageId = this.checkReplyMessage(replyMessageId);
 
         message.id = message._id;
         delete message._id;
@@ -97,6 +74,18 @@ const messageUtils = {
         );
 
         return members;
+    },
+
+    checkReplyMessage(replyMessageId) {
+        if (replyMessageId) {
+            const { _id, userId, isDeleted, content, createdAt } =
+                replyMessageId;
+            if (isDeleted) {
+                return { id: _id, userId, isDeleted, createdAt };
+            } else {
+                return { id: _id, userId, content, type, createdAt };
+            }
+        }
     },
 };
 
