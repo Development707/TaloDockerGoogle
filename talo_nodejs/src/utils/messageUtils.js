@@ -56,7 +56,7 @@ const messageUtils = {
 
         if (isDeleted)
             return {
-                _id,
+                id: _id,
                 isDeleted,
                 user,
                 createdAt: message.createdAt,
@@ -64,12 +64,22 @@ const messageUtils = {
 
         if (replyMessageId) {
             if (replyMessageId.isDeleted) {
-                const { _id, userId, content, isDeleted, createdAt } =
-                    replyMessageId;
+                const {
+                    id: _id,
+                    userId,
+                    content,
+                    isDeleted,
+                    createdAt,
+                } = replyMessageId;
                 replyMessageId = { _id, userId, content, isDeleted, createdAt };
             } else {
-                const { _id, userId, content, type, createdAt } =
-                    replyMessageId;
+                const {
+                    id: _id,
+                    userId,
+                    content,
+                    type,
+                    createdAt,
+                } = replyMessageId;
                 replyMessageId = { _id, userId, content, type, createdAt };
             }
         }
