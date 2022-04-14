@@ -1,7 +1,6 @@
 const Classify = require('../models/Classify');
 const ClassifyValidator = require('../validate/ClassifyValidate');
 const MemberService = require('../services/MemberService');
-const ConversationService = require('../services/ConversationService');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 const redisUtils = require('../utils/redisUtils');
@@ -53,7 +52,7 @@ class ClassifyService {
         const { id, name, color } = classify;
         const { modifiedCount, matchedCount } = await Classify.updateOne(
             { _id: id, userId },
-            { name, color }
+            { name, color },
         );
         return modifiedCount === matchedCount;
     }
@@ -74,7 +73,7 @@ class ClassifyService {
         // check userId
         let classify = await ClassifyValidator.validateFindByIdAndUser(
             classifyId,
-            userId
+            userId,
         );
 
         classify.id = classify._id;
@@ -82,9 +81,9 @@ class ClassifyService {
         classify.conversations = await Promise.all(
             classify.conversationIds.map(async (conversationId) => {
                 return await redisUtils.getShortConversationInfo(
-                    conversationId
+                    conversationId,
                 );
-            })
+            }),
         );
 
         delete classify._id;
@@ -101,7 +100,7 @@ class ClassifyService {
         // Check member exists
         await MemberService.findByConversationIdAndUserId(
             conversationId,
-            userId
+            userId,
         );
         // Check conversation exists classify
         if (await this.findByIdAndConversationId(id, conversationId))
@@ -113,7 +112,7 @@ class ClassifyService {
                 $push: {
                     conversationIds: conversationId,
                 },
-            }
+            },
         );
         if (queryResult.nModified === 0)
             throw new NotFoundError(ErrorType.CLASSIFY_UPDATE_FAILED);
@@ -123,7 +122,7 @@ class ClassifyService {
                 _id: { $ne: id },
                 conversationIds: { $in: [conversationId] },
             },
-            { $pull: { conversationIds: conversationId } }
+            { $pull: { conversationIds: conversationId } },
         );
     }
 
@@ -133,7 +132,7 @@ class ClassifyService {
 
         await MemberService.findByConversationIdAndUserId(
             conversationId,
-            userId
+            userId,
         );
 
         const queryResult = await Classify.updateOne(
@@ -142,7 +141,7 @@ class ClassifyService {
                 $pull: {
                     conversationIds: conversationId,
                 },
-            }
+            },
         );
 
         if (queryResult.nModified === 0)

@@ -1,7 +1,6 @@
 const CustomError = require('../exceptions/CustomError');
-const ForbidError = require('../exceptions/ForbidError');
 const NotFoundError = require('../exceptions/NotFoundError');
-const { ErrorType, Permission } = require('../lib/Constants');
+const { ErrorType } = require('../lib/Constants');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 const ChannelValidate = {
