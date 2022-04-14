@@ -13,7 +13,8 @@ const messageUtils = {
                 createdAt: message.createdAt,
             };
 
-        replyMessageId = this.checkReplyMessage(replyMessageId);
+        if (replyMessageId)
+            replyMessageId = this.checkReplyMessage(replyMessageId);
 
         if (reacts.length > 0) {
             reacts = reacts.filter((react) => react.userId.id + '' == user.id);
@@ -77,16 +78,12 @@ const messageUtils = {
     },
 
     checkReplyMessage(replyMessageId) {
-        if (replyMessageId) {
-            const { _id, userId, isDeleted, content, createdAt } =
-                replyMessageId;
-            if (isDeleted) {
-                return { id: _id, userId, isDeleted, createdAt };
-            } else {
-                return { id: _id, userId, content, type, createdAt };
-            }
+        const { _id, userId, isDeleted, content, createdAt } = replyMessageId;
+        if (isDeleted) {
+            return { id: _id, userId, isDeleted, createdAt };
+        } else {
+            return { id: _id, userId, content, type, createdAt };
         }
-        return replyMessageId;
     },
 };
 
