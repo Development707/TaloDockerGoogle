@@ -33,11 +33,12 @@ class FriendService {
                 return await redisUtils.getUserOnline(friend.userIds + '');
             }),
         );
-
-        result = result.filter(
-            (friend) =>
-                friend.name.toUpperCase().indexOf(name.toUpperCase()) > -1,
-        );
+        if (name != '') {
+            result = result.filter(
+                (friend) =>
+                    friend.name.toUpperCase().indexOf(name.toUpperCase()) > -1,
+            );
+        }
 
         return result;
     }
