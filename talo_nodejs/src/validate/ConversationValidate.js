@@ -45,7 +45,7 @@ const ConversationValidate = {
             throw new CustomError(ErrorType.MEMBER_STATUS_INVALID);
     },
     validateJoinWithLink: function (conversation, userId) {
-        this.validateConversation(conversation, userId);
+        this.validateExists(conversation);
         if (conversation.type != 'GROUP')
             throw new CustomError(ErrorType.CONVERSATION_NOT_GROUP);
         if (!conversation.isJoinFromLink)
