@@ -25,7 +25,7 @@ class ClassifyService {
                     id: '$_id',
                     name: 1,
                     color: 1,
-                    countConversations: { $size: '$conversationIds' },
+                    conversationIds: 1,
                     _id: 0,
                 },
             },
