@@ -168,3 +168,40 @@ Xem file bằng docker extension
     }
     ]
 -   `gsutil cors set cros-config.json gs://name-bucket`
+
+# 7 Remote database
+
+-   `docker ps` : Xem các container đang chạy (Phần 1.4 ở trên)
+
+-   `docker exec -it fb73e187194c6ae2915f266bc586454c10d5a2590026931b616082054b82691e bash <`
+-   `docker exec -it fb73e187194c6ae2915f266bc586454c10d5a2590026931b616082054b82691e /bin/bash`
+    -   fb73... là name
+-   `mongo`: run terminal mongo
+    -   `mongo --help`
+-   `export PATH=$PATH:/usr/local/mongodb/bin`: Thêm path mongo nếu lỗi.
+
+## Sau khi Run terminal mongo
+
+-   `show dbs`
+-   `use talo`
+-   `show collections`
+
+## Action collections
+
+https://www.mongodb.com/docs/manual/reference/method/js-collection/
+
+-   Find
+    -   `db.users.find()`
+    -   `db.users.aggregate()`
+-   Insert
+    -   `db.collection.insertOne()`
+    -   `db.collection.insertMany()`
+-   Update
+    -   `db.collection.updateOne()`
+    -   `db.collection.updateMany()`
+    -   `db.collection.replaceOne()`
+-   Delete
+    -   `db.collection.deleteOne()`
+    -   `db.collection.deleteMany()`
+-   Drop
+    -   `db.collection.drop()`
