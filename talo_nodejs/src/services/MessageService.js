@@ -79,6 +79,12 @@ class MessageService {
             }),
         );
 
+        message.tags = await Promise.all(
+            message.tags.map(async (tag) => {
+                return await redisUtils.getShortUserInfo(tag);
+            }),
+        );
+
         switch (type) {
             case 'GROUP':
                 // _id, manipulatedUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user
