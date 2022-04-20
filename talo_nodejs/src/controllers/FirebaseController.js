@@ -4,8 +4,13 @@ class FirebaseController {
     async verifyByEmail(req, res, next) {
         const user = req.user;
         const userAgent = req.headers['user-agent'];
+        const { password } = req.body;
         try {
-            const result = await FirebaseService.verifyByEmail(user, userAgent);
+            const result = await FirebaseService.verifyByEmail(
+                user,
+                password,
+                userAgent,
+            );
             res.json(result);
         } catch (err) {
             next(err);
