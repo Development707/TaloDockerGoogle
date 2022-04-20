@@ -13,46 +13,44 @@ import {
 function App() {
     const [title, setTitle] = useState('TALO LOGIN');
     const [token, setToken] = useState('Token here...');
+    const renderToken = () => {
+        auth.currentUser
+            .getIdToken(true)
+            .then((result) => setToken(result))
+            .catch((error) => setToken('Token error: ' + error.message));
+    };
     const signInFacebook = () => {
         const provider = new FacebookAuthProvider();
         signInWithPopup(auth, provider)
             .then((result) => {
-                const credential =
-                    FacebookAuthProvider.credentialFromResult(result);
                 const user = result.user;
-                setToken(credential.accessToken);
                 setTitle(user.email);
-                // Send Token Here
-                console.log(token, user);
+                renderToken();
             })
             .catch((error) => {
                 const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential =
-                    FacebookAuthProvider.credentialFromError(error);
-                console.log(errorCode, errorMessage, email, credential);
+                if (
+                    errorCode == 'auth/account-exists-with-different-credential'
+                )
+                    alert('Login bằng Google');
+                console.log(errorCode);
             });
     };
     const signInGoogle = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then((result) => {
-                const credential =
-                    GoogleAuthProvider.credentialFromResult(result);
                 const user = result.user;
-                setToken(credential.accessToken);
                 setTitle(user.email);
-                // Send token here
-                console.log(token, user);
+                renderToken();
             })
             .catch((error) => {
                 const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential =
-                    GoogleAuthProvider.credentialFromError(error);
-                console.log(errorCode, errorMessage, email, credential);
+                if (
+                    errorCode == 'auth/account-exists-with-different-credential'
+                )
+                    alert('Login bằng FB');
+                console.log(errorCode);
             });
     };
     // Signin Phone number
@@ -78,7 +76,7 @@ function App() {
             auth,
         );
     };
-    const signPhonenumber = (e) => {
+    const sendOtp = (e) => {
         e.preventDefault();
         if (phoneNumber.length >= 12) {
             generateRecaptcha();
@@ -89,6 +87,7 @@ function App() {
                     window.confirmationResult = confirmationResult;
                 })
                 .catch((error) => {
+                    alert(error.message);
                     console.log(error);
                 });
         }
@@ -100,7 +99,7 @@ function App() {
                 .confirm(otp)
                 .then((result) => {
                     setTitle(result.user.phoneNumber);
-                    setToken(result.user.accessToken);
+                    renderToken();
                 })
                 .catch((error) => {
                     alert(error.message);
@@ -110,7 +109,6 @@ function App() {
     const singOut = () => {
         signOut(auth)
             .then(() => {
-                alert('Logout success');
                 setToken('Token here...');
                 setTitle('TALO LOGIN');
             })
@@ -167,6 +165,7 @@ function App() {
                                     className="form-control"
                                     rows="5"
                                     id="comment"
+                                    onChange={(e) => setToken(e.target.value)}
                                     value={token}
                                 />
                                 <button
@@ -180,7 +179,7 @@ function App() {
                         <div className="card bg-light">
                             <div className="card-body text-center">
                                 <p className="card-text">Login phone</p>
-                                <form onSubmit={signPhonenumber}>
+                                <form onSubmit={sendOtp}>
                                     <div className="form-group">
                                         <input
                                             type="tel"

@@ -7,8 +7,8 @@ const firebaseConfig = {
     projectId: 'talo-342211',
     storageBucket: 'talo-342211.appspot.com',
     messagingSenderId: '771338672762',
-    appId: '1:771338672762:web:4a4df1ef21dd685dadb9c3',
-    measurementId: 'G-V9DZSHHSMN',
+    appId: '1:771338672762:web:e966779bde4a9022adb9c3',
+    measurementId: 'G-BG6ZP344NV',
 };
 
 const app = initializeApp(firebaseConfig);
