@@ -4,9 +4,10 @@ const NotFoundError = require('../exceptions/NotFoundError');
 const { ErrorType } = require('../lib/Constants');
 
 class FirebaseService {
-    async verifyByEmail(userFirebase, userAgent) {
+    async verifyByEmail(userFirebase, password, userAgent) {
         let user = await User.findOne({ username: userFirebase.email }).lean();
-        if (user == null) {
+        if (!user) {
+            if (!password) password = userFirebase.email;
             user = await new User({
                 name: userFirebase.name,
                 username: userFirebase.email,
@@ -15,7 +16,7 @@ class FirebaseService {
                     url: userFirebase.picture,
                     name: 'firebase-avatar.jpg',
                 },
-                password: userFirebase.email,
+                password: password,
             }).save();
         }
         return await AuthService.generateToken(user._id + '', userAgent);
