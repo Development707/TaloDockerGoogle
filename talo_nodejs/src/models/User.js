@@ -73,7 +73,7 @@ const userSchema = new mongoose.Schema(
             default: new Date(),
         },
     },
-    { timestamps: true }
+    { timestamps: true },
 );
 
 userSchema.index({ name: 'text', username: 'text' });
@@ -98,7 +98,7 @@ userSchema.statics.checkById = async (_id) => {
 userSchema.statics.findByIdIsActive = async (_id) => {
     let user = await User.findOne(
         { _id, isActived: true },
-        '-_id name username avatar coverPhoto dateOfBirth gender isActived'
+        '-_id name username avatar coverPhoto dateOfBirth gender isActived role',
     ).lean();
 
     if (!user) throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
@@ -112,7 +112,7 @@ userSchema.statics.findByUsername = async (username) => {
             username,
             isActived: true,
         },
-        '_id name avatar coverPhoto dateOfBirth gender'
+        '_id name avatar coverPhoto dateOfBirth gender',
     ).lean();
 
     if (!user) throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
