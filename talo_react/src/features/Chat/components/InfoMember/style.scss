@@ -1,0 +1,141 @@
+@import '../../../../scss/variables';
+
+.info_member {
+    background: #fff;
+    &-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        cursor: pointer;
+        padding: 0.8rem 1.8rem;
+        &-title {
+            font-weight: 600;
+            font-size: 1.6rem;
+        }
+        &-icon {
+            transition: 0.2s;
+            font-size: 1.6rem;
+            color: $neutral-500;
+        }
+    }
+    &-interact {
+        position: relative;
+        overflow-y: hidden;
+        overflow: hidden;
+        max-height: 300px;
+        transition: max-height 0.2s ease;
+
+        &-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 48px;
+            padding: 2rem 2rem;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+        &-item::after {
+            width: 88%;
+            height: 48px;
+            content: '';
+            position: absolute;
+            right: 0;
+            border-bottom: 1.2px solid #e1e4ea;
+        }
+        &-item:hover {
+            background: $grey-500;
+        }
+        &-item-icon {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.4rem;
+            transition: 0.2s;
+        }
+        &-item-text {
+            font-size: 15px;
+            padding-left: 1rem;
+        }
+        &_button.flex-end {
+            justify-content: flex-end;
+        }
+        &-interact-item:hover {
+            background: $grey-500;
+        }
+        &_link-join {
+            color: $blue-talo;
+            font-size: 1.2rem;
+            width: 50%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+        }
+        &_button {
+            position: absolute;
+            right: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            width: 20%;
+            .cirle-button {
+                width: 3rem;
+                height: 3rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(229, 239, 255, 1);
+                border-radius: 50%;
+            }
+            svg {
+                font-size: 1.6rem;
+                color: $base-color;
+            }
+            .cirle-button.green {
+                position: relative;
+                z-index: 99;
+                background: #43cd80;
+                transition: 0.4s;
+                svg {
+                    color: #fff;
+                }
+            }
+            .cirle-button.red {
+                position: relative;
+                z-index: 99;
+                background: #db342e;
+                transition: 0.4s;
+                svg {
+                    color: #fff;
+                }
+            }
+            .authorize-toggle.red:hover {
+                background: #fff;
+
+                svg {
+                    color: #db342e;
+                }
+            }
+            .authorize-toggle.green:hover {
+                background: #fff;
+
+                svg {
+                    color: #43cd80;
+                }
+            }
+            .copy-link {
+                position: relative;
+                z-index: 99;
+                transition: 0.4s;
+            }
+
+            .copy-link:hover {
+                background: #fff;
+                color: $blue-talo;
+            }
+        }
+    }
+}

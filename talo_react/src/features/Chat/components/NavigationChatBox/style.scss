@@ -1,0 +1,32 @@
+@import '../../../../scss/variables';
+
+#navigation-chat-box {
+    font-size: 2.4rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    > ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0;
+        list-style-type: none;
+    }
+    .item-chat-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1rem;
+    }
+    .item-chat-box:hover {
+        background-color: $light-grey;
+        color: inherit !important;
+    }
+}
+.item-menu-vote {
+    font-size: 1.4rem;
+    font-weight: 500;
+}

@@ -1,0 +1,49 @@
+@import '../../../../scss/variables';
+$demension-icon: 48px;
+$demension-icon__sm: 36px;
+#header_friend {
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 16px;
+    background: #fff;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+    .header-icon.back-list {
+        cursor: pointer;
+        padding: 0 0.56rem;
+        transition: 0.2s;
+        border-radius: 4px;
+        font-size: 20px;
+        margin-right: 1rem;
+        display: none;
+    }
+    .header-icon.back-list:hover {
+        background-color: $light-grey;
+    }
+    .header_friend {
+        &__img img {
+            height: $demension-icon;
+            width: $demension-icon;
+        }
+        &__text {
+            font-size: 24px;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+    }
+    @media only screen and (min-width: 577px) and (max-width: 767px) {
+        .header-icon.back-list {
+            display: block;
+        }
+    }
+    @media only screen and (max-width: 576px) {
+        .header-icon.back-list {
+            display: block;
+        }
+        .header_friend__text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+}
