@@ -95,6 +95,11 @@ function NavigationChatBox(props) {
     const handleCloseModalPoll = () => {
         setIsVisiblePoll(false);
     };
+    const handleOnClickTextFormat = () => {
+        if (onClickTextFormat) {
+            onClickTextFormat();
+        }
+    };
     return (
         <div style={isFocus ? styleBorder : {}} id="navigation-chat-box">
             <ul>
@@ -140,11 +145,14 @@ function NavigationChatBox(props) {
                         </Button>
                     </UploadFile>
                 </li>
-                {/* <li className="item-chat-box">
-                    <div title="Định dạng tin nhắn">
+                <li className="item-chat-box">
+                    <div
+                        title="Định dạng tin nhắn"
+                        onClick={handleOnClickTextFormat}
+                    >
                         <FontColorsOutlined />
                     </div>
-                </li> */}
+                </li>
                 {checkIsGroup === 'GROUP' && (
                     <li className="item-chat-box">
                         <Dropdown

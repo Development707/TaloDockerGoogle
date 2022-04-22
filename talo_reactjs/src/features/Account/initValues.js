@@ -24,9 +24,14 @@ export const registryValues = {
         otpValue: '',
     },
     validationSchema: Yup.object().shape({
-        name: Yup.string().required('Tên không được bỏ trống.'),
+        name: Yup.string()
+            .required('Tên không được bỏ trống.')
+            .matches(
+                /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i,
+                'Tên không được chứa số'
+            ),
         username: Yup.string()
-            .required('Tài khoản không được bỏ trống.')
+            .required('Tài khoản không được bỏ trống')
             .matches(
                 /((09|03|07|08|05)+([0-9]{8})\b)|^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
                 'Số điện thoại hoặc email không hợp lệ'
@@ -40,7 +45,12 @@ export const registryValues = {
             .oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp'),
     }),
     validationSchemaWithOTP: Yup.object().shape({
-        name: Yup.string().required('Tên không được bỏ trống.'),
+        name: Yup.string()
+            .required('Tên không được bỏ trống.')
+            .matches(
+                /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i,
+                'Tên không được chứa số và ký tự đặc biệt'
+            ),
         username: Yup.string()
             .required('Tài khoản không được bỏ trống.')
             .matches(

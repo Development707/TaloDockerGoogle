@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import messageApi from 'api/messageApi';
 import './style.scss';
 import ReplyBlock from 'features/Chat/components/ReplyBlock/index.jsx';
+import TextEditor from 'features/Chat/components/TextEditor/index.jsx';
 
 FooterChatContainer.propTypes = {
     onScrollWhenSentText: PropTypes.func,
@@ -34,7 +35,9 @@ FooterChatContainer.defaultProps = {
     onViewPolls: null,
     onOpenInfoBlock: null,
 };
-
+const style_EditorText = {
+    flexDirection: 'column',
+};
 function FooterChatContainer({
     onScrollWhenSentText,
     onOpenInfoBlock,
@@ -283,12 +286,21 @@ function FooterChatContainer({
         }
     };
 
-    const handleClickTextFormat = () => {};
+    const handleClickTextFormat = () => {
+        setShowTextFormat(!showTextFormat);
+        setValueText('');
+    };
 
     const handleOnCloseReply = () => {
         if (onCloseReply) {
             onCloseReply();
         }
+    };
+    const handleShowLike = (value) => {
+        setShowLike(value);
+    };
+    const handleSetValueEditor = (content) => {
+        setValueText(content);
     };
     return (
         <div id="main-footer-chat">
@@ -309,64 +321,80 @@ function FooterChatContainer({
                 />
             )}
 
-            <div className="chat-editor">
+            <div
+                className="chat-editor"
+                style={showTextFormat ? style_EditorText : {}}
+            >
                 <div className="main-editor">
-                    <Mentions
-                        autoSize={{ minRows: 1, maxRows: 5 }}
-                        placeholder={`Nhập @, tin nhắn tới ${detailConver.name}`}
-                        size="large"
-                        bordered={false}
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            border: 'none',
-                            outline: 'none',
-                        }}
-                        spellCheck={false}
-                        value={valueText}
-                        onChange={handleOnChangeInput}
-                        onKeyPress={handleKeyPress}
-                        onFocus={handleOnFocus}
-                        onBlur={handleOnBlur}
-                        onSelect={handleSelectMention}
-                        split=" "
-                    >
-                        {checkGroup &&
-                            mentionList.map((ele, index) => {
-                                if (ele.id !== user.id) {
-                                    return (
-                                        <Option
-                                            key={index}
-                                            value={ele.name}
-                                            object={ele}
-                                        >
-                                            <div
-                                                className="mention-option_wrapper"
-                                                style={
-                                                    MENTION_STYLE.MENTION_ITEM
-                                                }
+                    {showTextFormat ? (
+                        <TextEditor
+                            showFormat={showTextFormat}
+                            onFocus={handleOnFocus}
+                            onBlur={handleOnBlur}
+                            showLike={handleShowLike}
+                            valueHtml={valueText}
+                            onSetValue={handleSetValueEditor}
+                        />
+                    ) : (
+                        <Mentions
+                            autoSize={{ minRows: 1, maxRows: 5 }}
+                            placeholder={`Nhập @, tin nhắn tới ${detailConver.name}`}
+                            size="large"
+                            bordered={false}
+                            style={{
+                                whiteSpace: 'pre-wrap',
+                                border: 'none',
+                                outline: 'none',
+                            }}
+                            spellCheck={false}
+                            value={valueText}
+                            onChange={handleOnChangeInput}
+                            onKeyPress={handleKeyPress}
+                            onFocus={handleOnFocus}
+                            onBlur={handleOnBlur}
+                            onSelect={handleSelectMention}
+                            split=" "
+                        >
+                            {checkGroup &&
+                                mentionList.map((ele, index) => {
+                                    if (ele.id !== user.id) {
+                                        return (
+                                            <Option
+                                                key={index}
+                                                value={ele.name}
+                                                object={ele}
                                             >
-                                                <div className="icon-user-item">
-                                                    <PersonalIcon
-                                                        demention={24}
-                                                        avatar={ele.avatar?.url}
-                                                        name={ele.name}
-                                                    />
-                                                </div>
-
                                                 <div
+                                                    className="mention-option_wrapper"
                                                     style={
-                                                        MENTION_STYLE.NAME_ITEM
+                                                        MENTION_STYLE.MENTION_ITEM
                                                     }
-                                                    className="name-user-item"
                                                 >
-                                                    {ele.name}
+                                                    <div className="icon-user-item">
+                                                        <PersonalIcon
+                                                            demention={24}
+                                                            avatar={
+                                                                ele.avatar?.url
+                                                            }
+                                                            name={ele.name}
+                                                        />
+                                                    </div>
+
+                                                    <div
+                                                        style={
+                                                            MENTION_STYLE.NAME_ITEM
+                                                        }
+                                                        className="name-user-item"
+                                                    >
+                                                        {ele.name}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Option>
-                                    );
-                                }
-                            })}
-                    </Mentions>
+                                            </Option>
+                                        );
+                                    }
+                                })}
+                        </Mentions>
+                    )}
                 </div>
                 <div className="addtion-interaction">
                     <div className={`like-emoji ${isShowLike ? '' : 'hidden'}`}>

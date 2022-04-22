@@ -520,7 +520,25 @@ function UserMessage({
                                                                     viewUsers.length >
                                                                         0
                                                                 }
-                                                            ></HTMLMessage>
+                                                            >
+                                                                {!myReact && (
+                                                                    <ListReaction
+                                                                        type="media"
+                                                                        isMyMessage={
+                                                                            isMyMessage
+                                                                        }
+                                                                        onClickLike={
+                                                                            handleClickLike
+                                                                        }
+                                                                        listReaction={
+                                                                            listReaction
+                                                                        }
+                                                                        onClickReaction={
+                                                                            handleClickReaction
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            </HTMLMessage>
                                                         ) : (
                                                             <></>
                                                         )}

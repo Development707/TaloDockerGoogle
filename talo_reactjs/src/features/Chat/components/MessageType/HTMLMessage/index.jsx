@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { parse } from 'query-string';
+import parse from 'html-react-parser';
 
 HTMLMessage.propTypes = {
     content: PropTypes.string.isRequired,
@@ -14,7 +14,7 @@ HTMLMessage.defaultProps = {
 function HTMLMessage({ content, children, isSeen, dateAt }) {
     return (
         <div>
-            {parse(content)}
+            <div style={{ marginLeft: '1rem' }}>{parse(content)}</div>
             <div className="time-and-last_view">
                 <div className="time-send">
                     <span>
