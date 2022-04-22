@@ -32,7 +32,6 @@ services:
       - 5000:5000
     environment:
       - PORT=5000
-      # - DATABASE_URL=mongodb+srv://talo:talo123456@cluster0.dezz0.mongodb.net/TALO?retryWrites=true&w=majority
       - DATABASE_URL=mongodb://talo-mongo:27017/talo
       - REDIS_URL=redis://talo-redis:6379
       - JWT_SECRET_KEY=TALO
