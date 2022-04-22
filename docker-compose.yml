@@ -65,7 +65,7 @@ services:
       args:
         - REACT_APP_API_URL=http://localhost:5000
         - REACT_APP_URL=http://localhost:3000
-        - REACT_APP_SOCKET_URL=http://localhost:5000
+        - REACT_APP_SOCKET_URL=http://34.124.134.87
     ports:
       - 3000:3000
     depends_on:
