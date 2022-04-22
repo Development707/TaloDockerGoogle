@@ -3,8 +3,18 @@ FROM node:16-alpine as build
 WORKDIR /app
 
 COPY . .
+RUN npm install
 
-RUN npm install && npm run build
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
+ARG REACT_APP_URL
+ENV REACT_APP_URL=$REACT_APP_URL
+
+ARG REACT_APP_SOCKET_URL
+ENV REACT_APP_SOCKET_URL=$REACT_APP_SOCKET_URL
+
+RUN npm run build
 
 FROM nginx
 
