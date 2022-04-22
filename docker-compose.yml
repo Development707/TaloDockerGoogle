@@ -40,7 +40,7 @@ services:
       - JWT_LIFE_REFRESH_TOKEN=60d
       - OTP_EXPIRE_MINUTE=2
       - EMAIL=talo.noreply@gmail.com
-      - EMAIL_PASSWORD=talo123456
+      - EMAIL_PASSWORD=fxkhkpquhgmoyqug
       - TWILIO_ACCOUNT_SID=ACdebfc34a65c640e56367c2f5da6319ed
       - TWILIO_AUTH_TOKEN=8ad8aa82c62ff8029e51330db09f48ba
       - MAX_SIZE_FILE=52428800

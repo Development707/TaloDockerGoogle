@@ -205,3 +205,15 @@ https://www.mongodb.com/docs/manual/reference/method/js-collection/
     -   `db.collection.deleteMany()`
 -   Drop
     -   `db.collection.drop()`
+
+# 9 Fix Password Login Google Nodejs
+
+-   Stackoverflow
+    -   `https://stackoverflow.com/questions/60701936/error-invalid-login-application-specific-password-required`
+-   Google doc
+    -   `https://support.google.com/mail/answer/185833?hl=en#zippy=%2Cwhy-you-may-need-an-app-password`
+    -   1. `https://myaccount.google.com/`
+    -   2. Bảo mật
+    -   3. Đăng nhập Google -> Mật khẩu ứng dụng
+    -   4. Ứng dụng Thư , Thiết bị khác
+    -   5. Copy pass thêm bào file .env
