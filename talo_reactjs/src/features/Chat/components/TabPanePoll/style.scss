@@ -1,0 +1,53 @@
+@import '../../../../scss/variables';
+#tabpane-poll {
+    margin: 1rem 1.6rem;
+    .tabpane-poll-item {
+        margin: 2rem 0;
+        border: 1px solid #c6c6c6;
+        border-radius: 0.4rem;
+    }
+
+    @media only screen and (min-width: 1200px) and (max-width: 1530px) {
+        .poll-message {
+            min-width: 24.2rem;
+        }
+        .poll-message_item {
+            width: 24rem;
+        }
+    }
+
+    @media only screen and (min-width: 992px) and (max-width: 1199px) {
+        .poll-message {
+            min-width: 28.2rem;
+        }
+        .poll-message_item {
+            width: 28rem;
+        }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .poll-message {
+            min-width: 28.2rem;
+        }
+        .poll-message_item {
+            width: 28rem;
+        }
+    }
+
+    @media only screen and (min-width: 577px) and (max-width: 767px) {
+        .poll-message {
+            min-width: 28.2rem;
+        }
+        .poll-message_item {
+            width: 28rem;
+        }
+    }
+    @media only screen and (max-width: 576px) {
+        .poll-message {
+            min-width: 28.2rem;
+        }
+        .poll-message_item {
+            width: 28rem;
+        }
+    }
+}

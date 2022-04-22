@@ -1,0 +1,25 @@
+// #modalStyleSendAddFriend {
+//     height: 80vh;
+// }
+
+// #modalStyleSendAddFriend .ant-modal-body {
+//     padding: 0;
+// }
+
+.user-card-message_add-friend {
+    margin: 2rem 3rem 5rem;
+}
+.divider-modal.ant-divider-horizontal {
+    margin: 12px 0;
+}
+.footer-modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 3rem;
+    padding-bottom: 1rem;
+
+    &-button {
+        margin: 0 4px;
+    }
+}

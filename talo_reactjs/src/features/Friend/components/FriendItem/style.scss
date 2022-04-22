@@ -1,0 +1,44 @@
+@import '../../../../scss/variables';
+
+#friend-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.4rem;
+    height: 68px;
+    transition: all 0.4s;
+    cursor: pointer;
+    .friend-item {
+        &_left {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex: 1;
+        }
+        &_right {
+            visibility: hidden;
+        }
+        &-name {
+            margin-left: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    .recent-login {
+        color: $silver;
+    }
+}
+
+#friend-item:hover {
+    background: $fds-gray-10;
+}
+
+#friend-item:hover .friend-item_right {
+    transition: visibility 0.4s;
+    visibility: visible;
+}
+
+.menu-item--highlight {
+    font-weight: 400;
+}

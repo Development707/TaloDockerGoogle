@@ -1,0 +1,21 @@
+@import '../../../../scss/variables';
+.reply-message {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #f4f5f7;
+    padding: 0 2rem;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    cursor: pointer;
+
+    .vertical-bar {
+        position: absolute;
+        height: 40px;
+        width: 1.2px;
+        background: #448ffe;
+        transform: translateX(-1rem);
+    }
+}
