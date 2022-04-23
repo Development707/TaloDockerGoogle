@@ -87,7 +87,7 @@ services:
       - web-root:/var/www/html
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
-      - ./nginx/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+      - ./talo-nginx/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
     depends_on:
       - talo-nodejs
       - talo-reactjs
