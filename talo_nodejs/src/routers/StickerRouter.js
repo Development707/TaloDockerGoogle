@@ -1,21 +1,21 @@
 const router = require('express').Router();
 const StickerController = require('../controllers/StickerController');
-const { roles } = require('../middlewares/permission');
+const { role } = require('../middlewares/permission');
 const { validFile } = require('../middlewares/uploadFile');
 
 router
     .route('')
     .get(StickerController.findAll)
-    .post(roles(['ADMIN', 'USER']), StickerController.addSticker);
+    .post(role('ADMIN'), StickerController.addSticker);
 
 router
     .route('/:id')
-    .put(roles(['ADMIN', 'USER']), StickerController.updateSticker)
-    .delete(roles(['ADMIN', 'USER']), StickerController.deleteSticker);
+    .put(role('ADMIN'), StickerController.updateSticker)
+    .delete(role('ADMIN'), StickerController.deleteSticker);
 
 router
     .route('/:id/emoji')
-    .post(roles(['ADMIN', 'USER']), validFile, StickerController.addEmoji)
-    .delete(roles(['ADMIN', 'USER']), StickerController.deleteEmoji);
+    .post(role('ADMIN'), validFile, StickerController.addEmoji)
+    .delete(role('ADMIN'), StickerController.deleteEmoji);
 
 module.exports = router;
