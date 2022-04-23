@@ -77,7 +77,7 @@ function LoginPage(props) {
                 const user = result.user;
                 // Send token here
                 handleLogin(credential.accessToken, user.accessToken);
-                console.log('user', user);
+                // console.log('user', user);
             })
             .catch((error) => {
                 const errorCode = error.code;
