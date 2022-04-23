@@ -93,6 +93,8 @@ const PhoneLogin = () => {
                 .confirmPhoneNumber(phoneNumber, otpValue)
                 .then((res) => {
                     dispatch(setLogin(true));
+                    localStorage.setItem('token', res.data.token);
+                    localStorage.setItem('refreshToken', res.data.refreshToken);
                     const { role } = unwrapResult(dispatch(fetchUserProfile()));
                     if (role === 'USER') navigate('/chat', { replace: true });
                     else navigate('/admin', { replace: true });

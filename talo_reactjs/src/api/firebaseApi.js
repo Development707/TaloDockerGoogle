@@ -17,9 +17,6 @@ const firebaseApi = {
                 Authorization: `Bearer ${token}`,
             },
         };
-        console.log('username', phoneNumber);
-        console.log('token', token);
-
         return axios.post(`${API_URL}/phone`, phoneNumber, config);
     },
 };
