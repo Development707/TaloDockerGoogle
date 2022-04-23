@@ -146,6 +146,7 @@ Xem file bằng docker extension
     `ssh-keygen -t rsa -f ~/.ssh/[KEY_FILENAME] -C [USERNAME]`
     `cd ~/.ssh`
     `chmod 400 [KEY_FILENAME]`
+    `cat [KEY_FILENAME]`
 -   Xem user: `sudo su - gitlab-runner`
 
 ## Nếu lỗi permision
@@ -217,3 +218,15 @@ https://www.mongodb.com/docs/manual/reference/method/js-collection/
     -   3. Đăng nhập Google -> Mật khẩu ứng dụng
     -   4. Ứng dụng Thư , Thiết bị khác
     -   5. Copy pass thêm bào file .env
+
+# 10 Add SSL
+
+Youtube
+`https://www.youtube.com/watch?v=pDl3vPAAES8&list=PLs4co9a6NhMxUDVu92c8_bAPZ27kkd-sq&index=7`
+Doc
+`https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose`
+
+-   Cd vào thư mục chưa docer-compose file
+-   `docker ps -a`: Xem certbot lấy chức chỉ Exist có bằng 0 không
+-   `docker-compose logs certbot`: Check coi lấy chứng chỉ thành công không ( " Congratulations! " )
+-   `openssl dhparam -out talo-nginx/dhparam-2048.pem 2048`: tạo khóa bí mật để client vs Server trao đổi với nhau
