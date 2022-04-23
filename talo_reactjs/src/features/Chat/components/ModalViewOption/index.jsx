@@ -190,7 +190,6 @@ function ModalViewOption({ isModalVisible, onCancel, data, onShowDetail }) {
             }
             return optionsEle;
         });
-        console.log('options', options);
 
         setInfoPoll({ ...infoPoll, options });
     };

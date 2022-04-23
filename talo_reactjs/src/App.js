@@ -13,8 +13,6 @@ function App() {
     const [isFetch, setIsFetch] = useState(false);
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.global);
-    console.log('user', user);
-
     useEffect(() => {
         const fetchProfile = async () => {
             const token = localStorage.getItem('token');

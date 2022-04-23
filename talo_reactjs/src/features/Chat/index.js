@@ -356,7 +356,6 @@ function Chat({ socket, idNewMessage }) {
 
     //Socket
     useEffect(() => {
-        console.log('isJoinChatLayout', isJoinChatLayout);
         if (!isJoinChatLayout) {
             socket.on('ConversationDelete', (conversationId) => {
                 const conver = refConversations.current.find(

@@ -11,7 +11,7 @@ ForgotPage.propTypes = {};
 
 function ForgotPage(props) {
     const handleSubmit = (values) => {
-        console.log(values);
+        // console.log(values);
     };
     return (
         <div className="account-common-page">
