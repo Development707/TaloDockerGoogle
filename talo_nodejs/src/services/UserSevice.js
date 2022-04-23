@@ -21,7 +21,7 @@ class UserService {
     async getShortUserInfo(username) {
         const user = await User.findOne(
             { username },
-            '-_id name username avatar isActived',
+            '-_id name username avatar isActived role',
         );
 
         if (!user) throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
