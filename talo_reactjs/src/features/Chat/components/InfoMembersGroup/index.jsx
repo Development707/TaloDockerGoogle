@@ -34,8 +34,7 @@ function InfoMembersGroup({ onBack, members }) {
     const converDataCurrent = conversations.find(
         (ele) => ele.id === currentConversation
     );
-    console.log('membersinConversation', members);
-    console.log('converDataCurrent', converDataCurrent);
+
     const { leaderId, managerIds } = converDataCurrent;
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleUserCard, setIsVisibleUserCard] = useState(false);
@@ -128,7 +127,6 @@ function InfoMembersGroup({ onBack, members }) {
     const handleOkAddFriend = async (value) => {
         try {
             const { userAddFriend, messageInput } = value;
-            console.log(userAddFriend);
             await friendApi.sendRequestFriend(userAddFriend, messageInput);
             dispatch(fetchListMyRequestFriend());
             onCancel();

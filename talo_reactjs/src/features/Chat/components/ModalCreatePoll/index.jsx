@@ -23,7 +23,6 @@ function ModalCreatePoll({ visible, onCancel }) {
     const handleOk = () => {
         form.validateFields()
             .then((values) => {
-                console.log(currentConversation);
                 const { question, options } = values;
                 pollApi
                     .createPoll(currentConversation, question, options)

@@ -42,7 +42,6 @@ const StickerPage = () => {
     const navigate = useNavigate();
 
     const onSearch = (value) => {
-        console.log('value', value);
         const filterTable = dataSource.filter((name) =>
             Object.keys(name).some((k) =>
                 String(name[k]).toLowerCase().includes(value.toLowerCase())
@@ -151,8 +150,6 @@ const StickerPage = () => {
 
     const handleViewEmoji = async (id, emojis) => {
         try {
-            console.log(emojis);
-
             navigate(`/admin/stickers/${id}`, { state: emojis });
         } catch (error) {}
     };

@@ -31,7 +31,7 @@ const UploadFile = (props) => {
                 fmData,
                 currentConversation,
                 (percentCompleted) => {
-                    console.log('value', percentCompleted);
+                    // console.log('value', percentCompleted);
                 }
             );
             message.success(`Đã tải lên ${file.name}`);
