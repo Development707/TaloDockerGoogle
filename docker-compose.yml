@@ -43,7 +43,7 @@ services:
       - EMAIL=talo.noreply@gmail.com
       - EMAIL_PASSWORD=fxkhkpquhgmoyqug
       - TWILIO_ACCOUNT_SID=ACdebfc34a65c640e56367c2f5da6319ed
-      - TWILIO_AUTH_TOKEN=8ad8aa82c62ff8029e51330db09f48ba
+      - TWILIO_AUTH_TOKEN=a37728f8ef0e6e69e1a55c76816259be
       - MAX_SIZE_FILE=52428800
       - GOOGLE_CLOUD_PROJECT=talo-342211
       - CLOUD_BUCKET_AVATAR=talo-avatar
