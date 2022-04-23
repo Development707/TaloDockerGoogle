@@ -22,6 +22,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-src/talo-key-google-cloud.json
-src/talo-key-google-firebase.json
