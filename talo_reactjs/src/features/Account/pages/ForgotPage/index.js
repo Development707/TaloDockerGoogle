@@ -1,18 +1,125 @@
-import React from 'react';
-import { Button, Col, Divider, Row, Typography } from 'antd';
-import { FastField, Form, Formik } from 'formik';
+import {
+    Button,
+    Col,
+    Divider,
+    message,
+    Modal,
+    notification,
+    Row,
+    Typography,
+} from 'antd';
+import loginApi from 'api/loginAPI';
+import InputField from 'customfield/InputField';
+import PasswordField from 'customfield/PasswordField';
 import UserNameField from 'customfield/UserNameField';
-import { Link } from 'react-router-dom';
+import { setLoadingAccount } from 'features/Account/accountSlice';
 import { forgotValues } from 'features/Account/initValues';
+import { FastField, Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 const { Text, Title } = Typography;
 
-ForgotPage.propTypes = {};
+const RESEND_OTP_TIME_LIMIT = 120;
 
 function ForgotPage(props) {
-    const handleSubmit = (values) => {
-        // console.log(values);
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [counter, setCounter] = useState(0);
+    const [account, setAccount] = useState(null);
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const handleSubmit = async (values) => {
+        console.log(values);
+
+        dispatch(setLoadingAccount(true));
+
+        const { username, password, otpValue } = values;
+
+        if (isSubmit) {
+            try {
+                if (account.isActived) {
+                    await loginApi.forgotPassword(username, otpValue, password);
+                } else {
+                    await loginApi.confirmAccount(username, otpValue);
+                    await loginApi.forgotPassword(username, otpValue, password);
+                }
+                success();
+            } catch (error) {
+                message.error('Mã OTP đã hết hạn');
+            }
+        } else {
+            try {
+                setCounter(RESEND_OTP_TIME_LIMIT);
+                startResendOTPTimer();
+                const account = await loginApi.fetchUser(username);
+                setAccount(account);
+                await loginApi.forgotOTP(username);
+                openNotification(username);
+                setIsSubmit(true);
+            } catch (error) {
+                message.error('Tài khoản không tồn tại');
+            }
+        }
+        dispatch(setLoadingAccount(false));
     };
+
+    function success() {
+        Modal.success({
+            content: 'Cập nhật mật khẩu mới thành công!',
+            onOk: () => {
+                navigate('/');
+            },
+            onCancel: () => {
+                navigate('/');
+            },
+        });
+    }
+
+    let resendOTPTimerInterval;
+    const openNotification = (mes) => {
+        const args = {
+            message: `Đã gửi OTP đến ${mes}`,
+        };
+        notification.info(args);
+    };
+
+    const startResendOTPTimer = () => {
+        if (resendOTPTimerInterval) {
+            clearInterval(resendOTPTimerInterval);
+        }
+        resendOTPTimerInterval = setInterval(() => {
+            if (counter <= 0) {
+                clearInterval(resendOTPTimerInterval);
+            } else {
+                setCounter(counter - 1);
+            }
+        }, 1000);
+    };
+
+    useEffect(() => {
+        startResendOTPTimer();
+        return () => {
+            if (resendOTPTimerInterval) {
+                clearInterval(resendOTPTimerInterval);
+            }
+        };
+    }, [counter]);
+
+    const handleResendOTP = async (username) => {
+        setCounter(RESEND_OTP_TIME_LIMIT);
+        startResendOTPTimer();
+
+        dispatch(setLoadingAccount(true));
+        try {
+            await loginApi.forgotOTP(username);
+            openNotification(`Đã gửi lại mã OTP đến ${username}`);
+        } catch (error) {}
+        dispatch(setLoadingAccount(false));
+    };
+
     return (
         <div className="account-common-page">
             <div className="account-wrapper">
@@ -25,7 +132,11 @@ function ForgotPage(props) {
                         <Formik
                             initialValues={{ ...forgotValues.initial }}
                             onSubmit={(values) => handleSubmit(values)}
-                            validationSchema={forgotValues.validationSchema}
+                            validationSchema={
+                                isSubmit
+                                    ? forgotValues.validationSchema
+                                    : forgotValues.validationSchemaUser
+                            }
                             enableReinitialize={true}
                         >
                             {(formikProps) => {
@@ -40,35 +151,120 @@ function ForgotPage(props) {
                                                             'center',
                                                     }}
                                                 >
-                                                    Nhập email/SĐT để nhận mã
-                                                    xác thực
+                                                    Nhập email để nhận mã xác
+                                                    thực
                                                 </Text>
                                             </Col>
-                                            <>
-                                                <Col span={24}>
-                                                    <FastField
-                                                        name="username"
-                                                        component={
-                                                            UserNameField
-                                                        }
-                                                        type="text"
-                                                        title="Tài khoản"
-                                                        placeholder="Nhập tài khoản"
-                                                        maxLength={50}
-                                                        titleCol={24}
-                                                        inputCol={24}
-                                                    />
-                                                </Col>
-                                                <Col span={24}>
-                                                    <Button
-                                                        htmlType="submit"
-                                                        block
-                                                        type="primary"
-                                                    >
-                                                        Xác nhận
-                                                    </Button>
-                                                </Col>
-                                            </>
+
+                                            {isSubmit ? (
+                                                <>
+                                                    <Col span={24}>
+                                                        <FastField
+                                                            name="password"
+                                                            title="Mật khẩu mới"
+                                                            type="password"
+                                                            placeholder="Nhập mật khẩu"
+                                                            component={
+                                                                PasswordField
+                                                            }
+                                                            maxLength={200}
+                                                            titleCol={24}
+                                                            inputCol={24}
+                                                        />
+                                                    </Col>
+
+                                                    <Col span={24}>
+                                                        <FastField
+                                                            name="passwordconfirm"
+                                                            title="Xác nhận mật khẩu"
+                                                            type="password"
+                                                            placeholder="Xác nhận mật khẩu"
+                                                            component={
+                                                                PasswordField
+                                                            }
+                                                            maxLength={200}
+                                                            titleCol={24}
+                                                            inputCol={24}
+                                                        />
+                                                    </Col>
+
+                                                    <Col span={24}>
+                                                        <FastField
+                                                            name="otpValue"
+                                                            title="Xác thực mã OTP"
+                                                            type="text"
+                                                            placeholder="Nhập 6 ký tự OTP"
+                                                            component={
+                                                                InputField
+                                                            }
+                                                            maxLength={50}
+                                                            titleCol={24}
+                                                            inputCol={24}
+                                                        />
+                                                    </Col>
+
+                                                    <Col span={24}>
+                                                        <Button
+                                                            block
+                                                            type="primary"
+                                                            disabled={
+                                                                counter > 0
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            onClick={() =>
+                                                                handleResendOTP(
+                                                                    formikProps
+                                                                        .values
+                                                                        .username
+                                                                )
+                                                            }
+                                                        >
+                                                            Gửi lại OTP{' '}
+                                                            {`${
+                                                                counter > 0
+                                                                    ? `sau ${counter}`
+                                                                    : ''
+                                                            }`}
+                                                        </Button>
+                                                    </Col>
+                                                    <Col span={24}>
+                                                        <Button
+                                                            htmlType="submit"
+                                                            block
+                                                            type="primary"
+                                                        >
+                                                            Xác thực
+                                                        </Button>
+                                                    </Col>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Col span={24}>
+                                                        <FastField
+                                                            name="username"
+                                                            type="text"
+                                                            title="Tài khoản"
+                                                            placeholder="Nhập tài khoản"
+                                                            component={
+                                                                UserNameField
+                                                            }
+                                                            maxLength={50}
+                                                            titleCol={24}
+                                                            inputCol={24}
+                                                        />
+                                                    </Col>
+                                                    <Col span={24}>
+                                                        <Button
+                                                            htmlType="submit"
+                                                            block
+                                                            type="primary"
+                                                        >
+                                                            Xác nhận
+                                                        </Button>
+                                                    </Col>
+                                                </>
+                                            )}
                                         </Row>
                                     </Form>
                                 );
