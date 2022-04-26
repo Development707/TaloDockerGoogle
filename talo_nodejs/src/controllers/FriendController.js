@@ -36,7 +36,6 @@ class FriendController {
             await FriendService.delete(id, userId);
 
             this.io.to(userId).emit(Emit.FRIEND_DELETE, id);
-            this.io2.to(userId).emit(Emit.FRIEND_DELETE, id);
 
             res.status(204).json();
         } catch (err) {
@@ -80,12 +79,6 @@ class FriendController {
                 this.io
                     .to(id)
                     .emit(Emit.CONVERSATION_DUA_CREATE, conversationId);
-                this.io
-                    .to(userId)
-                    .emit(Emit.CONVERSATION_DUA_CREATE, conversationId);
-                this.io2
-                    .to(id)
-                    .emit(Emit.CONVERSATION_DUA_CREATE, conversationId);
                 this.io2
                     .to(userId)
                     .emit(Emit.CONVERSATION_DUA_CREATE, conversationId);
@@ -105,7 +98,6 @@ class FriendController {
         try {
             await FriendService.deleteRequest(userId, id);
             this.io.to(userId).emit(Emit.FRIEND_REQUEST_DELETE, id);
-            this.io2.to(userId).emit(Emit.FRIEND_REQUEST_DELETE, id);
 
             res.status(204).json();
         } catch (err) {
@@ -155,7 +147,6 @@ class FriendController {
         try {
             await FriendService.deleteRequest(id, userId);
             this.io.to(userId).emit(Emit.FRIEND_REQUEST_BY_ME_DELETE, id);
-            this.io2.to(userId).emit(Emit.FRIEND_REQUEST_BY_ME_DELETE, id);
             res.status(204).json();
         } catch (err) {
             next(err);
