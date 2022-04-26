@@ -14,15 +14,15 @@ const firebaseRouter = require('./FirebaseRouter');
 
 const auth = require('../middlewares/auth');
 
-const route = (app, io) => {
+const route = (app, io, io2) => {
     app.use('/account', authRouter);
     app.use('/profile', auth, profileRouter(io));
     app.use('/users', auth, userRouter);
-    app.use('/friend', auth, friendRouter(io));
+    app.use('/friend', auth, friendRouter(io, io2));
     app.use('/classify', auth, classifyRouter);
     app.use('/conversations', auth, conversationRouter(io));
     app.use('/channels', auth, channelRouter(io));
-    app.use('/message', auth, messageRouter(io));
+    app.use('/message', auth, messageRouter(io, io2));
     app.use('/sticker', auth, stickerRouter);
     // Other API
     app.use('/search', auth, searchRouter);

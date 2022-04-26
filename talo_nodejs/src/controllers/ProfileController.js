@@ -43,7 +43,7 @@ class ProfileController {
                 id,
                 req.file.publicUrl,
                 req.file.filename,
-                cacheUser.avatar.name
+                cacheUser.avatar.name,
             );
             await redisUtils.removeProfile(id);
 
@@ -66,7 +66,7 @@ class ProfileController {
                 id,
                 req.file.publicUrl,
                 req.file.filename,
-                cacheUser.coverPhoto.name
+                cacheUser.coverPhoto.name,
             );
             await redisUtils.removeProfile(id);
 
@@ -115,7 +115,7 @@ class ProfileController {
             await ProfileService.changePassword(
                 id,
                 currentPassword,
-                newPassword
+                newPassword,
             );
 
             res.status(200).json();
@@ -134,7 +134,7 @@ class ProfileController {
             const tokenAndRefreshToken = await ProfileService.logoutAll(
                 id,
                 password,
-                userAgent
+                userAgent,
             );
 
             this.io.to(id).emit(Emit.USER_LOGOUT_ALL, { key });

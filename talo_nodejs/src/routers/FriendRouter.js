@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const FriendController = require('../controllers/FriendController');
 
-const friendRouter = (io) => {
-    const friendController = new FriendController(io);
+const friendRouter = (io, io2) => {
+    const friendController = new FriendController(io, io2);
 
     router.get('/', friendController.findByName);
     router.delete('/:userId', friendController.delete);

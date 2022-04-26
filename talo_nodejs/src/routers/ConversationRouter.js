@@ -25,18 +25,18 @@ const conversationRouter = (io) => {
         '/:id/avatar',
         validFile,
         uploadToCloud(process.env.CLOUD_BUCKET_GROUP_AVATAR),
-        conversationController.changeAvatar
+        conversationController.changeAvatar,
     );
     router.patch(
         '/:id/avatar/base64',
         uploadToCloudBase64(process.env.CLOUD_BUCKET_GROUP_AVATAR),
-        conversationController.changeAvatar
+        conversationController.changeAvatar,
     );
     router.patch('/:id/notify', conversationController.changeNotify);
     // Edit link
     router.patch(
         '/:id/join-with-link',
-        conversationController.changeJoinWithLink
+        conversationController.changeJoinWithLink,
     );
     router.post('/:id/join-with-link', conversationController.joinWithLink);
     // Edit member
@@ -47,7 +47,7 @@ const conversationRouter = (io) => {
         .delete(conversationController.leftTheGroup);
     router.delete(
         '/:conversationId/members/:memberId',
-        conversationController.removeMember
+        conversationController.removeMember,
     );
     // Edit manager
     router

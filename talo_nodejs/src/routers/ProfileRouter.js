@@ -14,23 +14,23 @@ const profileRoute = (io) => {
         '/avatar',
         validFile,
         uploadToCloud(process.env.CLOUD_BUCKET_AVATAR),
-        profileController.updateAvatar
+        profileController.updateAvatar,
     );
     router.patch(
         '/avatar/base64',
         uploadToCloudBase64(process.env.CLOUD_BUCKET_AVATAR),
-        profileController.updateAvatar
+        profileController.updateAvatar,
     );
     router.patch(
         '/cover-photo',
         validFile,
         uploadToCloud(process.env.CLOUD_BUCKET_COVER_PHOTO),
-        profileController.updateCoverPhoto
+        profileController.updateCoverPhoto,
     );
     router.patch(
         '/cover-photo/base64',
         uploadToCloudBase64(process.env.CLOUD_BUCKET_COVER_PHOTO),
-        profileController.updateCoverPhoto
+        profileController.updateCoverPhoto,
     );
     router.post('/contacts', profileController.syncContacts);
     router.get('/contacts', profileController.getContacts);
