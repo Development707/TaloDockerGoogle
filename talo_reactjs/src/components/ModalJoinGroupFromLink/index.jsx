@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Col, Divider, message, Modal, Row } from 'antd';
 import ConversationAvatar from 'features/Chat/components/ConversationAvatar';
 import PersonalIcon from 'features/Chat/components/PersonalIcon';
+import PropTypes from 'prop-types';
 
-import './style.scss';
 import conversationApi from 'api/conversationApi';
+import './style.scss';
 ModalJoinGroupFromLink.propTypes = {
     isVisible: PropTypes.bool.isRequired,
     info: PropTypes.object,
@@ -24,7 +23,9 @@ function ModalJoinGroupFromLink({ isVisible, info, onCancel }) {
             handleCancel();
             message.success('Tham gia nhóm thành công');
         } catch (error) {
-            message.error('Tham gia nhóm thất bại');
+            message.error(
+                'Trưởng nhóm đã tắt tính năng tham gia nhóm bằng link'
+            );
         }
     };
     const handleCancel = () => {

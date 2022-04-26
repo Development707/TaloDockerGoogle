@@ -47,6 +47,7 @@ const ConverAllSearch = ({ data }) => {
                         >
                             <ConversationAvatar
                                 avatar={item.avatar.url}
+                                members={item.members}
                                 totalMembers={item.totalMembers}
                                 type={item.type}
                                 name={item.name}
