@@ -93,6 +93,7 @@ services:
     depends_on:
       - talo-nodejs
       - talo-reactjs
+      - certbot
     networks:
       - talo
 
