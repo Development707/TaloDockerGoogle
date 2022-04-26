@@ -85,14 +85,10 @@ function Friend() {
                 const newListGroup = groupCurrent.filter(
                     (ele) => ele.leaderId === user.id
                 );
-                // console.log('leader', newListGroup);
-                // console.log('groupCurrent', groupCurrent);
-                // console.log('id', user.id);
 
                 setGroupCurrent(newListGroup);
             }
             if (key === '1') {
-                // console.log('refFiller current', refFiller.current);
                 setGroupCurrent(sortGroup(refFiller.current, keySort));
             }
         }

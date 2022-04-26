@@ -45,7 +45,7 @@ function LoginPage(props) {
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
             dispatch(setLogin(true));
-            const { role } = unwrapResult(await dispatch(fetchUserProfile()));
+            const { role } = unwrapResult(dispatch(fetchUserProfile()));
             if (role === 'USER') navigate('/chat', { replace: true });
             else navigate('/admin', { replace: true });
         } catch (error) {

@@ -41,6 +41,7 @@ function ConversationContainer({ valueClassify }) {
         if (checkConverInClassify(ele.id)) return true;
     });
 
+    console.log('conversations', conversations);
     const handleConversationClick = async (conversationId) => {
         dispatch(setCurrentChannel(''));
         dispatch(getLastViewOfMembers({ conversationId }));

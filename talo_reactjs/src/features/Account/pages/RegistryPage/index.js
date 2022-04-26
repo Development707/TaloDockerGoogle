@@ -21,7 +21,7 @@ import loginApi from 'api/loginAPI';
 
 const { Text, Title } = Typography;
 
-const RESEND_OTP_TIME_LIMIT = 60;
+const RESEND_OTP_TIME_LIMIT = 120;
 RegistryPage.propTypes = {};
 
 function RegistryPage(props) {
