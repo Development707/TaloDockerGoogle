@@ -6,8 +6,8 @@ const {
     uploadToCloudBase64,
 } = require('../middlewares/uploadFile');
 
-const conversationRouter = (io) => {
-    const conversationController = new ConversationController(io);
+const conversationRouter = (io, io2) => {
+    const conversationController = new ConversationController(io, io2);
     // Basic API
     router
         .route('/')

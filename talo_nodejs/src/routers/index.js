@@ -20,7 +20,7 @@ const route = (app, io, io2) => {
     app.use('/users', auth, userRouter);
     app.use('/friend', auth, friendRouter(io, io2));
     app.use('/classify', auth, classifyRouter);
-    app.use('/conversations', auth, conversationRouter(io));
+    app.use('/conversations', auth, conversationRouter(io, io2));
     app.use('/channels', auth, channelRouter(io));
     app.use('/message', auth, messageRouter(io, io2));
     app.use('/sticker', auth, stickerRouter);

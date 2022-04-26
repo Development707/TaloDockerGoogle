@@ -5,8 +5,9 @@ const { ErrorType } = require('../lib/Constants');
 const { Emit } = require('../lib/ConstantsSocket');
 
 class ConversationController {
-    constructor(io) {
+    constructor(io, io2) {
         this.io = io;
+        this.io2 = io2;
 
         this.createGroup = this.createGroup.bind(this);
         this.deleteById = this.deleteById.bind(this);
@@ -74,6 +75,9 @@ class ConversationController {
                 this.io
                     .to(userId)
                     .emit(Emit.CONVERSATION_GROUP_CREATE, conversationId);
+                this.io2
+                    .to(userId)
+                    .emit(Emit.CONVERSATION_GROUP_CREATE, conversationId);
             });
 
             res.status(201).json({ id: conversationId });
@@ -90,10 +94,14 @@ class ConversationController {
         try {
             const result = await ConversationService.createDual(id, userId);
 
-            if (!result.isExists)
+            if (!result.isExists) {
                 this.io
                     .to(userId)
                     .emit(Emit.CONVERSATION_DUA_CREATE, result.conversationId);
+                this.io2
+                    .to(userId)
+                    .emit(Emit.CONVERSATION_DUA_CREATE, result.conversationId);
+            }
 
             res.status(201).json(result);
         } catch (err) {
