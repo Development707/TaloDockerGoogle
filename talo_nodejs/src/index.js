@@ -30,3 +30,15 @@ routes(app, io);
 server.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
+// IO V.2 - For mobile
+const port2 = process.env.PORT2 || 5001;
+const sockerIoV2 = require('socket.io-v2');
+const serverV2 = http.createServer(app);
+const io2 = sockerIoV2(serverV2, {
+    transports: ['websocket', 'jsonp-polling'],
+});
+socketApp(io2);
+routes(app, io2);
+serverV2.listen(port2, () => {
+    console.log(`App listening at http://localhost:${port2}`);
+});

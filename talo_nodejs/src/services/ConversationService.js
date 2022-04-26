@@ -123,7 +123,11 @@ class ConversationService {
         // Name vs Avatar
         members = await Promise.all(
             members.map(async (userId) => {
-                return await redisUtils.getShortUserInfo(userId);
+                try {
+                    return await redisUtils.getShortUserInfo(userId);
+                } catch (error) {
+                    return { id: userId, name: 'Talo User', avatar: {} };
+                }
             }),
         );
         switch (type) {

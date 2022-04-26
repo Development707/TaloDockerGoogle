@@ -5,7 +5,11 @@ const { ErrorType } = require('../lib/Constants');
 
 class FirebaseService {
     async verifyByEmail(userFirebase, password, userAgent) {
-        let user = await User.findOne({ username: userFirebase.email }).lean();
+        let user = await User.findOne({
+            username: userFirebase.email,
+            isActived: true,
+            isDeleted: false,
+        }).lean();
         if (!user) {
             if (!password) password = userFirebase.email;
             user = await new User({
@@ -25,6 +29,8 @@ class FirebaseService {
     async verifyByPhone(userFirebase, password, userAgent) {
         let user = await User.findOne({
             username: userFirebase.phone_number,
+            isActived: true,
+            isDeleted: false,
         }).lean();
         if (!user) {
             if (!password) password = userFirebase.phone_number;
@@ -41,6 +47,8 @@ class FirebaseService {
     async loginByIdToken(userFirebase, userAgent) {
         let user = await User.findOne({
             username: { $in: [userFirebase.phone_number, userFirebase.email] },
+            isActived: true,
+            isDeleted: false,
         }).lean();
         if (user)
             return await AuthService.generateToken(user._id + '', userAgent);
