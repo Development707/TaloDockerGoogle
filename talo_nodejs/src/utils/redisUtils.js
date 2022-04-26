@@ -63,6 +63,7 @@ const redisUtils = {
         try {
             if (await redisApp.exists(Key.REDIS_PROFILE, userId))
                 await redisApp.remove(Key.REDIS_PROFILE, userId);
+            this.removeAllConversations();
         } catch (error) {
             console.error(chalk.bgRed(Notification.REDIS_ERROR), error.message);
         }

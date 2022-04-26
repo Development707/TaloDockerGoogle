@@ -63,7 +63,7 @@ Xem file bằng docker extension
 
 # 3 Docker Compose
 
--   `docker-compose -f docker-compose.yml up --build`
+-   `docker-compose -f docker-compose.dev.yml up --build`
 
 ## Background
 
