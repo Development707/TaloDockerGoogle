@@ -4,8 +4,8 @@ const PinMessageController = require('../controllers/PinMessageController');
 const PollController = require('../controllers/PollController');
 const { validFile } = require('../middlewares/uploadFile');
 
-const messageRouter = (io) => {
-    const messageController = new MessageController(io);
+const messageRouter = (io, io2) => {
+    const messageController = new MessageController(io, io2);
     const pinMessageController = new PinMessageController(io);
     const pollController = new PollController(io);
 

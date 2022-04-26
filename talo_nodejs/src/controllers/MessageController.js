@@ -3,8 +3,9 @@ const MessageService = require('../services/MessageService');
 const { Emit } = require('../lib/ConstantsSocket');
 
 class MessageController {
-    constructor(io) {
+    constructor(io, io2) {
         this.io = io;
+        this.io2 = io2;
 
         this.findByConversationId = this.findByConversationId.bind(this);
         this.findByChannelId = this.findByChannelId.bind(this);
@@ -119,10 +120,14 @@ class MessageController {
                         channelId,
                         message,
                     );
-            } else
+            } else {
                 this.io
                     .to(conversationId + '')
                     .emit(Emit.MESSAGE_NEW, conversationId, message);
+                this.io2
+                    .to(conversationId + '')
+                    .emit(Emit.MESSAGE_NEW, conversationId, message);
+            }
 
             res.status(201).json(message);
         } catch (err) {
@@ -154,10 +159,14 @@ class MessageController {
                         channelId,
                         message,
                     );
-            } else
+            } else {
                 this.io
                     .to(conversationId + '')
                     .emit(Emit.MESSAGE_NEW, conversationId, message);
+                this.io2
+                    .to(conversationId + '')
+                    .emit(Emit.MESSAGE_NEW, conversationId, message);
+            }
 
             res.status(201).json(message);
         } catch (err) {
