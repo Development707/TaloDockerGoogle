@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
     CaretDownOutlined,
     CopyOutlined,
     LinkOutlined,
-    LockOutlined,
-    UnlockOutlined,
 } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
-import { message, Modal } from 'antd';
-import { GrGroup } from 'react-icons/gr';
+import { message, Modal, Switch } from 'antd';
 import conversationApi from 'api/conversationApi';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { GrGroup } from 'react-icons/gr';
+import { useSelector } from 'react-redux';
 import './style.scss';
 
 InfoMember.propTypes = {
@@ -34,7 +32,7 @@ function InfoMember({ viewMemberClick, quantity }) {
         (state) => state.chat
     );
     const [isDrop, setIsDrop] = useState(true);
-    const [status, setSatus] = useState(false);
+    const [isStatus, setIsSatus] = useState(false);
     const [checkLeader, setCheckLeader] = useState(false);
     const { confirm } = Modal;
 
@@ -46,7 +44,7 @@ function InfoMember({ viewMemberClick, quantity }) {
             conversations.find((ele) => ele.id === currentConversation)
                 .leaderId === user.id;
         setCheckLeader(tempCheck);
-        setSatus(tempStatus);
+        setIsSatus(tempStatus);
     }, [currentConversation]);
 
     const handleOnClick = () => {
@@ -63,31 +61,42 @@ function InfoMember({ viewMemberClick, quantity }) {
         );
         message.info('Đã sao chép link');
     };
-    const handleChangeStatus = async () => {
+
+    const handleChangeApi = async (checked) => {
         try {
             await conversationApi.changeStatusForGroup(
                 currentConversation,
-                status ? false : true
+                checked
             );
-
-            setSatus(!status);
             message.success('Cập nhật thành công');
         } catch (error) {
             message.error('Cập nhật thất bại');
         }
     };
 
-    function showConfirm() {
+    const handleChangeStatus = (checked) => {
+        if (checked) {
+            handleChangeApi(checked);
+        } else {
+            showConfirm(checked);
+        }
+        setIsSatus(!isStatus);
+    };
+
+    function showConfirm(checked) {
         confirm({
             title: 'Cảnh báo',
-            content: status
-                ? 'Link hiện tại sẽ không sử dụng được nữa. Tắt link tham gia nhóm?'
-                : 'Bật tham gia nhóm bằng link',
-            onOk: handleChangeStatus,
+            content:
+                'Link hiện tại sẽ không sử dụng được nữa. Tắt link tham gia nhóm?',
+            onOk: () => handleChangeApi(checked),
             okText: 'Xác nhận',
             cancelText: 'Hủy',
         });
     }
+
+    const onChange = (checked) => {
+        handleChangeStatus(checked);
+    };
     return (
         <div className="info_member">
             <div className="info_member-header" onClick={handleOnClick}>
@@ -117,6 +126,23 @@ function InfoMember({ viewMemberClick, quantity }) {
                         <span>{quantity} thành viên</span>
                     </div>
                 </div>
+                {checkLeader && (
+                    <div className="info_member-interact-item">
+                        <div className="info_member-interact-item-icon">
+                            <LinkOutlined />
+                        </div>
+                        <div className="info_member-interact-item-text">
+                            <span>Cho phép dùng link tham gia nhóm</span>
+                        </div>
+                        <div className={`info_member-interact_button`}>
+                            <Switch
+                                className="switch-toggle"
+                                defaultChecked
+                                onChange={onChange}
+                            />
+                        </div>
+                    </div>
+                )}
 
                 <div className="info_member-interact-item">
                     <div className="info_member-interact-item-icon">
@@ -132,38 +158,13 @@ function InfoMember({ viewMemberClick, quantity }) {
                             {`${process.env.REACT_APP_URL}/tl-link/${currentConversation}`}
                         </div>
                     </div>
-
-                    <div
-                        className={`info_member-interact_button ${
-                            checkLeader ? '' : 'flex-end'
-                        }`}
-                    >
+                    <div className={'info_member-interact_button flex-end'}>
                         <div
                             className="copy-link cirle-button"
                             onClick={handleCopyLink}
                         >
                             <CopyOutlined />
                         </div>
-
-                        {checkLeader && (
-                            <>
-                                {status ? (
-                                    <div
-                                        className="authorize-toggle cirle-button green"
-                                        onClick={showConfirm}
-                                    >
-                                        <UnlockOutlined />
-                                    </div>
-                                ) : (
-                                    <div
-                                        className="authorize-toggle cirle-button red"
-                                        onClick={showConfirm}
-                                    >
-                                        <LockOutlined />
-                                    </div>
-                                )}
-                            </>
-                        )}
                     </div>
                 </div>
             </div>
