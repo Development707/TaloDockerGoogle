@@ -24,7 +24,7 @@
         position: relative;
         overflow-y: hidden;
         overflow: hidden;
-        max-height: 300px;
+        // max-height: 400px;
         transition: max-height 0.2s ease;
 
         &-item {
@@ -59,9 +59,16 @@
         &-item-text {
             font-size: 15px;
             padding-left: 1rem;
+            padding-right: 1rem;
+            width: 80%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
         }
         &_button.flex-end {
             justify-content: flex-end;
+            margin-right: 2rem;
         }
         &-interact-item:hover {
             background: $grey-500;
@@ -69,7 +76,7 @@
         &_link-join {
             color: $blue-talo;
             font-size: 1.2rem;
-            width: 50%;
+            width: 80%;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -94,37 +101,9 @@
                 font-size: 1.6rem;
                 color: $base-color;
             }
-            .cirle-button.green {
-                position: relative;
+            .switch-toggle {
+                margin-left: 2rem;
                 z-index: 99;
-                background: #43cd80;
-                transition: 0.4s;
-                svg {
-                    color: #fff;
-                }
-            }
-            .cirle-button.red {
-                position: relative;
-                z-index: 99;
-                background: #db342e;
-                transition: 0.4s;
-                svg {
-                    color: #fff;
-                }
-            }
-            .authorize-toggle.red:hover {
-                background: #fff;
-
-                svg {
-                    color: #db342e;
-                }
-            }
-            .authorize-toggle.green:hover {
-                background: #fff;
-
-                svg {
-                    color: #43cd80;
-                }
             }
             .copy-link {
                 position: relative;

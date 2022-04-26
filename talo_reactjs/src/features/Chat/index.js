@@ -1,20 +1,31 @@
+import { DoubleLeftOutlined, DownOutlined } from '@ant-design/icons';
 import {
     Col,
+    Drawer,
+    message as messageNotify,
+    notification,
     Row,
     Spin,
-    Drawer,
-    notification,
-    message as messageNotify,
 } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import conversationApi from 'api/conversationApi';
+import { setJoinChatLayout } from 'app/globalSlice';
+import ModalJoinGroupFromLink from 'components/ModalJoinGroupFromLink';
+import useWindowSize from 'hooks/useWindowSize';
 import PropTypes from 'prop-types';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import renderWidthDrawer from 'utils/DrawerResponsive';
+import DrawerPinMessage from './components/DrawerPinMessage';
 import FilterContainer from './components/FilterContainer';
+import GroupNews from './components/GroupNews';
+import SummedPinMessage from './components/SummedPinMessage';
+import BodyChatContainer from './containers/BodyChatContainer';
 import ConversationContainer from './containers/ConversationContainer';
 import FooterChatContainer from './containers/FooterChatContainer';
 import HeaderChatContainer from './containers/HeaderChatContainer';
+import InfoContainer from './containers/InfoContainer';
 import SearchContainer from './containers/SearchContainer';
-import conversationApi from 'api/conversationApi';
 import {
     addManagers,
     addMessage,
@@ -42,18 +53,7 @@ import {
     updatePollMessage,
     updateTimeForConver,
 } from './slice/chatSlice';
-import { useLocation } from 'react-router-dom';
-import useWindowSize from 'hooks/useWindowSize';
-import BodyChatContainer from './containers/BodyChatContainer';
-import renderWidthDrawer from 'utils/DrawerResponsive';
-import GroupNews from './components/GroupNews';
-import InfoContainer from './containers/InfoContainer';
-import { DoubleLeftOutlined, DownOutlined } from '@ant-design/icons';
-import DrawerPinMessage from './components/DrawerPinMessage';
-import SummedPinMessage from './components/SummedPinMessage';
 import './style.scss';
-import ModalJoinGroupFromLink from 'components/ModalJoinGroupFromLink';
-import { setJoinChatLayout } from 'app/globalSlice';
 
 Chat.propTypes = {
     socket: PropTypes.object,
@@ -77,9 +77,7 @@ function Chat({ socket, idNewMessage }) {
         channels,
         pinMessages,
     } = useSelector((state) => state.chat);
-    const { isJoinChatLayout, isJoinFriendLayout, user } = useSelector(
-        (state) => state.global
-    );
+    const { isJoinChatLayout, user } = useSelector((state) => state.global);
     //=========================================
     const location = useLocation();
     const [isOpenInfo, setIsOpenInfo] = useState(true);
@@ -137,6 +135,7 @@ function Chat({ socket, idNewMessage }) {
         if (currentConversation) {
             dispatch(setTotalChannelNotify());
         }
+        //eslint-disable-next-line
     }, [currentConversation, channels, conversations]);
 
     useEffect(() => {
@@ -158,12 +157,10 @@ function Chat({ socket, idNewMessage }) {
     };
     const handleOnSubmitSearch = async () => {
         try {
-            // const all = await searchApi.searchConversations(valueInput);
-
             const all = await conversationApi.fetchListConversations(
                 valueInput
             );
-            // console.log(all);
+            console.log(all);
             setAllConverFilter(all);
 
             const dual = await conversationApi.fetchListConversations(
@@ -340,7 +337,7 @@ function Chat({ socket, idNewMessage }) {
                     }
                 } else {
                     dispatch(
-                        fetchListMessages({ conversationId: tempId, size: 10 })
+                        fetchListMessages({ conversationId: tempId, size: 20 })
                     );
                     dispatch(
                         getMembersConversation({ conversationId: tempId })
@@ -611,6 +608,7 @@ function Chat({ socket, idNewMessage }) {
         }
 
         dispatch(setJoinChatLayout(true));
+        //eslint-disable-next-line
     }, []);
 
     const handleCancelModalJoinGroup = () => {

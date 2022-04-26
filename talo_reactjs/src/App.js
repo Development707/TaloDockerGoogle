@@ -13,11 +13,12 @@ function App() {
     const [isFetch, setIsFetch] = useState(false);
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.global);
+
     useEffect(() => {
         const fetchProfile = async () => {
             const token = localStorage.getItem('token');
 
-            if (token) dispatch(fetchUserProfile());
+            if (token) await dispatch(fetchUserProfile());
 
             setIsFetch(true);
         };
@@ -40,7 +41,7 @@ function App() {
                     path="chat/*"
                     element={
                         <ProtectedRoute
-                            isAllowed={user && user.role === 'USER'}
+                            isAllowed={user && user.role !== 'ADMIN'}
                         >
                             <ChatLayout />
                         </ProtectedRoute>
