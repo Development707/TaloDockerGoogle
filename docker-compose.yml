@@ -78,7 +78,7 @@ services:
   talo-nginx:
     image: nginx
     container_name: talo-nginx
-    restart: always
+    restart: on-failure:3
     ports:
       - 80:80
       - 443:443
