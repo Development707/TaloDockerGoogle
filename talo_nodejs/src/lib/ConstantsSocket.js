@@ -35,6 +35,7 @@ const Emit = {
     CHANNEL_DELETE: 'ChannelDelete',
     // Conversation
     CONVERSATION_DUA_CREATE: 'ConversationDuaCreate',
+    CONVERSATION_DUA_CREATE_WITH_FRIEND: 'ConsersationDualCreateWithFriend',
     CONVERSATION_GROUP_CREATE: 'ConversationGroupCreate',
     CONVERSATION_CHANGE_NAME: 'ConversationChangeName',
     CONVERSATION_CHANGE_AVATAR: 'ConversationChangeAvatar',
