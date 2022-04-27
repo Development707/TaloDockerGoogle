@@ -42,6 +42,46 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
     useEffect(() => {
         if (isVisible) {
             setInitialFriend(friends);
+            if (typeModal === 'DUAL') {
+                const checkMember = initialFriend.map((friend) =>
+                    initialValue.find((member) => member === friend.id)
+                );
+
+                const idUser = checkMember.find((item) => item !== undefined);
+
+                if (idUser) {
+                    const index = checkListFriend.findIndex(
+                        (item) => item === idUser
+                    );
+                    let checkListFriendTemp = [...checkListFriend];
+                    let itemSelectedTemp = [...itemSelected];
+
+                    //neu data co trong list
+                    if (index !== -1) {
+                        itemSelectedTemp = itemSelectedTemp.filter(
+                            (item) => item.id !== idUser
+                        );
+
+                        checkListFriendTemp = checkListFriendTemp.filter(
+                            (item) => item !== idUser
+                        );
+                    } else {
+                        //neu chua co
+                        checkListFriendTemp.push(idUser);
+
+                        const index = initialFriend.findIndex(
+                            (item) => item.id === idUser
+                        );
+
+                        if (index !== -1) {
+                            itemSelectedTemp.push(initialFriend[index]);
+                        }
+                    }
+
+                    setCheckListFriend(checkListFriendTemp);
+                    setItemSelected(itemSelectedTemp);
+                }
+            }
         } else {
             setFriendInput('');
             setCheckListFriend([]);
@@ -103,16 +143,44 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
             setInitialFriend(friends);
         }
     };
-    const handleChangeCheckBox = (e) => {
-        const value = e.target.value;
 
-        // console.log('value', value);
-        // check checklist co data chua
+    const handleChooseUser = (value) => {
+        // check list da ton tai data chua
         const index = checkListFriend.findIndex((item) => item === value);
         let checkListFriendTemp = [...checkListFriend];
         let itemSelectedTemp = [...itemSelected];
 
-        //neu co trong checklist
+        //neu data co trong list
+        if (index !== -1) {
+            itemSelectedTemp = itemSelectedTemp.filter(
+                (item) => item.id !== value
+            );
+
+            checkListFriendTemp = checkListFriendTemp.filter(
+                (item) => item !== value
+            );
+        } else {
+            //neu chua co
+            checkListFriendTemp.push(value);
+
+            const index = initialFriend.findIndex((item) => item.id === value);
+
+            if (index !== -1) {
+                itemSelectedTemp.push(initialFriend[index]);
+            }
+        }
+
+        setCheckListFriend(checkListFriendTemp);
+        setItemSelected(itemSelectedTemp);
+    };
+
+    const handleChangeCheckBox = (e) => {
+        const value = e.target.value;
+        const index = checkListFriend.findIndex((item) => item === value);
+        let checkListFriendTemp = [...checkListFriend];
+        let itemSelectedTemp = [...itemSelected];
+
+        //neu data co trong list
         if (index !== -1) {
             itemSelectedTemp = itemSelectedTemp.filter(
                 (item) => item.id !== value
@@ -141,8 +209,6 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
 
         checkListFriendTemp = checkListFriendTemp.filter((item) => item !== id);
         itemSelectedTemp = itemSelectedTemp.filter((item) => item.id !== id);
-        // console.log('checkListFriendTemp', checkListFriendTemp);
-        // console.log('itemSelectedTemp', itemSelectedTemp);
 
         setCheckListFriend(checkListFriendTemp);
         setItemSelected(itemSelectedTemp);
@@ -224,9 +290,10 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
                                     {initialFriend.map((ele, index) => (
                                         <Col span={24} key={index}>
                                             <Checkbox
-                                                disabled={checkInitialValue(
-                                                    ele.id
-                                                )}
+                                                disabled={
+                                                    typeModal === 'GROUP' &&
+                                                    checkInitialValue(ele.id)
+                                                }
                                                 value={ele.id}
                                                 onChange={handleChangeCheckBox}
                                             >
