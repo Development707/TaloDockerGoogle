@@ -45,15 +45,15 @@ function LoginPage(props) {
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
             dispatch(setLogin(true));
-            const { role } = unwrapResult(dispatch(fetchUserProfile()));
+            const { role } = unwrapResult(await dispatch(fetchUserProfile()));
             if (role === 'USER') navigate('/chat', { replace: true });
             else navigate('/admin', { replace: true });
         } catch (error) {
             setError(true);
-            // console.log(error);
         }
         dispatch(setLoadingAccount(false));
     };
+
     const handleLogin = async (username, accessToken) => {
         try {
             dispatch(setLoadingAccount(true));
