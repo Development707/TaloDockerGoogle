@@ -82,6 +82,15 @@ class FriendController {
                         Emit.CONVERSATION_DUA_CREATE_WITH_FRIEND,
                         conversationId,
                     );
+                this.io
+                    .to(userId)
+                    .emit(
+                        Emit.CONVERSATION_DUA_CREATE_WITH_FRIEND,
+                        conversationId,
+                    );
+                this.io2
+                    .to(id)
+                    .emit(Emit.CONVERSATION_DUA_CREATE, conversationId);
                 this.io2
                     .to(userId)
                     .emit(Emit.CONVERSATION_DUA_CREATE, conversationId);
