@@ -80,5 +80,4 @@ networks:
   talo:
     driver: bridge
 volumes:
-    talo-mongo:
     talo-redis:
