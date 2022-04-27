@@ -104,10 +104,17 @@ class MessageService {
                 }
                 // Get Manipulated  - option redis
                 message.manipulatedUserIds = await Promise.all(
-                    message.manipulatedUserIds.map(
-                        async (userId) =>
-                            await redisUtils.getShortUserInfo(userId),
-                    ),
+                    message.manipulatedUserIds.map(async (userId) => {
+                        try {
+                            return await redisUtils.getShortUserInfo(userId);
+                        } catch (error) {
+                            return {
+                                id: userId,
+                                name: 'Talo User',
+                                avatar: {},
+                            };
+                        }
+                    }),
                 );
                 if (message.pollId) {
                     let poll = await Poll.findById(message.pollId)
