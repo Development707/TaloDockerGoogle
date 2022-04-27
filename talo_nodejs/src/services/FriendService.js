@@ -30,7 +30,17 @@ class FriendService {
 
         let result = await Promise.all(
             friends.map(async (friend) => {
-                return await redisUtils.getUserOnline(friend.userIds + '');
+                try {
+                    return await redisUtils.getUserOnline(friend.userIds + '');
+                } catch (error) {
+                    return {
+                        id: friend.userIds,
+                        name: 'Talo User',
+                        avatar: {},
+                        isOnline: false,
+                        lastLogin: null,
+                    };
+                }
             }),
         );
         if (name != '') {
