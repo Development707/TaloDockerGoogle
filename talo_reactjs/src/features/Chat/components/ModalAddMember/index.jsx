@@ -50,36 +50,7 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
                 const idUser = checkMember.find((item) => item !== undefined);
 
                 if (idUser) {
-                    const index = checkListFriend.findIndex(
-                        (item) => item === idUser
-                    );
-                    let checkListFriendTemp = [...checkListFriend];
-                    let itemSelectedTemp = [...itemSelected];
-
-                    //neu data co trong list
-                    if (index !== -1) {
-                        itemSelectedTemp = itemSelectedTemp.filter(
-                            (item) => item.id !== idUser
-                        );
-
-                        checkListFriendTemp = checkListFriendTemp.filter(
-                            (item) => item !== idUser
-                        );
-                    } else {
-                        //neu chua co
-                        checkListFriendTemp.push(idUser);
-
-                        const index = initialFriend.findIndex(
-                            (item) => item.id === idUser
-                        );
-
-                        if (index !== -1) {
-                            itemSelectedTemp.push(initialFriend[index]);
-                        }
-                    }
-
-                    setCheckListFriend(checkListFriendTemp);
-                    setItemSelected(itemSelectedTemp);
+                    handleChooseUser(idUser);
                 }
             }
         } else {
@@ -115,7 +86,7 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
         }
     };
 
-    const handleOnBlur = (e) => {
+    const handleOnBlur = () => {
         !nameGroup.length > 0 ? setIsShowError(true) : setIsShowError(false);
     };
 
@@ -126,6 +97,7 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
 
     const handleSearch = (e) => {
         const value = e.target.value;
+
         setFriendInput(value);
 
         if (!value && isVisible) {
@@ -133,14 +105,14 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
         } else {
             const realFriends = [];
 
-            friends.forEach((ele) => {
-                const index = ele.name.search(value);
+            friends.forEach((friend) => {
+                const index = friend.name.search(value);
 
                 if (index > -1) {
-                    realFriends.push(ele);
+                    realFriends.push(friend);
                 }
             });
-            setInitialFriend(friends);
+            setInitialFriend(realFriends);
         }
     };
 
@@ -176,32 +148,7 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
 
     const handleChangeCheckBox = (e) => {
         const value = e.target.value;
-        const index = checkListFriend.findIndex((item) => item === value);
-        let checkListFriendTemp = [...checkListFriend];
-        let itemSelectedTemp = [...itemSelected];
-
-        //neu data co trong list
-        if (index !== -1) {
-            itemSelectedTemp = itemSelectedTemp.filter(
-                (item) => item.id !== value
-            );
-
-            checkListFriendTemp = checkListFriendTemp.filter(
-                (item) => item !== value
-            );
-        } else {
-            //neu chua co
-            checkListFriendTemp.push(value);
-
-            const index = initialFriend.findIndex((item) => item.id === value);
-
-            if (index !== -1) {
-                itemSelectedTemp.push(initialFriend[index]);
-            }
-        }
-
-        setCheckListFriend(checkListFriendTemp);
-        setItemSelected(itemSelectedTemp);
+        handleChooseUser(value);
     };
     const handleRemoveItem = (id) => {
         let checkListFriendTemp = [...checkListFriend];

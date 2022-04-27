@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { CloseCircleFilled } from '@ant-design/icons';
 import PersonalIcon from 'features/Chat/components/PersonalIcon';
-import { CloseCircleFilled, UsergroupAddOutlined } from '@ant-design/icons';
-import { Avatar, Tooltip } from 'antd';
+import PropTypes from 'prop-types';
 import './style.scss';
 
 ItemsSelected.propTypes = {
@@ -18,11 +16,10 @@ ItemsSelected.defaultProps = {
 function ItemsSelected({ items, onRemove }) {
     const handleRemoveSelect = (id) => {
         if (onRemove) {
-            // console.log('onremove', id);
             onRemove(id);
         }
     };
-    // console.log('itemsselect', items);
+
     return (
         <>
             {items &&
@@ -37,27 +34,6 @@ function ItemsSelected({ items, onRemove }) {
                                         avatar={item.avatar.url}
                                         name={item.name}
                                     />
-                                )}
-
-                                {item.type &&
-                                    typeof item.avatar.url === 'string' && (
-                                        <PersonalIcon
-                                            demention={20}
-                                            avatar={item.avatar.url}
-                                            name={item.name}
-                                        />
-                                    )}
-
-                                {item.type && typeof item.avatar === 'object' && (
-                                    <Tooltip>
-                                        <Avatar
-                                            style={{
-                                                backgroundColor: '#f56a00',
-                                            }}
-                                            icon={<UsergroupAddOutlined />}
-                                            size={20}
-                                        />
-                                    </Tooltip>
                                 )}
                             </div>
 

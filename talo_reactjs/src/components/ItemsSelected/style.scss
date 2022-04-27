@@ -13,30 +13,25 @@
 }
 
 .item-selected--text {
-    background-color: rgba(88, 174, 255, 0.5);
-    margin-bottom: 1.6rem;
     display: flex;
     flex-direction: row;
+    background-color: rgba(88, 174, 255, 0.5);
+    margin-bottom: 1.6rem;
     height: 28px;
 
-    align-items: center;
-    border-radius: 14px;
     justify-content: flex-start;
+    align-items: center;
     padding: 0 1rem 0.3rem 0.5rem;
+    border-radius: 14px;
     margin: 0.6rem 1rem;
-    // .item-selected-avatar {
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     // padding: 1rem;
-    // }
 
     .item-selected-name {
         font-size: 14px;
+        width: 70%;
         color: $blue-talo;
         word-wrap: break-word;
         overflow: hidden;
-        margin-left: 1rem;
+        margin-left: 0.4rem;
         text-overflow: ellipsis;
         white-space: nowrap;
     }

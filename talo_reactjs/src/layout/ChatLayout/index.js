@@ -82,19 +82,22 @@ const ChatLayout = () => {
         const conversationIds = conversations.map(
             (conversationEle) => conversationEle.id
         );
+        console.log('listid', conversationIds);
         socket.emit('ConversationsJoin', conversationIds);
     }, [conversations]);
 
     useEffect(() => {
-        socket.on('ConversationDuaCreate', (converId) => {
-            console.log('newFriend', converId);
-            socket.emit('ConversationJoin', converId);
-            dispatch(fetchConversationById({ conversationId: converId }));
+        socket.on('ConversationDuaCreate', (conversationId) => {
+            console.log('newFriend....', conversationId);
+
+            dispatch(fetchConversationById({ conversationId }));
         });
     }, []);
 
     useEffect(() => {
         socket.on('ConsersationDualCreateWithFriend', (conversationId) => {
+            console.log('withFriend', conversationId);
+            // socket.emit('ConversationJoin', conversationId);
             dispatch(fetchConversationById({ conversationId }));
         });
     }, []);
@@ -127,6 +130,7 @@ const ChatLayout = () => {
         });
 
         socket.on('ConversationGroupCreate', (conversationId) => {
+            console.log('createGroup', conversationId);
             dispatch(fetchConversationById({ conversationId }));
         });
     }, []);
