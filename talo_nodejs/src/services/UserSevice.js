@@ -2,6 +2,7 @@ const User = require('../models/User');
 const Friend = require('../models/Friend');
 const FriendRequest = require('../models/FriendRequest');
 const Conversation = require('../models/Conversation');
+const redisUtils = require('../utils/redisUtils');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 const NotFoundError = require('../exceptions/NotFoundError');
@@ -186,6 +187,7 @@ class UserService {
             user.isDeleted = isDeleted;
         }
         await user.save();
+        redisUtils.removeProfile(userId);
     }
 
     async resetPassword(myId, userId) {
