@@ -276,7 +276,7 @@ class ConversationService {
             await MemberService.addMember(conversationId, userId, null, []);
         }
         // Create message add members
-        MessageService.addText(leaderId, {
+        await MessageService.addText(leaderId, {
             userId: leaderId,
             manipulatedUserIds: [...userIds],
             content: Notification.ADD_YOU_TO_GROUP,
