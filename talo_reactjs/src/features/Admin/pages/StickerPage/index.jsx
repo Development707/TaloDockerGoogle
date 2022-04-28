@@ -13,7 +13,6 @@ import {
     Drawer,
     Form,
     Input,
-    Menu,
     message,
     Popconfirm,
     Row,
@@ -23,7 +22,7 @@ import {
     Upload,
 } from 'antd';
 import stickerApi from 'api/stickerApi';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const { Search } = Input;
 const { Link } = Typography;
@@ -36,11 +35,31 @@ const StickerPage = () => {
     const [visibleAddEmoji, setVisibleAddemoji] = useState(false);
 
     const [temp, setTemp] = useState('');
-    const [tempName, setName] = useState('');
-    const [tempDescription, setDescription] = useState('');
+    const [tempName, setTempName] = useState('');
+    const [tempDescription, setTempDescription] = useState('');
     const [file, setFile] = useState([]);
     const navigate = useNavigate();
+    const [form] = Form.useForm();
+    const prevVisibleCreate = useRef();
+    const prevVisibleUpdate = useRef();
 
+    useEffect(() => {
+        prevVisibleCreate.current = visibleCreate;
+        prevVisibleUpdate.current = visibleUpdate;
+    }, [visibleCreate, visibleUpdate]);
+
+    useEffect(() => {
+        if (!visibleCreate && prevVisibleCreate) {
+            form.resetFields();
+        }
+        if (!visibleUpdate && prevVisibleUpdate) {
+            form.resetFields();
+        }
+
+        //eslint-disable-next-line
+    }, [visibleCreate, visibleUpdate]);
+
+    console.log('file', file);
     const onSearch = (value) => {
         const filterTable = dataSource.filter((name) =>
             Object.keys(name).some((k) =>
@@ -83,27 +102,28 @@ const StickerPage = () => {
 
         try {
             await stickerApi.createSticker(name, description);
-            setDataSource([...dataSource, values]);
-            message.success('Đã tạo sticker thành công', 5);
+            setDataSource(await handleGetAllSticker());
+            onCloseCreate();
+            message.success('Đã tạo sticker thành công');
         } catch (error) {
-            message.error('Tạo sticker thất bại', 5);
+            message.error('Tạo sticker thất bại');
         }
     };
     const handleDeleteSticker = async (id) => {
         try {
             await stickerApi.deleteSticker(id);
-            message.success('Đã xoá group sticker', 5);
+            message.success('Đã xoá group sticker');
             setDataSource(await handleGetAllSticker());
         } catch (error) {
-            message.error('Xóa thất bại vì sticker có chứa emoji', 5);
+            message.error('Xóa thất bại vì sticker có chứa emoji');
         }
     };
     const onCancel = () => {};
     const showDrawerUpdate = (id, name, description) => {
-        setVisibleUpdate(true);
         setTemp(id);
-        setName(name);
-        setDescription(description);
+        setTempName(name);
+        setTempDescription(description);
+        setVisibleUpdate(true);
     };
 
     const handleUpdateSticker = async (values) => {
@@ -117,11 +137,12 @@ const StickerPage = () => {
             message.error('Chỉnh sửa sticker đã xảy ra lỗi', 5);
         }
     };
+
     const onCloseUpdate = () => {
         setVisibleUpdate(false);
         setTemp('');
-        setName('');
-        setDescription('');
+        setTempName('');
+        setTempDescription('');
     };
 
     const showDrawerCreateEmoji = (id) => {
@@ -140,6 +161,8 @@ const StickerPage = () => {
                 await stickerApi.addEmoji(temp, frmData);
             }
             message.success('Thêm emoji vào sticker hoàn tất', 5);
+
+            handleCloseAddEmoji();
         } catch (error) {
             message.error('Thêm emoji vào sticker đã xảy ra lỗi', 5);
         }
@@ -152,6 +175,10 @@ const StickerPage = () => {
         try {
             navigate(`/admin/stickers/${id}`, { state: emojis });
         } catch (error) {}
+    };
+    const handleCloseAddEmoji = () => {
+        setVisibleAddemoji(false);
+        setFile([]);
     };
 
     const columns = [
@@ -230,8 +257,9 @@ const StickerPage = () => {
                     placement="right"
                     onClick={showDrawerCreateSticker}
                     icon={<PlusOutlined />}
+                    style={{ marginBottom: '1rem' }}
                 >
-                    Add Sticker
+                    Tạo Sticker
                 </Button>
             </Col>
             <Drawer
@@ -245,6 +273,7 @@ const StickerPage = () => {
                     layout="vertical"
                     onFinish={handleCreateSticker}
                     hideRequiredMark
+                    form={form}
                 >
                     <Row gutter={16}>
                         <Col span={12}>
@@ -296,12 +325,13 @@ const StickerPage = () => {
             >
                 <Form
                     layout="vertical"
+                    hideRequiredMark
+                    onFinish={handleUpdateSticker}
                     initialValues={{
                         name: tempName,
                         description: tempDescription,
                     }}
-                    hideRequiredMark
-                    onFinish={handleUpdateSticker}
+                    form={form}
                 >
                     <Row gutter={16}>
                         <Col span={12}>
@@ -346,13 +376,15 @@ const StickerPage = () => {
                 visible={visibleAddEmoji}
                 title="Thêm emoji vào sticker"
                 width={720}
-                onClose={() => setVisibleAddemoji(false)}
+                onClose={handleCloseAddEmoji}
                 bodyStyle={{ paddingBottom: 80 }}
+                destroyOnClose={true}
             >
                 <Upload
                     listType="picture"
                     defaultFileList={[...file]}
                     onChange={handleFileChange}
+                    beforeUpload={() => false}
                 >
                     <Button icon={<UploadOutlined />}>Tải lên</Button>
                 </Upload>

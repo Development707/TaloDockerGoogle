@@ -48,7 +48,7 @@ const UserPage = () => {
 
             <div style={{ textAlign: 'center' }}>
                 <Search
-                    placeholder="SĐT/Email người dùng"
+                    placeholder="Email/SĐT người dùng"
                     onSearch={onSearch}
                     enterButton
                     style={{ width: '40%' }}
