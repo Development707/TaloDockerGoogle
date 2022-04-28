@@ -278,7 +278,7 @@ class ConversationService {
         // Create message add members
         await MessageService.addText(leaderId, {
             userId: leaderId,
-            manipulatedUserIds: [...userIds],
+            handledUserIds: [...userIds],
             content: Notification.ADD_YOU_TO_GROUP,
             type: 'NOTIFY',
             conversationId,
@@ -491,7 +491,7 @@ class ConversationService {
         // Add memssage
         const message = await MessageService.addText(userId, {
             userId,
-            manipulatedUserIds: memberIds,
+            handledUserIds: memberIds,
             content: Notification.ADD_YOU_TO_GROUP,
             type: 'NOTIFY',
             conversationId,
@@ -554,7 +554,7 @@ class ConversationService {
         // Add message
         const message = await MessageService.addText(userId, {
             userId,
-            manipulatedUserIds: [memberId],
+            handledUserIds: [memberId],
             content: Notification.REMOVE_MEMBER_FROM_GROUP,
             type: 'NOTIFY',
             conversationId,
@@ -588,7 +588,7 @@ class ConversationService {
         // Add message
         const message = await MessageService.addText(userId, {
             userId,
-            manipulatedUserIds: managerIds,
+            handledUserIds: managerIds,
             content: Notification.ADD_MANAGER_TO_GROUP,
             type: 'NOTIFY',
             conversationId,
@@ -617,7 +617,7 @@ class ConversationService {
         // Add message
         const message = await MessageService.addText(userId, {
             userId,
-            manipulatedUserIds: managerIds,
+            handledUserIds: managerIds,
             content: Notification.REMOVE_MANAGER_TO_GROUP,
             type: 'NOTIFY',
             conversationId,

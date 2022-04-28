@@ -74,14 +74,14 @@ Talo phone: +17755264592 (SMS, MMS, and voice capable)
     -   result: [{id: String, name: String, avatar: avatar: {url: String, name: String}, numberMutualGroup, numberMutualFriend}]
 -   `[POST] /requests`: Đồng ý kết bạn bạn bè.
     -   body: {userId: String}
-    -   result: {conversationId: String, isExists: boolean, message: {id: String, manipulatedUserIds, content: String, tags: [], type: String, deletedUserIds: [], reacts: [], options: [], createdAt: Date, user:{id: String, members: {id: String, name, avatar}}}}
+    -   result: {conversationId: String, isExists: boolean, message: {id: String, handledUserIds, content: String, tags: [], type: String, deletedUserIds: [], reacts: [], options: [], createdAt: Date, user:{id: String, members: {id: String, name, avatar}}}}
 -   `[DELETE] /requests/:userId`: Xóa yêu cầu kết bạn.
     -   body: {userId: String}
 -   `[GET] /requests/me`: Danh sách yêu cầu kết bạn của bạn.
     -   result: [{id: String, name: String, avatar: avatar: {url: String, name: String}, numberMutualGroup, numberMutualFriend}]
 -   `[POST] /requests/me`: Gửi yêu cầu kết bạn từ bạn.
     -   body: {userId: String}
-    -   result: {conversationId: String, isExists: boolean, message: {id: String, manipulatedUserIds, content: String, tags: [], type: String, deletedUserIds: [], reacts: [], options: [], createdAt: Date, user:{id: String, members: {id: String, name, avatar}}}}
+    -   result: {conversationId: String, isExists: boolean, message: {id: String, handledUserIds, content: String, tags: [], type: String, deletedUserIds: [], reacts: [], options: [], createdAt: Date, user:{id: String, members: {id: String, name, avatar}}}}
 -   `[DELETE] /requests/me/:userId`: Xóa yêu cầu kết bạn của bạn.
     -   body: {userId: String}
 -   `[GET] /suggest`: Gợi ý kết bạn
@@ -105,9 +105,9 @@ Talo phone: +17755264592 (SMS, MMS, and voice capable)
 ### Conversation `/conversations`
 
 -   `[GET]`: Danh sách cuộc hội thoại.
-    -   result: [{ id: String, name: String, avatar: {url: String, name: String}, type: String, members: [{ id: String, name: String, avatar: {url: String, name: String} }], totalMembers: int, numberUnread: int, isNotify: boolean, isJoinFromLink: boolean, lastMessage: { manipulatedUserIds, content, tags, type, deletedUserIds...} }]
+    -   result: [{ id: String, name: String, avatar: {url: String, name: String}, type: String, members: [{ id: String, name: String, avatar: {url: String, name: String} }], totalMembers: int, numberUnread: int, isNotify: boolean, isJoinFromLink: boolean, lastMessage: { handledUserIds, content, tags, type, deletedUserIds...} }]
 -   `[GET] /:id`: Chi tiết cuộc hội thoại.
-    -   result: { id: String, name: String, avatar: {url: String, name: String}, type: String, members: [{ id: String, name: String, avatar: {url: String, name: String} }], totalMembers: int, numberUnread: int, isNotify: boolean, isJoinFromLink: boolean, lastMessage: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
+    -   result: { id: String, name: String, avatar: {url: String, name: String}, type: String, members: [{ id: String, name: String, avatar: {url: String, name: String} }], totalMembers: int, numberUnread: int, isNotify: boolean, isJoinFromLink: boolean, lastMessage: { handledUserIds, content, tags, type, deletedUserIds...} }
 -   `[POST]`: Thêm cuộc hội thoại nhóm.
     -   body: { userIds: [ String,... ]}
     -   result: {id: String}
@@ -128,17 +128,17 @@ Talo phone: +17755264592 (SMS, MMS, and voice capable)
     -   result: [{ id: String, name: String, avatar: avatar: {url: String, name: String}}]
 -   `[POST] /:id/members`: Thêm danh sách user vào cuộc hội thoại.
     -   body: [ String,...]
-    -   result: { id: String manipulatedUserIds: { id: String, name: String, avatar: {url: String, name: String}}, content: String, tags: [], type: String, deletedUserIds: [], reacts: [], options[], createdAt: Date, user: {id: String, name: String, avatar: {url: String}} }
+    -   result: { id: String handledUserIds: { id: String, name: String, avatar: {url: String, name: String}}, content: String, tags: [], type: String, deletedUserIds: [], reacts: [], options[], createdAt: Date, user: {id: String, name: String, avatar: {url: String}} }
 -   `[DELETE] /:id/members`: Rời khỏi cuộc hội thoại nhóm.
-    -   result: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
+    -   result: { handledUserIds, content, tags, type, deletedUserIds...} }
 -   `[DELETE] /:id/members/:userId`: Xóa user khỏi cuộc hội thoại nhóm.
-    -   result: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
+    -   result: { handledUserIds, content, tags, type, deletedUserIds...} }
 -   `[POST] /:id/managers`: Thêm các quản lý cho nhóm trò truyện.
     -   body: [ String,...]
-    -   result: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
+    -   result: { handledUserIds, content, tags, type, deletedUserIds...} }
 -   `[PATCH] /:id/managers`: Xóa các quản lý cho nhóm trò truyện.
     -   body: [ String,...]
-    -   result: { manipulatedUserIds, content, tags, type, deletedUserIds...} }
+    -   result: { handledUserIds, content, tags, type, deletedUserIds...} }
 -   `[GET] /:id/short-info`: Thông tin nhóm trò truyện.
     -   result: { id: String, name: String, avatar: {url: String, name: String}, members: [{ id: String, name: String, avatar: {url: String}}]}
 -   `[GET] /:id/view-last`: Danh sách các thành viên đã xem tin nhắn.
@@ -169,10 +169,10 @@ Talo phone: +17755264592 (SMS, MMS, and voice capable)
 
 -   `[GET] /:conversationId`: Danh sách tin nhắn theo id hội thoại
     -   query: { page: int, size: int }
-    -   result: { data: [ { _id, manipulatedUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user}, page: int, size: int, totalPages: int]}
+    -   result: { data: [ { _id, handledUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user}, page: int, size: int, totalPages: int]}
 -   `[GET] /channel/:channelId`: Danh sách tin nhắn theo id channel
     -   query: { page: int, size: int }
-    -   result: { data: [ { _id, manipulatedUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user}, page: int, size: int, totalPages: int]}
+    -   result: { data: [ { _id, handledUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user}, page: int, size: int, totalPages: int]}
 -   `[GET] /:conversationId/files`: Danh sách file theo id hội thoại
     -   query: {userIdSend: String, type: String, startTime: String(yyyy-mm-dd) , endTime: String(yyyy-mm-dd)}
 -   `[POST] /:conversationId/text`: Gửi tin nhắn chữ (TEXT, HTML, NOTIFY, STICKER)

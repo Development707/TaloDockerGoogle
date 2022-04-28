@@ -20,7 +20,7 @@ class MessageService {
         });
     }
 
-    // ipnut message = { content, type, conversationId, userId, manipulatedUserIds,... }
+    // ipnut message = { content, type, conversationId, userId, handledUserIds,... }
     // Return message
     async addText(userId, message, autoUpdate = true) {
         await MessageValidate.validateTextMessage(userId, message);
@@ -87,7 +87,7 @@ class MessageService {
 
         switch (type) {
             case 'GROUP':
-                // _id, manipulatedUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user
+                // _id, handledUserIds, content, tags, type, deletedUserIds, reacts, options, createdAt, user
                 // UserId
                 message.userId = await redisUtils.getShortUserInfo(
                     message.userId,
@@ -103,8 +103,8 @@ class MessageService {
                         );
                 }
                 // Get Manipulated  - option redis
-                message.manipulatedUserIds = await Promise.all(
-                    message.manipulatedUserIds.map(async (userId) => {
+                message.handledUserIds = await Promise.all(
+                    message.handledUserIds.map(async (userId) => {
                         try {
                             return await redisUtils.getShortUserInfo(userId);
                         } catch (error) {

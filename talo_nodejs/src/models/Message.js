@@ -6,7 +6,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const messageSchema = new mongoose.Schema(
     {
         userId: { type: ObjectId, ref: 'User' },
-        manipulatedUserIds: {
+        handledUserIds: {
             type: [{ type: ObjectId, ref: 'User' }],
             default: [],
         },
