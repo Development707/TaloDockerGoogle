@@ -49,11 +49,11 @@ function ModalChangeNameChannel({
     const formItemLayout = {
         labelCol: {
             xs: { span: 24 },
-            sm: { span: 4 },
+            sm: { span: 5 },
         },
         wrapperCol: {
             xs: { span: 24 },
-            sm: { span: 20 },
+            sm: { span: 19 },
         },
     };
 
@@ -83,14 +83,27 @@ function ModalChangeNameChannel({
                     rules={[
                         {
                             required: true,
-                            message: 'Vui lòng nhập tên kênh!',
+                            message: 'Vui lòng nhập tên kênh',
+                        },
+                        {
+                            min: 6,
+                            message: 'Tên channel phải có ít nhất 6 ký tự',
                         },
                     ]}
                 >
                     <Input placeholder="Nhập tên kênh mới" allowClear />
                 </Form.Item>
 
-                <Form.Item name="descripChannel" label="Mô tả">
+                <Form.Item
+                    name="descripChannel"
+                    label="Mô tả"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Vui lòng nhập mô tả',
+                        },
+                    ]}
+                >
                     <Input placeholder="Nhập mô tả mới" allowClear />
                 </Form.Item>
             </Form>
