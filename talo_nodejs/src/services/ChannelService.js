@@ -36,11 +36,13 @@ class ChannelService {
         });
 
         const { lastViewOfChannels } = member;
-        const index = lastViewOfChannels.indexOf(channelId + '');
+        const index = lastViewOfChannels.findIndex(
+            (lastViewOfChannel) =>
+                lastViewOfChannel.channelId + '' == channelId + '',
+        );
 
         if (index !== -1) {
             const { lastView } = lastViewOfChannels[index];
-
             return await Message.countDocuments({
                 createdAt: { $gt: lastView },
                 channelId,
