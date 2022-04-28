@@ -204,21 +204,25 @@ class FriendService {
         // list info user
         const result = await Promise.all(
             conversations.map(async (conversation) => {
-                return await UserSevice.getStatusFriendById(
-                    id,
-                    conversation._id,
-                );
+                try {
+                    return await UserSevice.getStatusFriendById(
+                        id,
+                        conversation._id,
+                    );
+                } catch (error) {}
             }),
         );
         //  Sort list user
-        const sortResult = result.sort((first, next) => {
-            if (
-                first.numberMutualGroup + first.numberMutualFriend >=
-                next.numberMutualGroup + next.numberMutualFriend
-            )
-                return -1;
-            return 1;
-        });
+        const sortResult = result
+            .filter((user) => user)
+            .sort((first, next) => {
+                if (
+                    first.numberMutualGroup + first.numberMutualFriend >=
+                    next.numberMutualGroup + next.numberMutualFriend
+                )
+                    return -1;
+                return 1;
+            });
         // Pagination list user
         const start = page * size;
         const end = start + size;

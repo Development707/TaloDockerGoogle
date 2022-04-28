@@ -289,7 +289,7 @@ class ConversationService {
 
     async ortheFriends(id, friendIds) {
         return await Conversation.aggregate([
-            { $match: { type: true, members: { $in: [ObjectId(id)] } } },
+            { $match: { type: 'GROUP', members: { $in: [ObjectId(id)] } } },
             {
                 $project: {
                     _id: 0,
