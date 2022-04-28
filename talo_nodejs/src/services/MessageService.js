@@ -295,7 +295,11 @@ class MessageService {
             }),
         );
         // Update last view
-        await MemberService.updateLastView(conversationId, userId);
+        await MemberService.updateLastViewByChannelId(
+            conversationId,
+            userId,
+            channelId,
+        );
 
         return {
             data: messages,
