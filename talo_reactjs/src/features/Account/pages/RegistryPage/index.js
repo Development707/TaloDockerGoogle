@@ -278,8 +278,12 @@ function RegistryPage(props) {
                     </div>
                     <Divider>Hoặc</Divider>
                     <div className="addtional-link">
-                        <Link to="/">Đăng nhập</Link>
-                        <Link to="/forgot">Quên mật khẩu?</Link>
+                        <Text>
+                            <Link to="/">Đăng nhập</Link>
+                        </Text>
+                        <Text>
+                            <Link to="/forgot">Quên mật khẩu?</Link>
+                        </Text>
                     </div>
                 </div>
             </div>

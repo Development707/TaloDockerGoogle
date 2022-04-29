@@ -273,7 +273,9 @@ function ForgotPage(props) {
                     </div>
                     <Divider>Hoặc</Divider>
                     <div className="addtional-link">
-                        <Link to="/">Đăng nhập</Link>
+                        <Text>
+                            <Link to="/">Đăng nhập</Link>
+                        </Text>
                         <Text>
                             Bạn chưa có tài khoản?
                             <Link to="/registry">
