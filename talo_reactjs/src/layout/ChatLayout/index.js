@@ -82,21 +82,20 @@ const ChatLayout = () => {
         const conversationIds = conversations.map(
             (conversationEle) => conversationEle.id
         );
-        console.log('conversationIds', conversationIds);
         socket.emit('ConversationsJoin', conversationIds);
     }, [conversations]);
 
     useEffect(() => {
-        socket.on('ConversationDuaCreate', (converId) => {
-            socket.emit('ConversationJoin', converId);
-            console.log('converId', converId);
-            dispatch(fetchConversationById({ conversationId: converId }));
+        socket.on('ConversationDuaCreate', (conversationId) => {
+            console.log('newFriend....', conversationId);
+            socket.emit('ConversationJoin', conversationId);
+            dispatch(fetchConversationById({ conversationId }));
         });
     }, []);
 
     useEffect(() => {
-        socket.on('ConversationDuaCreate', (conversationId) => {
-            console.log('nguoi gui kb', conversationId);
+        socket.on('ConsersationDualCreateWithFriend', (conversationId) => {
+            console.log('withFriend', conversationId);
             dispatch(fetchConversationById({ conversationId }));
         });
     }, []);

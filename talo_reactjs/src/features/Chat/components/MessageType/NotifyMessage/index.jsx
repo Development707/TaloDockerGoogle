@@ -22,7 +22,7 @@ NotifyMessage.propTypes = {
 
 function NotifyMessage({ message }) {
     const global = useSelector((state) => state.global);
-    const { content, manipulatedUserIds, user } = message;
+    const { content, handledUserIds, user } = message;
     const { name, avatar } = user;
     const isMyActive = user.id === global.user.id ? 'Bạn' : user.name;
 
@@ -86,9 +86,9 @@ function NotifyMessage({ message }) {
     };
     const renderGroupAvatars = (
         <>
-            {manipulatedUserIds &&
-                manipulatedUserIds.length > 0 &&
-                manipulatedUserIds.map((ele, index) => {
+            {handledUserIds &&
+                handledUserIds.length > 0 &&
+                handledUserIds.map((ele, index) => {
                     if (index < 3) {
                         return (
                             <div
@@ -114,7 +114,7 @@ function NotifyMessage({ message }) {
                                     }}
                                     size="small"
                                 >
-                                    {`+${manipulatedUserIds.length - 3}`}
+                                    {`+${handledUserIds.length - 3}`}
                                 </Avatar>
                             </Tooltip>
                         );
@@ -124,9 +124,9 @@ function NotifyMessage({ message }) {
     );
     const renderUser = (
         <>
-            {manipulatedUserIds &&
-                manipulatedUserIds.length > 0 &&
-                manipulatedUserIds.map((ele, index) => {
+            {handledUserIds &&
+                handledUserIds.length > 0 &&
+                handledUserIds.map((ele, index) => {
                     if (index < 3) {
                         if (index === 0) {
                             return (
@@ -154,7 +154,7 @@ function NotifyMessage({ message }) {
                             <span className="user-name-strong">
                                 {` và`}{' '}
                                 <span>{`${
-                                    manipulatedUserIds.length - 3
+                                    handledUserIds.length - 3
                                 } người khác`}</span>
                             </span>
                         );

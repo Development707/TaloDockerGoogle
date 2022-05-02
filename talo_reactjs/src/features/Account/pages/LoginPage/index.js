@@ -1,28 +1,28 @@
-import React, { useCallback, useState } from 'react';
-import { Button, Col, Divider, message, Row, Tag, Typography } from 'antd';
-import { FastField, Form, Formik } from 'formik';
-import UserNameField from 'customfield/UserNameField';
-import PasswordField from 'customfield/PasswordField';
-import { Link, useNavigate } from 'react-router-dom';
-import { loginValues } from 'features/Account/initValues';
-import { useDispatch } from 'react-redux';
-import loginApi from 'api/loginAPI';
-import { fetchUserProfile, setLogin } from 'app/globalSlice';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { setLoadingAccount } from 'features/Account/accountSlice';
 import {
     CloseCircleOutlined,
     FacebookOutlined,
     GoogleOutlined,
     PhoneOutlined,
 } from '@ant-design/icons';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { Button, Col, Divider, notification, Row, Tag, Typography } from 'antd';
+import firebaseApi from 'api/firebaseApi';
+import loginApi from 'api/loginAPI';
+import { fetchUserProfile, setLogin } from 'app/globalSlice';
+import PasswordField from 'customfield/PasswordField';
+import UserNameField from 'customfield/UserNameField';
+import { setLoadingAccount } from 'features/Account/accountSlice';
+import { loginValues } from 'features/Account/initValues';
 import {
     FacebookAuthProvider,
     GoogleAuthProvider,
     signInWithPopup,
 } from 'firebase/auth';
+import { FastField, Form, Formik } from 'formik';
+import { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from 'utils/FirebaseApp';
-import firebaseApi from 'api/firebaseApi';
 
 const { Text, Title } = Typography;
 
@@ -34,10 +34,30 @@ function LoginPage(props) {
 
     const navigate = useNavigate();
 
+    const openNotification = (mes) => {
+        const args = {
+            message: mes
+                ? mes
+                : 'Xác thực OTP để hoàn tất việc kích hoạt tài khoản',
+        };
+        notification.info(args);
+    };
+
     const handleSubmit = async (values) => {
         const { username, password } = values;
         try {
             dispatch(setLoadingAccount(true));
+            const infoUser = await loginApi
+                .fetchUser(username)
+                .then((value) => {
+                    return value;
+                })
+                .catch();
+            if (infoUser.isActived === false) {
+                openNotification();
+                navigate('/forgot');
+            }
+
             const { token, refreshToken } = await loginApi.login(
                 username,
                 password
@@ -45,15 +65,15 @@ function LoginPage(props) {
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
             dispatch(setLogin(true));
-            const { role } = unwrapResult(dispatch(fetchUserProfile()));
+            const { role } = unwrapResult(await dispatch(fetchUserProfile()));
             if (role === 'USER') navigate('/chat', { replace: true });
             else navigate('/admin', { replace: true });
         } catch (error) {
             setError(true);
-            // console.log(error);
         }
         dispatch(setLoadingAccount(false));
     };
+
     const handleLogin = async (username, accessToken) => {
         try {
             dispatch(setLoadingAccount(true));
@@ -229,7 +249,9 @@ function LoginPage(props) {
                     </div>
 
                     <div className="addtional-link">
-                        <Link to="/forgot">Quên mật khẩu?</Link>
+                        <Text>
+                            <Link to="/forgot">Quên mật khẩu?</Link>
+                        </Text>
                         <Text>
                             Bạn chưa có tài khoản?
                             <Link to="/registry">

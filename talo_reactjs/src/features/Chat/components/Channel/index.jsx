@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { CaretDownOutlined, NumberOutlined } from '@ant-design/icons';
-import ChannelItem from '../ChannelItem';
-import { Input, message, Modal } from 'antd';
+import { Form, Input, message, Modal } from 'antd';
 import {
     fetchListMessages,
     getLastViewOfMembers,
     setCurrentChannel,
 } from 'features/Chat/slice/chatSlice';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ChannelItem from '../ChannelItem';
 import './style.scss';
 
 import channelApi from 'api/channelApi';
@@ -42,8 +42,7 @@ function Channel({ onViewChannel, channels, onOpenInfoBlock }) {
 
     const [isDrop, setIsDrop] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
-    const [valueInputName, setValueInputName] = useState('');
-    const [valueInputDescrip, setValueInputDescrip] = useState('');
+    const [form] = Form.useForm();
     const dispatch = useDispatch();
 
     const numberUnread = conversations.find(
@@ -75,38 +74,37 @@ function Channel({ onViewChannel, channels, onOpenInfoBlock }) {
         }
     };
 
-    const handleOkModal = async () => {
-        try {
-            await channelApi.addChannel(
-                currentConversation,
-                valueInputName,
-                valueInputDescrip
-            );
-            message.success('Tạo channel thành công');
-            setValueInputName('');
-            setValueInputDescrip('');
-            setIsVisible(false);
-        } catch (error) {
-            message.error('Có lỗi xảy ra khi tạo channel');
-        }
+    const handleOkModal = () => {
+        form.validateFields()
+            .then((values) => {
+                const { nameChannel, description } = values;
+                channelApi.addChannel(
+                    currentConversation,
+                    nameChannel,
+                    description
+                );
+                message.success('Tạo channel thành công');
+                form.resetFields();
+                setIsVisible(false);
+            })
+            .catch((info) => {
+                console.log('Validate Failed:', info);
+            });
     };
 
     const handleCancelModal = () => {
         setIsVisible(false);
-        setValueInputName('');
-        setValueInputDescrip('');
     };
 
-    const handleInputChangeName = (e) => {
-        setValueInputName(e.target.value);
-    };
-    const handleInputChangeDescrip = (e) => {
-        setValueInputDescrip(e.target.value);
-    };
-
-    const modalStyle = {
-        width: '80%',
-        margin: '1rem 4rem',
+    const formItemLayout = {
+        labelCol: {
+            xs: { span: 24 },
+            sm: { span: 5 },
+        },
+        wrapperCol: {
+            xs: { span: 24 },
+            sm: { span: 19 },
+        },
     };
 
     return (
@@ -178,25 +176,41 @@ function Channel({ onViewChannel, channels, onOpenInfoBlock }) {
                 onCancel={handleCancelModal}
                 okText="Tạo"
                 cancelText="Hủy"
-                okButtonProps={{ disabled: valueInputName.trim().length === 0 }}
+                centered
             >
-                <Input
-                    placeholder="Nhập tên channel"
-                    allowClear
-                    value={valueInputName}
-                    onChange={handleInputChangeName}
-                    onEnter={handleOkModal}
-                    style={modalStyle}
-                />
+                <Form form={form} {...formItemLayout} scrollToFirstError>
+                    <Form.Item
+                        name="nameChannel"
+                        label="Tên channel"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Tên channel không được để trống',
+                            },
+                            {
+                                min: 6,
+                                message: 'Tên channel phải có ít nhất 6 ký tự',
+                            },
+                        ]}
+                        hasFeedback
+                    >
+                        <Input placeholder="Nhập tên kênh" allowClear />
+                    </Form.Item>
 
-                <Input
-                    placeholder="Nhập mô tả"
-                    allowClear
-                    value={valueInputDescrip}
-                    onChange={handleInputChangeDescrip}
-                    onEnter={handleOkModal}
-                    style={modalStyle}
-                />
+                    <Form.Item
+                        name="description"
+                        label="Mô tả"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Vui lòng nhập mô tả',
+                            },
+                        ]}
+                        hasFeedback
+                    >
+                        <Input placeholder="Nhập mô tả" allowClear />
+                    </Form.Item>
+                </Form>
             </Modal>
         </div>
     );

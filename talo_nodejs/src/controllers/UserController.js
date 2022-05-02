@@ -37,7 +37,7 @@ class UserController {
             const users = await UserService.findAll(
                 q,
                 parseInt(page),
-                parseInt(size)
+                parseInt(size),
             );
 
             res.json(users);

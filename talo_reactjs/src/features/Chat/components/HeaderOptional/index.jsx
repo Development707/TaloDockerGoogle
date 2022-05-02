@@ -69,6 +69,7 @@ function HeaderOptional(props) {
     const [confirmLoading, setConfirmLoading] = useState(false);
 
     const { width } = useWindowSize();
+
     const handleCutText = (text) => {
         if (width < 577) {
             return text.slice(0, 14) + '...';

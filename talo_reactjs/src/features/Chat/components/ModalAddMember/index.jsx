@@ -42,6 +42,17 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
     useEffect(() => {
         if (isVisible) {
             setInitialFriend(friends);
+            if (typeModal === 'DUAL') {
+                const checkMember = initialFriend.map((friend) =>
+                    initialValue.find((member) => member === friend.id)
+                );
+
+                const idUser = checkMember.find((item) => item !== undefined);
+
+                if (idUser) {
+                    handleChooseUser(idUser);
+                }
+            }
         } else {
             setFriendInput('');
             setCheckListFriend([]);
@@ -75,7 +86,7 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
         }
     };
 
-    const handleOnBlur = (e) => {
+    const handleOnBlur = () => {
         !nameGroup.length > 0 ? setIsShowError(true) : setIsShowError(false);
     };
 
@@ -86,6 +97,7 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
 
     const handleSearch = (e) => {
         const value = e.target.value;
+
         setFriendInput(value);
 
         if (!value && isVisible) {
@@ -93,26 +105,24 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
         } else {
             const realFriends = [];
 
-            friends.forEach((ele) => {
-                const index = ele.name.search(value);
+            friends.forEach((friend) => {
+                const index = friend.name.search(value);
 
                 if (index > -1) {
-                    realFriends.push(ele);
+                    realFriends.push(friend);
                 }
             });
-            setInitialFriend(friends);
+            setInitialFriend(realFriends);
         }
     };
-    const handleChangeCheckBox = (e) => {
-        const value = e.target.value;
 
-        // console.log('value', value);
-        // check checklist co data chua
+    const handleChooseUser = (value) => {
+        // check list da ton tai data chua
         const index = checkListFriend.findIndex((item) => item === value);
         let checkListFriendTemp = [...checkListFriend];
         let itemSelectedTemp = [...itemSelected];
 
-        //neu co trong checklist
+        //neu data co trong list
         if (index !== -1) {
             itemSelectedTemp = itemSelectedTemp.filter(
                 (item) => item.id !== value
@@ -135,14 +145,17 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
         setCheckListFriend(checkListFriendTemp);
         setItemSelected(itemSelectedTemp);
     };
+
+    const handleChangeCheckBox = (e) => {
+        const value = e.target.value;
+        handleChooseUser(value);
+    };
     const handleRemoveItem = (id) => {
         let checkListFriendTemp = [...checkListFriend];
         let itemSelectedTemp = [...itemSelected];
 
         checkListFriendTemp = checkListFriendTemp.filter((item) => item !== id);
         itemSelectedTemp = itemSelectedTemp.filter((item) => item.id !== id);
-        // console.log('checkListFriendTemp', checkListFriendTemp);
-        // console.log('itemSelectedTemp', itemSelectedTemp);
 
         setCheckListFriend(checkListFriendTemp);
         setItemSelected(itemSelectedTemp);
@@ -224,9 +237,10 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
                                     {initialFriend.map((ele, index) => (
                                         <Col span={24} key={index}>
                                             <Checkbox
-                                                disabled={checkInitialValue(
-                                                    ele.id
-                                                )}
+                                                disabled={
+                                                    typeModal === 'GROUP' &&
+                                                    checkInitialValue(ele.id)
+                                                }
                                                 value={ele.id}
                                                 onChange={handleChangeCheckBox}
                                             >

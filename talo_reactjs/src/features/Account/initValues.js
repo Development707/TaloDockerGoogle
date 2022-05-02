@@ -8,10 +8,10 @@ export const loginValues = {
         username: Yup.string()
             .required('Tài khoản không được bỏ trống.')
             .matches(
-                /((09|03|07|08|05)+([0-9]{8})\b)|^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
-                'Số điện thoại hoặc email không hợp lệ'
+                /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
+                'Email không hợp lệ'
             ),
-        password: Yup.string().required('Mật khẩu không được bỏ trống.'),
+        password: Yup.string().required('Mật khẩu không được bỏ trống'),
     }),
 };
 
@@ -33,15 +33,15 @@ export const registryValues = {
         username: Yup.string()
             .required('Tài khoản không được bỏ trống')
             .matches(
-                /((09|03|07|08|05)+([0-9]{8})\b)|^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
-                'Số điện thoại hoặc email không hợp lệ'
+                /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
+                'Email không hợp lệ'
             ),
         password: Yup.string()
             .required('Mật khẩu không được bỏ trống.')
             .min(8, 'Mật khẩu phải từ 8-50 ký tự')
             .max(50, 'Mật khẩu phải từ 8-50 ký tự'),
         passwordconfirm: Yup.string()
-            .required('không được bỏ trống.')
+            .required('không được bỏ trống')
             .oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp'),
     }),
     validationSchemaWithOTP: Yup.object().shape({
@@ -54,8 +54,8 @@ export const registryValues = {
         username: Yup.string()
             .required('Tài khoản không được bỏ trống.')
             .matches(
-                /((09|03|07|08|05)+([0-9]{8})\b)|^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
-                'Số điện thoại hoặc email không hợp lệ'
+                /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
+                'Email không hợp lệ'
             ),
         password: Yup.string()
             .required('Mật khẩu không được bỏ trống')
@@ -66,7 +66,7 @@ export const registryValues = {
             .oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp'),
         otpValue: Yup.string()
             .trim()
-            .required('OTP không được bỏ trống.')
+            .required('OTP không được bỏ trống')
             .matches(/^\d{6}$/, 'OTP phải đủ 6 chữ số'),
     }),
 };
@@ -82,8 +82,8 @@ export const forgotValues = {
         username: Yup.string()
             .required('Tài khoản không được bỏ trống')
             .matches(
-                /((09|03|07|08|05)+([0-9]{8})\b)|^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
-                'Số điện thoại hoặc email không hợp lệ'
+                /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
+                'Email không hợp lệ'
             ),
         password: Yup.string()
             .required('Mật khẩu không được bỏ trống')
@@ -92,13 +92,17 @@ export const forgotValues = {
         passwordconfirm: Yup.string()
             .required('không được bỏ trống.')
             .oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp'),
+        otpValue: Yup.string()
+            .trim()
+            .required('OTP không được bỏ trống.')
+            .matches(/^\d{6}$/, 'OTP phải đủ 6 chữ số'),
     }),
 
     validationSchemaUser: Yup.object().shape({
         username: Yup.string()
             .required('Tài khoản không được bỏ trống')
             .matches(
-                /((09|03|07|08|05)+([0-9]{8})\b)|^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
+                /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
                 'Email không hợp lệ'
             ),
     }),
@@ -124,7 +128,7 @@ export const loginPhoneNumber = {
             .max(10, 'Số điện thoại gồm 10 số'),
         otpValue: Yup.string()
             .trim()
-            .required('OTP không được bỏ trống.')
+            .required('OTP không được bỏ trống')
             .matches(/^\d{6}$/, 'OTP phải đủ 6 chữ số'),
     }),
 };

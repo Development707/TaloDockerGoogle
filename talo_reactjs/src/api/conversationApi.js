@@ -16,6 +16,7 @@ const conversationApi = {
         return axiosClient.post(`${API_URL}/dual/${userId}`);
     },
     getConversationById: (id) => {
+        console.log('api id', id);
         return axiosClient.get(`${API_URL}/${id}`);
     },
 

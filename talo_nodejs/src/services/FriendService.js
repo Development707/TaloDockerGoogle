@@ -30,7 +30,17 @@ class FriendService {
 
         let result = await Promise.all(
             friends.map(async (friend) => {
-                return await redisUtils.getUserOnline(friend.userIds + '');
+                try {
+                    return await redisUtils.getUserOnline(friend.userIds + '');
+                } catch (error) {
+                    return {
+                        id: friend.userIds,
+                        name: 'Talo User',
+                        avatar: {},
+                        isOnline: false,
+                        lastLogin: null,
+                    };
+                }
             }),
         );
         if (name != '') {
@@ -173,42 +183,60 @@ class FriendService {
         await friendRequest.save();
     }
 
-    async getSuggest(id, page, size) {
+    async getSuggest(userId, page, size) {
         if (!size || page < 0 || size <= 0)
             throw new CustomError(ErrorType.FRIEND_SUGGEST_INVALID);
         // list friends
-        let friendIds = await Friend.aggregate([
-            { $match: { userIds: { $in: [ObjectId(id)] } } },
+        const friendIds = await Friend.aggregate([
+            { $match: { userIds: { $in: [ObjectId(userId)] } } },
             { $unwind: '$userIds' },
-            { $match: { userIds: { $ne: ObjectId(id) } } },
+            { $match: { userIds: { $ne: ObjectId(userId) } } },
             { $project: { _id: 0, userIds: 1 } },
         ]);
-        // list friends of conversation
-        friendIds.forEach((friendId) => {
-            friendId = ObjectId(friendId.userIds);
-        });
-        const conversations = await ConversationService.ortheFriends(
-            id,
-            friendIds,
-        );
-        // list info user
+        // list friend of friend
+        let friendOfFriend = [];
+        for (let friend of friendIds) {
+            const friends = (
+                await Friend.aggregate([
+                    {
+                        $match: {
+                            userIds: { $in: [ObjectId(friend.userIds)] },
+                        },
+                    },
+                    { $unwind: '$userIds' },
+                    {
+                        $match: {
+                            $and: [
+                                { userIds: { $ne: ObjectId(friend.userIds) } },
+                                { userIds: { $ne: ObjectId(userId) } },
+                            ],
+                        },
+                    },
+                ])
+            ).map((fr) => fr.userIds + '');
+            console.log(friends);
+            friendOfFriend.push(...friends);
+        }
+        friendOfFriend = [...new Set(friendOfFriend)];
+        // Get data
         const result = await Promise.all(
-            conversations.map(async (conversation) => {
-                return await UserSevice.getStatusFriendById(
-                    id,
-                    conversation._id,
-                );
+            friendOfFriend.map(async (friend) => {
+                try {
+                    return await UserSevice.getStatusFriendById(userId, friend);
+                } catch (error) {}
             }),
         );
         //  Sort list user
-        const sortResult = result.sort((first, next) => {
-            if (
-                first.numberMutualGroup + first.numberMutualFriend >=
-                next.numberMutualGroup + next.numberMutualFriend
-            )
-                return -1;
-            return 1;
-        });
+        const sortResult = result
+            .filter((user) => user && user.status == 'NOT_FRIEND')
+            .sort((first, next) => {
+                if (
+                    first.numberMutualGroup + first.numberMutualFriend >=
+                    next.numberMutualGroup + next.numberMutualFriend
+                )
+                    return -1;
+                return 1;
+            });
         // Pagination list user
         const start = page * size;
         const end = start + size;

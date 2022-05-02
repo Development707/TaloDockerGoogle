@@ -24,6 +24,13 @@ const loginApi = {
         const url = `${API_URL}/verify-account`;
         return axiosClient.post(url, { username, otp });
     },
+    forgotPassword: (username, otp, password) => {
+        return axiosClient.post(`${API_URL}/forgot-password`, {
+            username,
+            otp,
+            password,
+        });
+    },
 };
 
 export default loginApi;

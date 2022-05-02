@@ -27,7 +27,7 @@ services:
 
   talo-nodejs:
     container_name: talo-nodejs
-    restart: on-failure:3
+    restart: on-failure:5
     build: 
       context: ./talo_nodejs
     ports:
@@ -43,7 +43,7 @@ services:
       - EMAIL=talo.noreply@gmail.com
       - EMAIL_PASSWORD=fxkhkpquhgmoyqug
       - TWILIO_ACCOUNT_SID=ACdebfc34a65c640e56367c2f5da6319ed
-      - TWILIO_AUTH_TOKEN=a37728f8ef0e6e69e1a55c76816259be
+      - TWILIO_AUTH_TOKEN=8ad8aa82c62ff8029e51330db09f48ba
       - MAX_SIZE_FILE=52428800
       - GOOGLE_CLOUD_PROJECT=talo-342211
       - CLOUD_BUCKET_AVATAR=talo-avatar
@@ -61,13 +61,13 @@ services:
 
   talo-reactjs:
     container_name: talo-reactjs
-    restart: on-failure:3
+    restart: on-failure:5
     build: 
       context: ./talo_reactjs
       args:
-        - REACT_APP_API_URL=https://talo.dev/api
-        - REACT_APP_URL=https://talo.dev
-        - REACT_APP_SOCKET_URL=https://talo.dev
+        - REACT_APP_API_URL=http://localhost/api
+        - REACT_APP_URL=http://localhost
+        - REACT_APP_SOCKET_URL=http://localhost
     ports:
       - 3000:3000
     depends_on:
@@ -81,29 +81,13 @@ services:
     restart: always
     ports:
       - 80:80
-      - 443:443
     volumes:
       - ./talo-nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - web-root:/var/www/html
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - ./talo-nginx/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
     depends_on:
       - talo-nodejs
       - talo-reactjs
     networks:
       - talo
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
-    depends_on:
-      - talo-nginx
-    command: certonly --webroot --webroot-path=/var/www/html --email talo.noreply@gmail.com --agree-tos --no-eff-email --force-renewal -d talo.dev  -d www.talo.dev
 
 networks:
   talo:
@@ -111,6 +95,3 @@ networks:
 volumes:
     talo-mongo:
     talo-redis:
-    certbot-etc:
-    certbot-var:
-    web-root:

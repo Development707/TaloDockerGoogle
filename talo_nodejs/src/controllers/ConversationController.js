@@ -73,10 +73,10 @@ class ConversationController {
             const members = [id, ...new Set(userIds)];
             members.forEach((userId) => {
                 this.io
-                    .to(userId)
+                    .to(userId + '')
                     .emit(Emit.CONVERSATION_GROUP_CREATE, conversationId);
                 this.io2
-                    .to(userId)
+                    .to(userId + '')
                     .emit(Emit.CONVERSATION_GROUP_CREATE, conversationId);
             });
 

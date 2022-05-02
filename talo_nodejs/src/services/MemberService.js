@@ -33,11 +33,11 @@ class MemberService {
             userId,
         );
 
-        const lastViewOfChannels = member.lastViewOfChannels;
+        let lastViewOfChannels = member.lastViewOfChannels;
 
         const index = lastViewOfChannels.findIndex(
             (lastViewOfChannel) =>
-                lastViewOfChannel.channelId.toString() == channelId + '',
+                lastViewOfChannel.channelId + '' == channelId + '',
         );
 
         // not exists

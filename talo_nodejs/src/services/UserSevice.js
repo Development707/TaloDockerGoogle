@@ -2,6 +2,7 @@ const User = require('../models/User');
 const Friend = require('../models/Friend');
 const FriendRequest = require('../models/FriendRequest');
 const Conversation = require('../models/Conversation');
+const redisUtils = require('../utils/redisUtils');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 const NotFoundError = require('../exceptions/NotFoundError');
@@ -29,8 +30,8 @@ class UserService {
         return user;
     }
 
-    async getStatusFriend(_id, phone) {
-        await User.checkById(_id);
+    async getStatusFriend(myId, phone) {
+        await User.checkById(myId);
         if (/^([0])+([0-9]{9})\b/.test(phone))
             phone = '+84' + phone.substring(1);
         const UserResult = await User.findByUsername(phone);
@@ -38,27 +39,29 @@ class UserService {
         delete UserResult._id;
         const UserResultId = UserResult.id + '';
 
-        UserResult.status = await this.getFriendStatus(_id, UserResultId);
+        UserResult.status = await this.getFriendStatus(myId, UserResultId);
         UserResult.numberMutualGroup = await this.countMutualGroup(
-            _id,
+            myId,
             UserResultId,
         );
         UserResult.numberMutualFriend = await this.countMutualFriend(
-            _id,
+            myId,
             UserResultId,
         );
 
         return UserResult;
     }
 
-    async getStatusFriendById(_id, userId) {
-        let UserResult = await User.findByIdIsActive(userId);
-        UserResult.id = userId;
+    async getStatusFriendById(myId, userId) {
+        let UserResult = await redisUtils.getUserProfile(userId);
 
-        UserResult.status = await this.getFriendStatus(_id, userId);
-        UserResult.numberMutualGroup = await this.countMutualGroup(_id, userId);
+        UserResult.status = await this.getFriendStatus(myId, userId);
+        UserResult.numberMutualGroup = await this.countMutualGroup(
+            myId,
+            userId,
+        );
         UserResult.numberMutualFriend = await this.countMutualFriend(
-            _id,
+            myId,
             userId,
         );
 
@@ -186,6 +189,7 @@ class UserService {
             user.isDeleted = isDeleted;
         }
         await user.save();
+        redisUtils.removeProfile(userId);
     }
 
     async resetPassword(myId, userId) {
