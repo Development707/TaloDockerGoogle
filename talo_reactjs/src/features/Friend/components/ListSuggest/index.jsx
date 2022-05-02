@@ -7,7 +7,6 @@ import './style.scss';
 const ListSuggest = ({ suggestFriends }) => {
     const [user, setUser] = useState({});
     const [visible, setVisible] = useState(false);
-    console.log('suggestFriends', suggestFriends);
 
     const handleCancel = () => {
         setVisible(false);

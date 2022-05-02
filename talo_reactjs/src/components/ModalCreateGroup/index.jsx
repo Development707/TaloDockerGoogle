@@ -96,8 +96,6 @@ function ModalCreateGroup({ loading, isVisible, onCancel, onOk }) {
 
         checkListFriendTemp = checkListFriendTemp.filter((item) => item !== id);
         itemSelectedTemp = itemSelectedTemp.filter((item) => item.id !== id);
-        // console.log('checkListFriendTemp', checkListFriendTemp);
-        // console.log('itemSelectedTemp', itemSelectedTemp);
 
         setCheckListFriend(checkListFriendTemp);
         setItemSelected(itemSelectedTemp);
@@ -109,8 +107,7 @@ function ModalCreateGroup({ loading, isVisible, onCancel, onOk }) {
     const handleOnChangeCheckBox = (e) => {
         const value = e.target.value;
 
-        // console.log('value', value);
-        // checklish value ton tai
+        // checklist value ton tai
         const index = checkListFriend.findIndex((item) => item === value);
         let checkListFriendTemp = [...checkListFriend];
         let itemSelectedTemp = [...itemSelected];

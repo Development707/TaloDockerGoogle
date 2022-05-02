@@ -38,17 +38,14 @@ function ModalUpdateProfile({ isVisible, onCancel }) {
     const refInitValue = useRef();
 
     const handleGetCoverPhoto = (coverPhoto) => {
-        // console.log('cover photo ', coverPhoto);
         setCoverPhoto(coverPhoto);
     };
 
     const handleGetAvatar = (avatar) => {
-        // console.log('avatar', avatar);
         setAvatar(avatar);
     };
     const handleOke = () => {
         if (formRef.current) {
-            // console.log(formRef.current);
             formRef.current.handleSubmit();
         }
     };
@@ -73,7 +70,6 @@ function ModalUpdateProfile({ isVisible, onCancel }) {
         return true;
     };
     const handleSubmit = async (values) => {
-        // console.log(values);
         setConfirmLoading(true);
         try {
             if (!checkChangeValue(values, refInitValue.current)) {
@@ -113,7 +109,6 @@ function ModalUpdateProfile({ isVisible, onCancel }) {
 
     useEffect(() => {
         if (isVisible) {
-            // console.log(isVisible);
             setIsClear(false);
             refInitValue.current = {
                 name: user.name,
@@ -121,7 +116,6 @@ function ModalUpdateProfile({ isVisible, onCancel }) {
                 dateOfBirth: user.dateOfBirth,
                 gender: user.gender,
             };
-            // console.log(refInitValue.current);
         }
         // eslint-disable-next-line
     }, [isVisible]);

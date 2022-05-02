@@ -113,9 +113,7 @@ function ModalViewOption({ isModalVisible, onCancel, data, onShowDetail }) {
                 }
                 setConfirmLoading(false);
             })
-            .catch((info) => {
-                console.log('Validate Failed:', info);
-            });
+            .catch((info) => {});
     }
 
     const footer = (

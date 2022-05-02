@@ -19,7 +19,7 @@ function SuggestCard({ suggestFriend, onClick }) {
             onClick(suggestFriend);
         }
     };
-    console.log('Friend', suggestFriend);
+
     return (
         <div className="suggest_card" onClick={handleOnClick}>
             <div className="suggest_card-img">

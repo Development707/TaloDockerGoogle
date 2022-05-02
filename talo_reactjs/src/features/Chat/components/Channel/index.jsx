@@ -87,9 +87,7 @@ function Channel({ onViewChannel, channels, onOpenInfoBlock }) {
                 form.resetFields();
                 setIsVisible(false);
             })
-            .catch((info) => {
-                console.log('Validate Failed:', info);
-            });
+            .catch((info) => {});
     };
 
     const handleCancelModal = () => {

@@ -14,7 +14,7 @@ import InputField from 'customfield/InputField';
 import { loginPhoneNumber } from 'features/Account/initValues';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { FastField, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from 'utils/FirebaseApp';
@@ -31,7 +31,6 @@ const PhoneLogin = () => {
             {
                 size: 'normal',
                 callback: (response) => {
-                    // console.log(response);
                     setIsSubmit(true);
                 },
             },

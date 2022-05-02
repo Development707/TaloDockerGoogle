@@ -76,7 +76,6 @@ function InfoMediaSearch(props) {
                 query.startTime,
                 query.endTime
             );
-            console.log('medias: ', mediasResult);
             setMedias(mediasResult);
         };
 

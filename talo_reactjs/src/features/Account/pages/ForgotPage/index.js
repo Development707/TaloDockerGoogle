@@ -32,8 +32,6 @@ function ForgotPage(props) {
     const dispatch = useDispatch();
 
     const handleSubmit = async (values) => {
-        console.log(values);
-
         dispatch(setLoadingAccount(true));
 
         const { username, password, otpValue } = values;
