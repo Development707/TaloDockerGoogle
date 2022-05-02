@@ -152,7 +152,7 @@ Xem file bằng docker extension
 
 ## Nếu lỗi permision
 
--   `Cd ..` : Khi nào dến thư mục gốc `/`
+-   `Cd ~` : Khi nào dến thư mục gốc `/`
 -   Vào quyền root
 -   `sudo nano /etc/gitlab-runner/config.toml`
 -   Thêm sau [RUNNER]
