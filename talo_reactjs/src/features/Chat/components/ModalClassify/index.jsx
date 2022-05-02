@@ -5,11 +5,10 @@ import {
     LeftOutlined,
     PlusOutlined,
     TagFilled,
-    TagTwoTone,
 } from '@ant-design/icons';
 import { Button, Input, message, Modal, Popover } from 'antd';
 import Text from 'antd/lib/typography/Text';
-import classifyApi from 'api/ClassifyApi';
+import classifyApi from 'api/classifyApi';
 import { fetchListClassify } from 'features/Chat/slice/chatSlice';
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';

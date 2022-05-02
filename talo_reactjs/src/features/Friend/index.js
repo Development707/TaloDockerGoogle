@@ -283,7 +283,7 @@ function Friend() {
                                                         key="1"
                                                     >
                                                         <ListSuggest
-                                                            data={
+                                                            suggestFriends={
                                                                 suggestFriends
                                                             }
                                                         />

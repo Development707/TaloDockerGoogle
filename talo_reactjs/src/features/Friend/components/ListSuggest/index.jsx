@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import SuggestCard from '../SuggestCard';
 import './style.scss';
 
-const ListSuggest = ({ data }) => {
+const ListSuggest = ({ suggestFriends }) => {
     const [user, setUser] = useState({});
     const [visible, setVisible] = useState(false);
+    console.log('suggestFriends', suggestFriends);
 
     const handleCancel = () => {
         setVisible(false);
@@ -17,8 +18,9 @@ const ListSuggest = ({ data }) => {
     };
     return (
         <div id="list_suggest">
+            <UserCard user={user} isVisible={visible} onCancel={handleCancel} />
             <Row gutter={[16, 16]}>
-                {data.map((item, index) => {
+                {suggestFriends.map((item, index) => {
                     if (item.status === 'NOT_FRIEND') {
                         return (
                             <Col
@@ -31,7 +33,7 @@ const ListSuggest = ({ data }) => {
                             >
                                 <SuggestCard
                                     key={index}
-                                    data={item}
+                                    suggestFriend={item}
                                     onClick={handleOnClick}
                                 />
                             </Col>
