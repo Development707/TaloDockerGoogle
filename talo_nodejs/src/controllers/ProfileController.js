@@ -27,6 +27,7 @@ class ProfileController {
         try {
             await ProfileService.updateProfile(id, req.body);
             await redisUtils.removeProfile(id);
+            await redisUtils.removeAllConversations();
             res.json();
         } catch (err) {
             next(err);

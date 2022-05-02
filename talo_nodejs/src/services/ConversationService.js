@@ -287,31 +287,6 @@ class ConversationService {
         return conversationId;
     }
 
-    async ortheFriends(id, friendIds) {
-        return await Conversation.aggregate([
-            { $match: { type: 'GROUP', members: { $in: [ObjectId(id)] } } },
-            {
-                $project: {
-                    _id: 0,
-                    members: 1,
-                },
-            },
-            {
-                $unwind: '$members',
-            },
-            {
-                $match: {
-                    members: { $ne: ObjectId(id), $nin: friendIds },
-                },
-            },
-            {
-                $group: {
-                    _id: '$members',
-                },
-            },
-        ]);
-    }
-
     async deleteByUserIdAndConversationId(userId, conversationId) {
         const conversation = await redisUtils.getConversation(conversationId);
         // Valid is leader
