@@ -3,7 +3,6 @@ image:
 services:
     - docker:dind
 before_script:
-    - sudo chown -R gitlab-runner:gitlab-runner .
     - docker version
     - docker-compose version
 build:
