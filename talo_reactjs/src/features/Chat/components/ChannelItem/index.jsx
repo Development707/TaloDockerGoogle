@@ -5,7 +5,7 @@ import './style.scss';
 import { Dropdown, Menu, message, Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteOutlined, NumberOutlined } from '@ant-design/icons';
-import ModalChangeNameChannel from '../ModalChangeNameChannel';
+import ModalChangeChannel from '../ModalChangeChannel';
 import channelApi from 'api/channelApi';
 import {
     fetchMessageInChannel,
@@ -45,13 +45,13 @@ function ChannelItem({ isActive, channel }) {
     function showConfirm() {
         confirm({
             title: 'Cảnh báo',
-            content: 'Bạn có thực sự muốn xóa Channel',
+            content: 'Bạn có thực sự muốn xóa kênh',
             async onOk() {
                 try {
                     await channelApi.deleteChannel(channel.id);
-                    message.success('Xóa channel thành công');
+                    message.success('Xóa kênh thành công');
                 } catch (error) {
-                    message.error('Xóa channel thất bại');
+                    message.error('Xóa kênh thất bại');
                 }
             },
             okText: 'Xóa',
@@ -63,11 +63,11 @@ function ChannelItem({ isActive, channel }) {
     const menu = (
         <Menu onClick={handleOnClick}>
             <Menu.Item key="1">
-                <span className="menu-item">Đổi tên Channel</span>
+                <span className="menu-item">Chỉnh sửa kênh</span>
             </Menu.Item>
             {conversations.find((ele) => ele.leaderId === user.id) && (
                 <Menu.Item key="2" danger icon={<DeleteOutlined />}>
-                    <span className="menu-item">Xóa Channel</span>
+                    <span className="menu-item">Xóa kênh</span>
                 </Menu.Item>
             )}
         </Menu>
@@ -82,9 +82,9 @@ function ChannelItem({ isActive, channel }) {
         try {
             await channelApi.renameChannel(channel.id, nameNew, descriptionNew);
             setVisible(false);
-            message.success('Đổi tên channel thành công');
+            message.success('Chỉnh sửa thông tin kênh thành công');
         } catch (error) {
-            message.error('Đổi tên channel không thành công');
+            message.error('Chỉnh sửa thông tin kênh thất bại');
         }
     };
     return (
@@ -114,7 +114,7 @@ function ChannelItem({ isActive, channel }) {
                 </div>
             </Dropdown>
 
-            <ModalChangeNameChannel
+            <ModalChangeChannel
                 visible={visible}
                 onCancel={() => setVisible(false)}
                 onOk={handleOnOk}

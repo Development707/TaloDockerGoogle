@@ -24,7 +24,6 @@ function StickerItem({ data, onClose, onScroll }) {
         if (onClose) {
             onClose();
         }
-        console.log('value', value);
         const newMessage = {
             content: value.url,
             type: 'STICKER',

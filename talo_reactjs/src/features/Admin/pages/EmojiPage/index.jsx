@@ -61,11 +61,11 @@ const EmojiPage = () => {
             render: (emojis) => (
                 <Space size="middle">
                     <Popconfirm
-                        title="Bạn có muốn xoá ?"
+                        title="Bạn có muốn xoá?"
                         onConfirm={() => handleDeleteEmoji(emojis)}
                         onCancel={onCancel}
-                        okText="Yes"
-                        cancelText="No"
+                        okText="Xóa"
+                        cancelText="Hủy"
                     >
                         <Link alt="xoá emoji">
                             <DeleteOutlined />

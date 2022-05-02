@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { message } from 'antd';
 import channelApi from 'api/channelApi';
-import classifyApi from 'api/ClassifyApi';
+import classifyApi from 'api/classifyApi';
 import conversationApi from 'api/conversationApi';
 import friendApi from 'api/friendApi';
 import messageApi from 'api/messageApi';

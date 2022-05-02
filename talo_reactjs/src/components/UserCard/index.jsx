@@ -66,10 +66,8 @@ function UserCard({ title, isVisible, user, onCancel }) {
     };
 
     const handleClickMessage = async () => {
-        // console.log('userid', user.id);
         const res = await conversationApi.createConversationIndividual(user.id);
         const { conversationId, isExists } = res;
-        // console.log('response', res);
 
         if (!isExists) {
             const conver = await conversationApi.getConversationById(
@@ -164,13 +162,8 @@ function UserCard({ title, isVisible, user, onCancel }) {
     const handleOkAddFriend = async (value) => {
         try {
             const { userAddFriend, messageInput } = value;
-            //userAddFriend == id
             await friendApi.sendRequestFriend(userAddFriend, messageInput);
             dispatch(fetchListMyRequestFriend());
-            // if (onCancel) {
-            //     setIsVisibleModal(false);
-            //     onCancel();
-            // }
             handleOnCancle();
 
             message.success('Gửi lời mời kết bạn thành công');

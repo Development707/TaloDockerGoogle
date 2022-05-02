@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Modal } from 'antd';
 
-ModalChangeNameChannel.propTypes = {
+ModalChangeChannel.propTypes = {
     visible: PropTypes.bool,
     onOk: PropTypes.func,
     onCancel: PropTypes.func,
@@ -10,7 +10,7 @@ ModalChangeNameChannel.propTypes = {
     descriptionValue: PropTypes.string,
 };
 
-ModalChangeNameChannel.defaultProps = {
+ModalChangeChannel.defaultProps = {
     visible: false,
     onOk: null,
     onCancel: null,
@@ -18,7 +18,7 @@ ModalChangeNameChannel.defaultProps = {
     descriptionValue: '',
 };
 
-function ModalChangeNameChannel({
+function ModalChangeChannel({
     visible,
     onOk,
     onCancel,
@@ -59,11 +59,11 @@ function ModalChangeNameChannel({
 
     return (
         <Modal
-            title="Đổi tên channel"
+            title="Chỉnh sửa kênh"
             visible={visible}
             onCancel={handleOnCancel}
             onOk={handleOnOk}
-            onText="Xác nhận"
+            okText="Xác nhận"
             cancelText="Hủy"
             confirmLoading={confirmLoading}
         >
@@ -111,4 +111,4 @@ function ModalChangeNameChannel({
     );
 }
 
-export default ModalChangeNameChannel;
+export default ModalChangeChannel;

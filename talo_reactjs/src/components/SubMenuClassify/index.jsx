@@ -4,7 +4,7 @@ import { Divider, Menu } from 'antd';
 import { CheckOutlined, TagFilled, TagOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { fetchListClassify } from 'features/Chat/slice/chatSlice';
-import classifyApi from 'api/ClassifyApi';
+import classifyApi from 'api/classifyApi';
 import ModalClassify from 'features/Chat/components/ModalClassify';
 import classifyUtils from 'utils/classifyUtils';
 import './style.scss';

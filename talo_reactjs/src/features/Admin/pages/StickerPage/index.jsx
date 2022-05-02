@@ -112,7 +112,7 @@ const StickerPage = () => {
     const handleDeleteSticker = async (id) => {
         try {
             await stickerApi.deleteSticker(id);
-            message.success('Đã xoá group sticker');
+            message.success('Đã xoá sticker');
             setDataSource(await handleGetAllSticker());
         } catch (error) {
             message.error('Xóa thất bại vì sticker có chứa emoji');
@@ -130,11 +130,11 @@ const StickerPage = () => {
         const { name, description } = values;
         try {
             await stickerApi.updateSticker(temp, name, description);
-            message.success('Chỉnh sửa sticker hoàn tất', 5);
+            message.success('Chỉnh sửa sticker hoàn tất');
             setDataSource(await handleGetAllSticker());
             onCloseUpdate();
         } catch (error) {
-            message.error('Chỉnh sửa sticker đã xảy ra lỗi', 5);
+            message.error('Chỉnh sửa sticker đã xảy ra lỗi');
         }
     };
 
@@ -160,11 +160,11 @@ const StickerPage = () => {
                 frmData.append('file', item);
                 await stickerApi.addEmoji(temp, frmData);
             }
-            message.success('Thêm emoji vào sticker hoàn tất', 5);
+            message.success('Thêm emoji vào sticker hoàn tất');
 
             handleCloseAddEmoji();
         } catch (error) {
-            message.error('Thêm emoji vào sticker đã xảy ra lỗi', 5);
+            message.error('Thêm emoji vào sticker đã xảy ra lỗi');
         }
 
         const listSticker = await stickerApi.fetchAllSticker();
@@ -201,8 +201,8 @@ const StickerPage = () => {
                         title="Bạn có muốn xoá ?"
                         onConfirm={() => handleDeleteSticker(data.id)}
                         onCancel={onCancel}
-                        okText="Yes"
-                        cancelText="No"
+                        okText="Xóa"
+                        cancelText="Hủy"
                     >
                         <Link alt="xoá sticker">
                             <DeleteOutlined />
@@ -224,15 +224,15 @@ const StickerPage = () => {
                     </Link>
                     <Link onClick={() => showDrawerCreateEmoji(data.id)}>
                         <PlusCircleTwoTone />
-                        Thêm Sticker{' '}
+                        Thêm sticker{' '}
                     </Link>
 
                     <Link
-                        alt="xem sticker emoji"
+                        alt="xem emoji"
                         onClick={() => handleViewEmoji(data.id, data.emojis)}
                     >
                         <EyeTwoTone />
-                        Xem Sticker emoji{' '}
+                        Xem emoji{' '}
                     </Link>
                 </Space>
             ),
@@ -284,6 +284,11 @@ const StickerPage = () => {
                                     {
                                         required: true,
                                         message: 'Vui lòng nhập tên sticker',
+                                    },
+                                    {
+                                        min: 5,
+                                        message:
+                                            'Tên sticker phải có ít nhất 5 ký tự',
                                     },
                                 ]}
                             >
@@ -341,11 +346,16 @@ const StickerPage = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Nhập tên sticker',
+                                        message: 'Vui lòng nhập tên sticker',
+                                    },
+                                    {
+                                        min: 5,
+                                        message:
+                                            'Tên sticker phải có ít nhất 5 ký tự',
                                     },
                                 ]}
                             >
-                                <Input placeholder="Nhập tên sticker" />
+                                <Input placeholder="Nhập tên sticker mới" />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -362,7 +372,7 @@ const StickerPage = () => {
                                     },
                                 ]}
                             >
-                                <Input placeholder="Nhập mô tả" />
+                                <Input placeholder="Nhập mô tả mới" />
                             </Form.Item>
                         </Col>
                     </Row>

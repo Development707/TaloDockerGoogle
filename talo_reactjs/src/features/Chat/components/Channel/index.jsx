@@ -83,7 +83,7 @@ function Channel({ onViewChannel, channels, onOpenInfoBlock }) {
                     nameChannel,
                     description
                 );
-                message.success('Tạo channel thành công');
+                message.success('Tạo kênh thành công');
                 form.resetFields();
                 setIsVisible(false);
             })
@@ -162,7 +162,7 @@ function Channel({ onViewChannel, channels, onOpenInfoBlock }) {
                 })}
 
                 <div className="channel-interact-button">
-                    <button onClick={handleAddChannel}>Thêm channel</button>
+                    <button onClick={handleAddChannel}>Thêm kênh</button>
                 </div>
                 <div className="channel-interact-button">
                     <button onClick={handleViewAll}>Xem tất cả</button>
@@ -170,26 +170,26 @@ function Channel({ onViewChannel, channels, onOpenInfoBlock }) {
             </div>
 
             <Modal
-                title="Thêm Channel"
+                title="Thêm kênh"
                 visible={isVisible}
                 onOk={handleOkModal}
                 onCancel={handleCancelModal}
-                okText="Tạo"
+                okText="Tạo kênh"
                 cancelText="Hủy"
                 centered
             >
                 <Form form={form} {...formItemLayout} scrollToFirstError>
                     <Form.Item
                         name="nameChannel"
-                        label="Tên channel"
+                        label="Tên kênh"
                         rules={[
                             {
                                 required: true,
-                                message: 'Tên channel không được để trống',
+                                message: 'Tên kênh không được để trống',
                             },
                             {
                                 min: 6,
-                                message: 'Tên channel phải có ít nhất 6 ký tự',
+                                message: 'Tên kênh phải có ít nhất 6 ký tự',
                             },
                         ]}
                         hasFeedback
