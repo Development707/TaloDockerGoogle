@@ -124,7 +124,6 @@ Xem file bằng docker extension
 6. Add gitlab-runner to the docker group
 
     - `sudo usermod -aG docker gitlab-runner`
-        - `sudo usermod -a -G sudo gitlab-runner`
 
 7. Grant sudo permissions to the gitlab-runner user.
 
