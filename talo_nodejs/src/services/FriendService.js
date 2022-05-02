@@ -228,7 +228,7 @@ class FriendService {
         );
         //  Sort list user
         const sortResult = result
-            .filter((user) => user && user.status != 'FRIEND')
+            .filter((user) => user && user.status == 'NOT_FRIEND')
             .sort((first, next) => {
                 if (
                     first.numberMutualGroup + first.numberMutualFriend >=
