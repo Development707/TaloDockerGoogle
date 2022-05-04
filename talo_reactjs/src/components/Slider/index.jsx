@@ -22,7 +22,7 @@ const Slider = () => {
         },
     ];
     return (
-        <Carousel sel autoplay>
+        <Carousel sel dots={false} autoplay>
             {introduces.map((introduce, index) => (
                 <SliderItem
                     key={index}
