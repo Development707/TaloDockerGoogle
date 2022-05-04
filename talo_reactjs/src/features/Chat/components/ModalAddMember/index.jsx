@@ -175,7 +175,7 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
             okButtonProps={{
                 disabled:
                     (!nameGroup.trim().length > 0 && typeModal === 'DUAL') ||
-                    checkListFriend.length < 1,
+                    checkListFriend.length < 2,
             }}
             confirmLoading={loading}
         >
