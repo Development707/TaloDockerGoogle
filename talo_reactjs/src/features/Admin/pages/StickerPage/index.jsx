@@ -59,7 +59,6 @@ const StickerPage = () => {
         //eslint-disable-next-line
     }, [visibleCreate, visibleUpdate]);
 
-    console.log('file', file);
     const onSearch = (value) => {
         const filterTable = dataSource.filter((name) =>
             Object.keys(name).some((k) =>

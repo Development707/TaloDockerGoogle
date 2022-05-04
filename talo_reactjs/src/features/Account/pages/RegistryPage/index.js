@@ -53,7 +53,6 @@ function RegistryPage(props) {
     }
 
     const handleRegistry = async (values) => {
-        // console.log(values);
         const { name, username, password, otpValue } = values;
         dispatch(setLoadingAccount(true));
         if (isSubmit) {

@@ -214,7 +214,6 @@ const chatSlice = createSlice({
         memberInConversation: [],
         currentChannel: '',
         channels: [],
-        type: '',
         stickers: [],
         polls: [],
         totalPagesPoll: 0,
@@ -234,16 +233,6 @@ const chatSlice = createSlice({
         },
         setCurrentChannel: (state, action) => {
             state.currentChannel = action.payload;
-        },
-        setTypeOfConversation: (state, action) => {
-            const conversationId = action.payload;
-            const conversation = state.conversations.find(
-                (ele) => ele.id === conversationId
-            );
-            if (conversation) {
-                state.type = conversation.type;
-            }
-            console.log('state.type', state.type);
         },
         updatePoll: (state, action) => {
             state.polls = action.payload;
@@ -745,7 +734,6 @@ export const {
     setConversations,
     setCurrentConversation,
     setCurrentChannel,
-    setTypeOfConversation,
     updatePoll,
     setTotalChannelNotify,
     leaveGroup,

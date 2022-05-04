@@ -35,9 +35,7 @@ function ModalCreatePoll({ visible, onCancel }) {
                         message.error('Đã có lỗi xảy ra');
                     });
             })
-            .catch((info) => {
-                console.log('Validate Failed:', info);
-            });
+            .catch((info) => {});
     };
 
     const handleCancel = () => {

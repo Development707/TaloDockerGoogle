@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { Badge, Button, Dropdown, Menu } from 'antd';
 import SubMenuClassify from 'components/SubMenuClassify';
 import ConversationAvatar from 'features/Chat/components/ConversationAvatar';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import classifyUtils from 'utils/classifyUtils';
-import { useNavigate } from 'react-router-dom';
 import {
-    fetchChannels,
     fetchListMessages,
     getMembersConversation,
-    setConversations,
     setCurrentConversation,
-    setTypeOfConversation,
 } from 'features/Chat/slice/chatSlice';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import classifyUtils from 'utils/classifyUtils';
 import './style.scss';
-import conversationApi from 'api/conversationApi';
 
 GroupCard.propTypes = {
     data: PropTypes.object,
@@ -33,7 +29,6 @@ function GroupCard({ data, onRemove }) {
     const { classifies } = useSelector((state) => state.chat);
     const [classify, setClassify] = useState(null);
     const navigate = useNavigate();
-    const { conversations } = useSelector((state) => state.chat);
 
     useEffect(() => {
         if (classifies.length > 0) {

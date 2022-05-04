@@ -10,6 +10,7 @@ import {
 import conversationApi from 'api/conversationApi';
 import { setJoinChatLayout } from 'app/globalSlice';
 import ModalJoinGroupFromLink from 'components/ModalJoinGroupFromLink';
+import Slider from 'components/Slider';
 import useWindowSize from 'hooks/useWindowSize';
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
@@ -160,7 +161,7 @@ function Chat({ socket, idNewMessage }) {
             const all = await conversationApi.fetchListConversations(
                 valueInput
             );
-            console.log(all);
+
             setAllConverFilter(all);
 
             const dual = await conversationApi.fetchListConversations(
@@ -935,7 +936,7 @@ function Chat({ socket, idNewMessage }) {
                                 </div>
 
                                 <div className="carousel-slider">
-                                    {/* <Slider /> */}
+                                    <Slider />
                                 </div>
                             </div>
                         </Col>

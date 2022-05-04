@@ -9,7 +9,7 @@ function GenderRadioField({ field }) {
 
     const handleChange = (e) => {
         const selectedValue = e.target.value;
-        // console.log(selectedValue);
+
         const changeEvent = {
             target: {
                 name: name,

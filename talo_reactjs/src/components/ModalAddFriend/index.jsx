@@ -26,7 +26,6 @@ function ModalAddFriend({ isVisible, onCancel, onSearch, onEnter }) {
 
     const handleInputChange = (e) => {
         const value = e.target.value;
-        // console.log(value);
         setValue(value);
     };
     const handleOnPressEnter = () => {

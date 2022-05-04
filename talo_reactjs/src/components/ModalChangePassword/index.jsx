@@ -38,7 +38,6 @@ function ModalChangePassword({ visible, onCancel, onSaveCodeRevoke }) {
         setConfirmLoading(true);
         form.validateFields()
             .then(async ({ currentPassword, password }) => {
-                // console.log('values :', currentPassword, password);
                 try {
                     await meApi.changePasswod(currentPassword, password);
 
@@ -76,7 +75,7 @@ function ModalChangePassword({ visible, onCancel, onSaveCodeRevoke }) {
             }
             const response = await meApi.revokeToken(password, code);
             const { token, refreshToken } = response;
-            // console.log('logout-all', token, refreshToken);
+
             if (token && refreshToken) {
                 localStorage.setItem('token', token);
                 localStorage.setItem('refreshToken', refreshToken);

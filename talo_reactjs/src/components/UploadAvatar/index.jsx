@@ -38,7 +38,6 @@ function UploadAvatar({ avatar, getFile, isClear }) {
             setImagePreview('');
         }
     }, [isClear]);
-    // console.log('image preview', imagePreview);
 
     return (
         <div className="upload-avatar">
