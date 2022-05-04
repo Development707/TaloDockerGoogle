@@ -61,6 +61,7 @@ const messageUtils = {
         delete message.userId;
         delete message.__v;
         delete message.updatedAt;
+        delete message.conversationId;
 
         return {
             ...message,
