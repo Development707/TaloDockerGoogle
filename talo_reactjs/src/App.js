@@ -8,19 +8,22 @@ import Admin from 'features/Admin';
 import ChatLayout from 'layout/ChatLayout';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 function App() {
-    const [isFetch, setIsFetch] = useState(false);
     const dispatch = useDispatch();
+    const [isFetch, setIsFetch] = useState(false);
+
     const { user } = useSelector((state) => state.global);
 
     useEffect(() => {
         const fetchProfile = async () => {
             const token = localStorage.getItem('token');
 
-            if (token) await dispatch(fetchUserProfile());
-
-            setIsFetch(true);
+            console.log('token', token);
+            if (token) {
+                await dispatch(await fetchUserProfile());
+                setIsFetch(true);
+            }
         };
 
         fetchProfile();
@@ -41,7 +44,7 @@ function App() {
                     path="chat/*"
                     element={
                         <ProtectedRoute
-                            isAllowed={user && user.role !== 'ADMIN'}
+                            isAllowed={user && user.role === 'USER'}
                         >
                             <ChatLayout />
                         </ProtectedRoute>

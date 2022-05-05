@@ -25,6 +25,7 @@ function HeaderChatContainer({ isOpenInfo, onPopUpInfo, onOpenDrawer }) {
             const tempConver = conversations.find(
                 (conver) => conver.id === currentConversation
             );
+
             if (tempConver) {
                 setDetailConver(tempConver);
             }

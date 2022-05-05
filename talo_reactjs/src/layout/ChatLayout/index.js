@@ -1,11 +1,9 @@
 import { Col, Row } from 'antd';
+import conversationApi from 'api/conversationApi';
+import { setTabActive } from 'app/globalSlice';
 import NotFoundPage from 'components/NotFoundPage';
-import NavbarContainer from 'features/Chat/containers/NavbarContainer';
 import Chat from 'features/Chat';
-import React, { useEffect, useRef, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Friend from 'features/Friend';
-import { useDispatch, useSelector } from 'react-redux';
+import NavbarContainer from 'features/Chat/containers/NavbarContainer';
 import {
     addMessage,
     addMessageInChannel,
@@ -16,6 +14,7 @@ import {
     updateAvatarWhenUpdateMember,
     updateFriendChat,
 } from 'features/Chat/slice/chatSlice';
+import Friend from 'features/Friend';
 import {
     fetchFriends,
     fetchListGroup,
@@ -29,10 +28,11 @@ import {
     updateMyRequestFriend,
     updateRequestFriends,
 } from 'features/Friend/friendSlice';
-import { setTabActive } from 'app/globalSlice';
-import { init, socket } from 'utils/socketClient';
-import conversationApi from 'api/conversationApi';
 import useUnload from 'hooks/useUnload';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import { init, socket } from 'utils/socketClient';
 init();
 
 const ChatLayout = () => {
