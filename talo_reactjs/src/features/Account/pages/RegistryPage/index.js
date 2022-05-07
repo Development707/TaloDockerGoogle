@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import {
     Button,
     Col,
@@ -9,15 +8,16 @@ import {
     Row,
     Typography,
 } from 'antd';
-import { FastField, Form, Formik } from 'formik';
-import UserNameField from 'customfield/UserNameField';
-import PasswordField from 'customfield/PasswordField';
-import { Link, useNavigate } from 'react-router-dom';
-import { registryValues } from 'features/Account/initValues';
-import InputField from 'customfield/InputField';
-import { useDispatch } from 'react-redux';
-import { setLoadingAccount } from 'features/Account/accountSlice';
 import loginApi from 'api/loginAPI';
+import InputField from 'customfield/InputField';
+import PasswordField from 'customfield/PasswordField';
+import UserNameField from 'customfield/UserNameField';
+import { setLoadingAccount } from 'features/Account/accountSlice';
+import { registryValues } from 'features/Account/initValues';
+import { FastField, Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 const { Text, Title } = Typography;
 
@@ -64,9 +64,7 @@ function RegistryPage(props) {
                     if (value.isActived === false) {
                         setIsSubmit(true);
                     } else {
-                        message.error(
-                            'Email hoặc số điện thoại đã được đăng ký'
-                        );
+                        message.error('Email đã được đăng ký');
                     }
                 })
                 .catch(async () => {
@@ -103,7 +101,7 @@ function RegistryPage(props) {
             await loginApi.confirmAccount(username, otp);
             success();
         } catch (error) {
-            message.error('mã OTP không hợp lệ');
+            message.error('Mã xác thực đã hết hạn');
         }
     };
     //useEffect khi counter thay đổi
@@ -136,7 +134,12 @@ function RegistryPage(props) {
                     <Title level={2} style={{ textAlign: 'center' }}>
                         <Text style={{ color: '#4d93ff' }}>TALO</Text>
                     </Title>
-                    <Divider>Nhập thông tin</Divider>
+                    {isSubmit ? (
+                        <Divider>Nhập mã xác thực</Divider>
+                    ) : (
+                        <Divider>Nhập thông tin</Divider>
+                    )}
+
                     <div className="form-account">
                         <Formik
                             initialValues={{ ...registryValues.initial }}
@@ -219,7 +222,7 @@ function RegistryPage(props) {
                                                             }
                                                             type="text"
                                                             title="Tài khoản"
-                                                            placeholder="Nhập email/SĐT đăng ký"
+                                                            placeholder="Nhập email của bạn"
                                                             maxLength={50}
                                                             titleCol={24}
                                                             inputCol={24}

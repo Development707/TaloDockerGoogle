@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import './style.scss';
@@ -32,7 +31,7 @@ function DividerCustom({ dateString }) {
                         ) : (
                             <span>
                                 {`0${dateString.getDate()}`.slice(-2)}/
-                                {`0${dateString.getMonth()}`.slice(-2)}/
+                                {`0${dateString.getMonth() + 1}`.slice(-2)}/
                                 {dateString.getFullYear()}
                             </span>
                         )}

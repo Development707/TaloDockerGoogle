@@ -5,10 +5,10 @@ export const sortGroup = (value, type) => {
             const nameFirst = first.name.toUpperCase();
             const nameSecond = second.name.toUpperCase();
             if (nameFirst > nameSecond) {
-                return -1;
+                return 1;
             }
             if (nameFirst < nameSecond) {
-                return 1;
+                return -1;
             }
             return 0;
         });
@@ -17,10 +17,10 @@ export const sortGroup = (value, type) => {
             const nameFirst = first.name.toUpperCase();
             const nameSecond = second.name.toUpperCase();
             if (nameFirst > nameSecond) {
-                return 1;
+                return -1;
             }
             if (nameFirst < nameSecond) {
-                return -1;
+                return 1;
             }
             return 0;
         });
