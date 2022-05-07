@@ -143,7 +143,7 @@ Xem file bằng docker extension
 -   `apt install docker-compose`
 -   Làm theo `bước 5: 1->8`
 -   Tạo SSH key hết nối git lab
-    `ssh-keygen -t rsa -f ~/.ssh/[KEY_FILENAME] -C [USERNAME]`
+    `ssh-keygen`
     `cd ~/.ssh`
     `chmod 400 [KEY_FILENAME]`
     `cat [KEY_FILENAME]`
@@ -151,7 +151,7 @@ Xem file bằng docker extension
 
 ## Nếu lỗi permision
 
--   `Cd ..` : Khi nào dến thư mục gốc `/`
+-   `Cd ~` : Khi nào dến thư mục gốc `/`
 -   Vào quyền root
 -   `sudo nano /etc/gitlab-runner/config.toml`
 -   Thêm sau [RUNNER]
