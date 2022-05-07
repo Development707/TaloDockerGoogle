@@ -16,6 +16,7 @@ const stickerApi = {
         return axiosClient.delete(`${API_URL}/${id}`);
     },
     addEmoji: (id, file) => {
+        console.log('emoji id', id);
         return axiosClient.post(`${API_URL}/${id}/emoji`, file);
     },
     deleteEmoji: (id, emoijName) => {

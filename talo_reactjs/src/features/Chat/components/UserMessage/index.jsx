@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
 import {
     DeleteOutlined,
     PushpinOutlined,
@@ -8,7 +6,8 @@ import {
 import { Button, Dropdown, Menu, message as mesageNotify } from 'antd';
 import messageApi from 'api/messageApi';
 import MESSAGE_STYLE from 'constants/messageStyle';
-import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { MdQuestionAnswer } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,7 +38,6 @@ UserMessage.propTypes = {
     isMyMessage: PropTypes.bool,
     isSameUser: PropTypes.bool,
     viewUsers: PropTypes.array,
-    onOpenModalShare: PropTypes.func,
     onReply: PropTypes.func,
     onMention: PropTypes.func,
 };
@@ -49,7 +47,6 @@ UserMessage.defaultProps = {
     isMyMessage: false,
     isSameUser: false,
     viewUsers: [],
-    onOpenModalShare: null,
     onReply: null,
     onMention: null,
 };
@@ -58,7 +55,6 @@ function UserMessage({
     isMyMessage,
     isSameUser,
     viewUsers,
-    onOpenModalShare,
     onReply,
     onMention,
 }) {

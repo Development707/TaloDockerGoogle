@@ -138,15 +138,14 @@ function BodyChatContainer({
                         message={currentMessage}
                         isMyMessage={isMyMessage}
                         conditionTime={true}
-                        onOpenModalShare={handleOpenModalShare}
                         onReply={onReply}
                         onMention={onMention}
                     />
                 );
                 continue;
             }
-            const dateTempt1 = new Date(preMessage.createdAt);
-            const dateTempt2 = new Date(currentMessage.createdAt);
+            const dateTemptPre = new Date(preMessage.createdAt);
+            const dateTemptCurrent = new Date(currentMessage.createdAt);
 
             const isSameUser =
                 currentMessage.user.id === preMessage.user.id &&
@@ -155,11 +154,12 @@ function BodyChatContainer({
                     : false;
 
             const timeIsEqual =
-                dateTempt2.setHours(dateTempt2.getHours() - 6) > dateTempt1
+                dateTemptCurrent.setHours(dateTemptCurrent.getHours() - 6) >
+                dateTemptPre
                     ? true
                     : false;
 
-            // tin nhắn cuối
+            // last message
             const viewUsers = [];
             if (i === messages.length - 1) {
                 const lastViewNotMe = lastViewOfMember.filter((ele) => {
@@ -183,13 +183,12 @@ function BodyChatContainer({
             if (timeIsEqual) {
                 result.push(
                     <div key={i}>
-                        <DividerCustom dateString={dateTempt2} />
+                        <DividerCustom dateString={dateTemptCurrent} />
                         <UserMessage
                             key={i}
                             message={currentMessage}
                             isMyMessage={isMyMessage}
                             viewUsers={viewUsers}
-                            onOpenModalShare={handleOpenModalShare}
                             onReply={onReply}
                             onMention={onMention}
                         />
@@ -203,7 +202,6 @@ function BodyChatContainer({
                         isMyMessage={isMyMessage}
                         isSameUser={isSameUser}
                         viewUsers={viewUsers}
-                        onOpenModalShare={handleOpenModalShare}
                         onReply={onReply}
                         onMention={onMention}
                     />
@@ -260,7 +258,6 @@ function BodyChatContainer({
     const handleOnStop = () => {
         setPosition(tempPosition.current);
     };
-    const handleOpenModalShare = () => {};
 
     return (
         <Scrollbars

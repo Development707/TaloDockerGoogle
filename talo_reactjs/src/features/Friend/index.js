@@ -140,8 +140,6 @@ function Friend() {
 
     const handleOnSubmitSearch = async () => {
         try {
-            // const all = await searchApi.searchConversations(valueInput);
-
             const all = await conversationApi.fetchListConversations(
                 valueInput
             );

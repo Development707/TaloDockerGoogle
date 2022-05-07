@@ -15,7 +15,7 @@ import useWindowSize from 'hooks/useWindowSize';
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import renderWidthDrawer from 'utils/DrawerResponsive';
 import DrawerPinMessage from './components/DrawerPinMessage';
 import FilterContainer from './components/FilterContainer';
@@ -69,7 +69,7 @@ Chat.defaultProps = {
 
 function Chat({ socket, idNewMessage }) {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+
     //store
     const {
         conversations,
