@@ -159,7 +159,7 @@ class ConversationService {
                         _id,
                         userId,
                     );
-                name = memberSingle.name;
+                name = memberSingle.name ?? members[0].name;
                 avatar = members[0].avatar;
                 break;
             default:
@@ -228,7 +228,7 @@ class ConversationService {
         });
         conversation = await conversation.save();
         // add 1 member
-        await MemberService.addMember(conversation._id, user.id, user.name);
+        await MemberService.addMember(conversation._id, user.id);
 
         return { conversationId: conversation._id, isExists: false }; // Not exist
     }
