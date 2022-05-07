@@ -19,11 +19,9 @@ function App() {
         const fetchProfile = async () => {
             const token = localStorage.getItem('token');
 
-            console.log('token', token);
-            if (token) {
-                await dispatch(await fetchUserProfile());
-                setIsFetch(true);
-            }
+            if (token) await dispatch(await fetchUserProfile());
+
+            setIsFetch(true);
         };
 
         fetchProfile();
