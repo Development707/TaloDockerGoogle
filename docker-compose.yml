@@ -95,8 +95,8 @@ services:
       - talo
   
   certbot:
+    image: certbot/certbot
     container_name: certbot
-    image: certbot/certbot:v1.9.0
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
@@ -110,7 +110,7 @@ networks:
     driver: bridge
 volumes:
     talo-mongo:
-    talo-redis:
+    # talo-redis:
     certbot-etc:
     certbot-var:
     web-root:
