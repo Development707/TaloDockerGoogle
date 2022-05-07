@@ -150,7 +150,7 @@ class ConversationService {
                         _id,
                         members[0].id,
                     );
-                name = memberDual.name;
+                name = memberDual.name ?? members[0].name;
                 avatar = members[0].avatar;
                 break;
             case 'SINGLE':
@@ -204,16 +204,8 @@ class ConversationService {
         });
         conversation = await conversation.save();
         // add 2 member
-        await MemberService.addMember(
-            conversation._id,
-            users[0].id,
-            users[0].name,
-        );
-        await MemberService.addMember(
-            conversation._id,
-            users[1].id,
-            users[1].name,
-        );
+        await MemberService.addMember(conversation._id, users[0].id);
+        await MemberService.addMember(conversation._id, users[1].id);
 
         return { conversationId: conversation._id, isExists: false }; // Not exist
     }
