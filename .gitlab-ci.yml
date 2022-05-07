@@ -13,5 +13,5 @@ build:
         - docker-compose -f docker-compose.yml down --remove-orphan
         - docker-compose -f docker-compose.yml up -d --build
         - docker rmi -f $(docker images -f dangling=true -q)
-    # variables:
-    #     GIT_STRATEGY: none
+    variables:
+        GIT_STRATEGY: none

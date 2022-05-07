@@ -20,8 +20,6 @@ services:
     restart: always
     ports:
       - 6379:6379
-    # volumes:
-    #   - ./talo-redis:/data
     networks:
       - talo
 
@@ -110,7 +108,6 @@ networks:
     driver: bridge
 volumes:
     talo-mongo:
-    # talo-redis:
     certbot-etc:
     certbot-var:
     web-root:
