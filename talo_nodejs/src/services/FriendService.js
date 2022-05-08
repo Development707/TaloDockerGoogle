@@ -222,7 +222,14 @@ class FriendService {
         const result = await Promise.all(
             friendOfFriend.map(async (friend) => {
                 try {
-                    return await UserSevice.getStatusFriendById(userId, friend);
+                    const status = await UserSevice.getStatusFriendById(
+                        userId,
+                        friend,
+                    );
+                    return {
+                        id: friend,
+                        ...status,
+                    };
                 } catch (error) {}
             }),
         );
