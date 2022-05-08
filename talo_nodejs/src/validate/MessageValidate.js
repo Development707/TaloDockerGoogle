@@ -117,12 +117,22 @@ const MessageValidate = {
     },
 
     validatePinMessage: function (pinMessageIds, messageId) {
-        if (pinMessageIds.includes(messageId) || pinMessageIds.length >= 3)
+        if (
+            pinMessageIds.findIndex(
+                (pinMessageId) => pinMessageId + '' == messageId,
+            ) != -1 ||
+            pinMessageIds.length >= 3
+        )
             throw new CustomError(ErrorType.MESSAGE_PIN_INVALID);
     },
 
     validateRemovePinMessage: function (pinMessageIds, messageId) {
-        if (!pinMessageIds.includes(messageId))
+        console.log(pinMessageIds, messageId);
+        if (
+            pinMessageIds.findIndex(
+                (pinMessageId) => pinMessageId + '' == messageId,
+            ) == -1
+        )
             throw new CustomError(ErrorType.MESSAGE_PIN_INVALID);
     },
 
