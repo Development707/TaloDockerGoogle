@@ -31,9 +31,9 @@ const EmojiPage = () => {
         try {
             await stickerApi.deleteEmoji(id, emoji.name);
             navigate(-1);
-            message.success('Xóa emoji thành công', 5);
+            message.success('Xóa emoji thành công');
         } catch (error) {
-            message.error('Xóa emoji thất bại', 5);
+            message.error('Xóa emoji thất bại');
         }
     };
     const columns = [

@@ -40,12 +40,12 @@ function ModalSendAddFriend({
         `Xin chào, tôi là ${user.name}`
     );
 
-    // console.log('user', userAddFriend);
     const handleOnCancle = () => {
         if (onCancel) {
             onCancel();
         }
     };
+
     const handleOnOk = () => {
         if (onOk) {
             onOk({ userAddFriend: userAddFriend.id, messageInput });
@@ -63,15 +63,11 @@ function ModalSendAddFriend({
     };
     return (
         <Modal
-            // id="modalStyleSendAddFriend"
             className="modalStyle"
             title={title}
             width={380}
             visible={isVisible}
-            // okText="Kết bạn"
-            // cancelText="Thông tin"
             footer={null}
-            // onOk={handleOnOk}
             onCancel={handleOnCancle}
         >
             <div id="user-card">

@@ -1,25 +1,13 @@
-import { Avatar, Button, Image, message, Modal } from 'antd';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import COVERPHOTO_DEFAULT from 'assets/images/user/talo_coverPhoto_default.png';
-import './style.scss';
-import USER_AVATAR_DEFAULT from 'assets/images/user/talo_user_default.jpg';
-import UserCardStyle from './UserCardStyle';
-import getSummaryName from 'utils/nameHelper';
-import dateUtils from 'utils/dateUtils';
 import {
     ExclamationCircleOutlined,
     UserDeleteOutlined,
 } from '@ant-design/icons';
+import { Avatar, Button, Image, message, Modal } from 'antd';
+import conversationApi from 'api/conversationApi';
 import friendApi from 'api/friendApi';
-import {
-    fetchContacts,
-    fetchFriends,
-    fetchListMyRequestFriend,
-    fetchListRequestFriend,
-    setAmountNotify,
-} from 'features/Friend/friendSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import COVERPHOTO_DEFAULT from 'assets/images/user/talo_coverPhoto_default.png';
+import USER_AVATAR_DEFAULT from 'assets/images/user/talo_user_default.jpg';
+import ModalSendAddFriend from 'components/ModalSendAddFriend';
 import {
     fetchChannels,
     fetchListFriends,
@@ -28,9 +16,21 @@ import {
     setConversations,
     setCurrentConversation,
 } from 'features/Chat/slice/chatSlice';
-import conversationApi from 'api/conversationApi';
+import {
+    fetchContacts,
+    fetchFriends,
+    fetchListMyRequestFriend,
+    fetchListRequestFriend,
+    setAmountNotify,
+} from 'features/Friend/friendSlice';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import ModalSendAddFriend from 'components/ModalSendAddFriend';
+import dateUtils from 'utils/dateUtils';
+import getSummaryName from 'utils/nameHelper';
+import './style.scss';
+import UserCardStyle from './UserCardStyle';
 
 UserCard.propTypes = {
     title: PropTypes.string,
@@ -155,7 +155,6 @@ function UserCard({ title, isVisible, user, onCancel }) {
 
     const handleCancelModalAddFriend = () => {
         if (onCancel) {
-            // onCancel();
             setIsVisibleModal(false);
         }
     };
