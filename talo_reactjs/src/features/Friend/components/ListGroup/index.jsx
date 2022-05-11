@@ -14,7 +14,7 @@ const ListGroup = ({ data }) => {
             message.success(`Rời nhóm thành công`);
             dispatch(fetchListGroup({ name: '', type: 'GROUP' }));
         } catch (error) {
-            message.error(`Rời nhóm thất bại`);
+            message.error(`Không thể rời nhóm vì bạn là trưởng nhóm`);
         }
     };
 

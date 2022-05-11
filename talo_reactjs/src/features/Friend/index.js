@@ -163,8 +163,6 @@ function Friend() {
         }
     };
 
-    console.log('isActiveTab', isActiveTab);
-
     return (
         <Spin spinning={isLoading}>
             <div id="main-friend_wrapper">

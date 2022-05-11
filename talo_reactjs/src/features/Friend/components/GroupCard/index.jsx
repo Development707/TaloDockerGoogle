@@ -62,9 +62,7 @@ function GroupCard({ data, onRemove }) {
             dispatch(getMembersConversation({ conversationId: data.id }));
             dispatch(setCurrentConversation(data.id));
             navigate('/chat', { replace: true });
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
     };
 
     const mainCard = (
@@ -105,7 +103,7 @@ function GroupCard({ data, onRemove }) {
             {classify ? (
                 <Badge.Ribbon
                     text={classify.name}
-                    color={classify.color.code}
+                    color={classify.color}
                     placement="start"
                 >
                     {mainCard}

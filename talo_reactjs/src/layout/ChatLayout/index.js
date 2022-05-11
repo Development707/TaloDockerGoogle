@@ -149,28 +149,24 @@ const ChatLayout = () => {
     });
 
     useEffect(() => {
-        // bạn bè đồng ý kết bạn
         socket.on('FriendAccept', (value) => {
             dispatch(setNewFriend(value));
             dispatch(setMyRequestFriend(value.id));
         });
-        // bạn bè gửi lời mời cho mình
+
         socket.on('FriendRequestSend', (value) => {
             dispatch(setSendNewRequestFriend(value));
             dispatch(setAmountNotify(amountNotify + 1));
         });
 
-        // bị người dùng bỏ qua lời mời kết bạn
         socket.on('FriendRequestDelete', (id) => {
             dispatch(updateMyRequestFriend(id));
         });
 
-        //  xóa đã gửi yêu cầu kết bạn cho người khác
         socket.on('FriendRequestByMeDelete', (id) => {
             dispatch(updateRequestFriends(id));
         });
 
-        // xóa kết bạn
         socket.on('FriendDelete', (id) => {
             dispatch(updateFriend(id));
             dispatch(updateFriendChat(id));

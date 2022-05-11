@@ -117,12 +117,9 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
     };
 
     const handleChooseUser = (value) => {
-        // check list da ton tai data chua
         const index = checkListFriend.findIndex((item) => item === value);
         let checkListFriendTemp = [...checkListFriend];
         let itemSelectedTemp = [...itemSelected];
-
-        //neu data co trong list
         if (index !== -1) {
             itemSelectedTemp = itemSelectedTemp.filter(
                 (item) => item.id !== value
@@ -132,7 +129,6 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
                 (item) => item !== value
             );
         } else {
-            //neu chua co
             checkListFriendTemp.push(value);
 
             const index = initialFriend.findIndex((item) => item.id === value);
@@ -175,7 +171,7 @@ function ModalAddMember({ loading, onOk, onCancel, isVisible, typeModal }) {
             okButtonProps={{
                 disabled:
                     (!nameGroup.trim().length > 0 && typeModal === 'DUAL') ||
-                    checkListFriend.length < 2,
+                    (typeModal === 'DUAL' && checkListFriend.length < 2),
             }}
             confirmLoading={loading}
         >

@@ -1,4 +1,4 @@
-import { Avatar, Tooltip } from 'antd';
+import { Avatar, Badge, Tooltip } from 'antd';
 import DEFAULT_AVATAR from 'assets/images/user/talo_user_default.jpg';
 import AvatarCustom from 'components/AvatarCustom';
 import PropTypes from 'prop-types';
@@ -126,13 +126,13 @@ function ConversationAvatar({
                         <Tooltip placement="top">
                             <Avatar
                                 style={{
-                                    backgroundColor: '#7562d8',
-                                    color: '#fff',
+                                    backgroundColor: '#D3D3D3',
+                                    color: '#9C9C9C',
                                     marginTop: (demension / 6) * -1,
                                 }}
                                 size={demension}
                             >
-                                +{totalMembers - 3}
+                                {totalMembers - 3}
                             </Avatar>
                         </Tooltip>
                     </div>
@@ -144,10 +144,10 @@ function ConversationAvatar({
 
     return (
         <div className="avatar_conversation">
-            {avatar !== '' ? (
-                <AvatarCustom size={frameSize} src={avatar} name={name} />
-            ) : type === 'DUAL' ? (
-                <AvatarCustom size={sizeAvatar} src={avatar} name={name} />
+            {avatar !== '' || type === 'DUAL' ? (
+                <Badge dot={isActived} offset={[-5, 40]} color="green">
+                    <AvatarCustom size={frameSize} src={avatar} name={name} />
+                </Badge>
             ) : (
                 <>
                     {totalMembers === 3 ? (
