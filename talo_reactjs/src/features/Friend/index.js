@@ -163,6 +163,8 @@ function Friend() {
         }
     };
 
+    console.log('isActiveTab', isActiveTab);
+
     return (
         <Spin spinning={isLoading}>
             <div id="main-friend_wrapper">
@@ -173,7 +175,7 @@ function Friend() {
                         lg={{ span: 6 }}
                         md={{ span: 7 }}
                         sm={{ span: isActiveTab ? 0 : 24 }}
-                        sx={{ span: isActiveTab ? 0 : 24 }}
+                        xs={{ span: isActiveTab ? 0 : 24 }}
                     >
                         <div className="main-friend_sidebar">
                             <div className="main-friend_sidebar_search-bar">

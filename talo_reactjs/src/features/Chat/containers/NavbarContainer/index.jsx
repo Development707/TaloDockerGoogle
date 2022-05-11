@@ -8,16 +8,16 @@ import {
 } from '@ant-design/icons';
 import { Badge, Button, Popover } from 'antd';
 import PersonalIcon from 'features/Chat/components/PersonalIcon';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import NavbarStyle from './NavbarStyle';
 import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
+import NavbarStyle from './NavbarStyle';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import ModalUpdateProfile from 'features/Chat/components/ModalUpdateProfile';
 import ModalChangePassword from 'components/ModalChangePassword';
-import './style.scss';
+import ModalUpdateProfile from 'features/Chat/components/ModalUpdateProfile';
 import { setTotalUnread } from 'features/Chat/slice/chatSlice';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import './style.scss';
 
 NavbarContainer.propTypes = {
     onSaveCodeRevoke: PropTypes.func,
@@ -54,18 +54,17 @@ function NavbarContainer({ onSaveCodeRevoke }) {
         dispatch(setTotalUnread());
     }, [conversations]);
 
-    // --- Hangle update profile
     const handleUpdateProfile = () => {
         setIsModalUpdateProfileVisible(true);
     };
     const handleCancelModalUpdateProfile = (value) => {
         setIsModalUpdateProfileVisible(value);
     };
-    //Logout
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
-        // navigate('/');
+        localStorage.removeItem('_grecaptcha');
         window.location.reload();
     };
     const content = (

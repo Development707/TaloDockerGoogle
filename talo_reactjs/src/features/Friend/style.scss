@@ -7,7 +7,7 @@
             height: 10vh;
         }
         &_bottom {
-            height: 90vh;
+            height: 88vh;
 
             .main-friend_sidebar_option {
                 display: flex;
@@ -35,13 +35,13 @@
                     display: flex;
                     align-items: center;
                 }
-                height: calc(80vh - 1vh - 4vh - 72px - 72px);
+                height: calc(80vh - 2vh - 4vh - 72px - 72px - 72px);
             }
         }
     }
 
     .divider-layout {
-        height: 1vh;
+        height: 2vh;
         padding: 0 1rem 0 0;
         display: flex;
         align-items: flex-end;
@@ -78,6 +78,33 @@
 
         &__list-group {
             padding: 0 5rem;
+        }
+    }
+
+    @media only screen and (min-width: 992px) and (max-width: 1199px) {
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+    }
+
+    @media only screen and (min-width: 577px) and (max-width: 767px) {
+    }
+    @media only screen and (max-width: 576px) {
+        .main-friend_body__filter {
+            padding-left: 2rem;
+            padding-right: 2rem;
+
+            flex-direction: column;
+            align-items: flex-start;
+
+            height: auto;
+        }
+        .main-friend_body_title-list {
+            margin-left: 2rem;
+            margin-right: 2rem;
         }
     }
 }

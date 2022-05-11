@@ -14,7 +14,6 @@ function Account() {
     const { user } = useSelector((state) => state.global);
     const { isLoadingAccount } = useSelector((state) => state.account);
 
-    console.log('user', user);
     useEffect(() => {
         if (user) {
             if (user.role === 'USER') navigate('/chat');
