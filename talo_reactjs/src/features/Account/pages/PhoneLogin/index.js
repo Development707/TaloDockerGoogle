@@ -11,6 +11,7 @@ import {
 import firebaseApi from 'api/firebaseApi';
 import { fetchUserProfile, setLoading, setLogin } from 'app/globalSlice';
 import InputField from 'customfield/InputField';
+import { setLoadingAccount } from 'features/Account/accountSlice';
 import { loginPhoneNumber } from 'features/Account/initValues';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { FastField, Form, Formik } from 'formik';
@@ -44,9 +45,7 @@ const PhoneLogin = () => {
         notification.info(args);
     };
     const convertPhoneNumber = (phoneNumber) => {
-        let convert;
-        convert = phoneNumber.replace('0', '+84');
-        return convert;
+        return phoneNumber.replace('0', '+84');
     };
 
     const handleSignInPhoneNumber = (values) => {
@@ -86,19 +85,23 @@ const PhoneLogin = () => {
         dispatch(setLoading(false));
     };
 
-    const handleConfirmOTP = async (phoneNumber, otpValue) => {
+    const handleConfirmOTP = async (phoneNumber, token) => {
         try {
+            dispatch(setLoadingAccount(true));
+
             await firebaseApi
-                .confirmPhoneNumber(phoneNumber, otpValue)
+                .confirmPhoneNumber(phoneNumber, token)
                 .then((res) => {
                     localStorage.setItem('token', res.data.token);
                     localStorage.setItem('refreshToken', res.data.refreshToken);
-                    dispatch(setLogin(true));
-                    const { role } = unwrapResult(dispatch(fetchUserProfile()));
-                    if (role === 'USER') navigate('/chat', { replace: true });
-                    else navigate('/admin', { replace: true });
                 });
+
+            dispatch(setLogin(true));
+            const { role } = unwrapResult(await dispatch(fetchUserProfile()));
+            if (role === 'USER') navigate('/chat', { replace: true });
+            else navigate('/admin', { replace: true });
         } catch (error) {}
+        dispatch(setLoadingAccount(false));
     };
     return (
         <div className="account-common-page">
