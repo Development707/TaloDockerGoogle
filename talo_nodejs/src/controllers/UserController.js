@@ -23,7 +23,7 @@ class UserController {
         try {
             const user = await UserService.getStatusFriendById(id, userId);
 
-            res.json(user);
+            res.json({id: userId, ...user});
         } catch (err) {
             next(err);
         }
