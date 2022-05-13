@@ -68,9 +68,9 @@ function InfoMember({ viewMemberClick, quantity }) {
                 currentConversation,
                 checked
             );
-            message.success('Cập nhật thành công');
+            message.success('Cập nhật trạng thái thành công');
         } catch (error) {
-            message.error('Cập nhật thất bại');
+            message.error('Cập nhật trạng thái thất bại');
         }
     };
 
@@ -138,6 +138,7 @@ function InfoMember({ viewMemberClick, quantity }) {
                             <Switch
                                 className="switch-toggle"
                                 defaultChecked
+                                checked={isStatus}
                                 onChange={onChange}
                             />
                         </div>

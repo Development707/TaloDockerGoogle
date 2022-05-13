@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import './style.scss';
+import { MoreOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Menu, message, Modal } from 'antd';
+import conversationApi from 'api/conversationApi';
+import friendApi from 'api/friendApi';
+import userApi from 'api/userApi';
+import ModalSendAddFriend from 'components/ModalSendAddFriend';
+import UserCard from 'components/UserCard';
+import { fetchListMyRequestFriend } from 'features/Friend/friendSlice';
+import { useState } from 'react';
+import Scrollbars from 'react-custom-scrollbars';
 import { useDispatch, useSelector } from 'react-redux';
 import InfoTitle from '../InfoTitle';
-import Scrollbars from 'react-custom-scrollbars';
-import { Button, Dropdown, Menu, message, Modal, Tag } from 'antd';
-import { MoreOutlined } from '@ant-design/icons';
 import PersonalIcon from '../PersonalIcon';
-import ModalSendAddFriend from 'components/ModalSendAddFriend';
-import { useState } from 'react';
-import UserCard from 'components/UserCard';
-import userApi from 'api/userApi';
-import friendApi from 'api/friendApi';
-import { fetchListMyRequestFriend } from 'features/Friend/friendSlice';
-import conversationApi from 'api/conversationApi';
+import './style.scss';
 InfoMembersGroup.propTypes = {
     onBack: PropTypes.func,
     members: PropTypes.array,
@@ -126,9 +125,10 @@ function InfoMembersGroup({ onBack, members }) {
 
     const handleOkAddFriend = async (value) => {
         try {
-            const { userAddFriend, messageInput } = value;
-            await friendApi.sendRequestFriend(userAddFriend, messageInput);
+            const { idUserAddFriend, messageInput } = value;
+            await friendApi.sendRequestFriend(idUserAddFriend, messageInput);
             dispatch(fetchListMyRequestFriend());
+
             onCancel();
 
             message.success('Gửi lời mời kết bạn thành công');

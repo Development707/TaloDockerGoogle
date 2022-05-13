@@ -109,8 +109,8 @@ export const createGroup = createAsyncThunk(
     }
 );
 
-export const getMembersConversation = createAsyncThunk(
-    `${KEY}/getMembersConversation`,
+export const fetchMembersConversation = createAsyncThunk(
+    `${KEY}/fetchMembersConversation`,
     async (params, thunkApi) => {
         const { conversationId } = params;
         const members = await conversationApi.getMemberInConversation(
@@ -613,7 +613,7 @@ const chatSlice = createSlice({
             state.currentPage = action.payload.messages.page;
             state.totalPages = action.payload.messages.totalPages;
         },
-        [getMembersConversation.fulfilled]: (state, action) => {
+        [fetchMembersConversation.fulfilled]: (state, action) => {
             const tempMembers = [...action.payload];
             const temp = [];
 

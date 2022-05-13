@@ -3,7 +3,7 @@ import SubMenuClassify from 'components/SubMenuClassify';
 import ConversationAvatar from 'features/Chat/components/ConversationAvatar';
 import {
     fetchListMessages,
-    getMembersConversation,
+    fetchMembersConversation,
     setCurrentConversation,
 } from 'features/Chat/slice/chatSlice';
 import PropTypes from 'prop-types';
@@ -59,7 +59,7 @@ function GroupCard({ data, onRemove }) {
     const handleOnClick = async () => {
         try {
             dispatch(fetchListMessages({ conversationId: data.id, size: 10 }));
-            dispatch(getMembersConversation({ conversationId: data.id }));
+            dispatch(fetchMembersConversation({ conversationId: data.id }));
             dispatch(setCurrentConversation(data.id));
             navigate('/chat', { replace: true });
         } catch (error) {}

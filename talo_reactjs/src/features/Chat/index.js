@@ -39,7 +39,7 @@ import {
     fetchListMessages,
     fetchPinMessages,
     getLastViewOfMembers,
-    getMembersConversation,
+    fetchMembersConversation,
     isDeletedFromGroup,
     setCurrentChannel,
     setCurrentConversation,
@@ -344,7 +344,7 @@ function Chat({ socket, idNewMessage }) {
                         fetchListMessages({ conversationId: tempId, size: 20 })
                     );
                     dispatch(
-                        getMembersConversation({ conversationId: tempId })
+                        fetchMembersConversation({ conversationId: tempId })
                     );
 
                     dispatch(getLastViewOfMembers({ conversationId: tempId }));

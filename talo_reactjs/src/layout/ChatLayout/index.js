@@ -11,6 +11,7 @@ import {
     fetchConversationById,
     fetchListClassify,
     fetchListConversations,
+    fetchMembersConversation,
     updateAvatarWhenUpdateMember,
     updateFriendChat,
 } from 'features/Chat/slice/chatSlice';

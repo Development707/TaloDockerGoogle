@@ -7,7 +7,7 @@ import {
     fetchChannels,
     fetchListMessages,
     getLastViewOfMembers,
-    getMembersConversation,
+    fetchMembersConversation,
     setCurrentChannel,
 } from 'features/Chat/slice/chatSlice';
 import PropTypes from 'prop-types';
@@ -45,7 +45,7 @@ function ConversationContainer({ valueClassify }) {
         dispatch(setCurrentChannel(''));
         dispatch(getLastViewOfMembers({ conversationId }));
         dispatch(fetchListMessages({ conversationId, size: 10 }));
-        dispatch(getMembersConversation({ conversationId }));
+        dispatch(fetchMembersConversation({ conversationId }));
         dispatch(fetchChannels({ conversationId }));
     };
 
