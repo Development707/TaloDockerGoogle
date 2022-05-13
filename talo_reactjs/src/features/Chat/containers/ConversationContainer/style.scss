@@ -47,21 +47,26 @@
         flex-direction: column;
         align-items: center;
         min-width: 4.6rem;
+        position: relative;
         .lastest-time {
             font-size: 1.2rem;
             color: $thumbnail-text;
             text-align: center;
+            position: absolute;
+            top: -18px;
         }
         .message-count {
+            position: absolute;
+            top: 4px;
             display: none;
-            height: 2rem;
-            width: 2rem;
+            height: 1.8rem;
+            width: 1.8rem;
             color: $white-color;
             text-align: center;
 
-            line-height: 2rem;
+            line-height: 1.8rem;
             background-color: $red-color;
-            font-weight: 500;
+            font-weight: 400;
             border-radius: 50%;
             font-size: 1.2rem;
         }
@@ -102,4 +107,10 @@
 }
 .conversation-item:hover {
     background-color: $light-grey;
+}
+.conversation-item:hover .right-side-box-interact {
+    display: block;
+}
+.conversation-item:hover .right-side-box .message-count {
+    display: none;
 }

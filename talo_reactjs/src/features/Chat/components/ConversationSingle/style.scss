@@ -12,3 +12,11 @@
         text-overflow: ellipsis;
     }
 }
+
+.right-side-box-interact {
+    display: none;
+    position: absolute;
+    right: 6px;
+    top: -22px;
+    z-index: 99;
+}

@@ -48,7 +48,7 @@ function ModalSendAddFriend({
 
     const handleOnOk = () => {
         if (onOk) {
-            onOk({ userAddFriend: userAddFriend.id, messageInput });
+            onOk({ idUserAddFriend: userAddFriend.id, messageInput });
             handleOnCancle();
         }
     };

@@ -6,8 +6,8 @@ import ConversationSingle from 'features/Chat/components/ConversationSingle';
 import {
     fetchChannels,
     fetchListMessages,
-    getLastViewOfMembers,
     fetchMembersConversation,
+    getLastViewOfMembers,
     setCurrentChannel,
 } from 'features/Chat/slice/chatSlice';
 import PropTypes from 'prop-types';
@@ -50,7 +50,7 @@ function ConversationContainer({ valueClassify }) {
     };
 
     const handleOnClickItem = (e, id) => {
-        if (e.key === 1) {
+        if (e.key === '1') {
             confirm(id);
         }
     };
@@ -92,14 +92,7 @@ function ConversationContainer({ valueClassify }) {
                                     <Dropdown
                                         key={index}
                                         overlay={
-                                            <Menu
-                                                onClick={(e) =>
-                                                    handleOnClickItem(
-                                                        e,
-                                                        conversationEle.id
-                                                    )
-                                                }
-                                            >
+                                            <Menu>
                                                 <SubMenuClassify
                                                     data={classifies}
                                                     idConver={
@@ -109,8 +102,9 @@ function ConversationContainer({ valueClassify }) {
                                                 {user.id ===
                                                     conversationEle.leaderId && (
                                                     <Menu.Item
-                                                        onClick={() =>
-                                                            confirm(
+                                                        onClick={(e) =>
+                                                            handleOnClickItem(
+                                                                e,
                                                                 conversationEle.id
                                                             )
                                                         }
@@ -138,6 +132,7 @@ function ConversationContainer({ valueClassify }) {
                                                 onClick={
                                                     handleConversationClick
                                                 }
+                                                deleteGroup={handleOnClickItem}
                                             />
                                         </li>
                                     </Dropdown>
