@@ -134,6 +134,7 @@ class ChannelService {
         );
         ConversationValidate.validateConversation(conversation, userId);
         // Update channel
+        Message.deleteMany({ channelId: channelId });
         await Channel.deleteOne({ _id: channelId });
         await Member.updateMany(
             { conversationId: channel.conversationId },
