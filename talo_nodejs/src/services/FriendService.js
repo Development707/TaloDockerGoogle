@@ -214,7 +214,6 @@ class FriendService {
                     },
                 ])
             ).map((fr) => fr.userIds + '');
-            console.log(friends);
             friendOfFriend.push(...friends);
         }
         friendOfFriend = [...new Set(friendOfFriend)];

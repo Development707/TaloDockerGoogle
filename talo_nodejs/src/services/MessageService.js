@@ -152,6 +152,9 @@ class MessageService {
                 );
                 return messageUtils.convertMessageDual(message);
             case 'SINGLE':
+                message.userId = await redisUtils.getShortUserInfo(
+                    message.userId,
+                );
                 // Reply
                 if (message.replyMessageId) {
                     message.replyMessageId = await Message.findById(
@@ -162,7 +165,7 @@ class MessageService {
                             message.replyMessageId.userId + '',
                         );
                 }
-                return messageUtils.convertMessageDual(message);
+                return messageUtils.convertMessageSignle(message);
             default:
                 return null;
         }

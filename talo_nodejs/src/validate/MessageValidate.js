@@ -127,7 +127,6 @@ const MessageValidate = {
     },
 
     validateRemovePinMessage: function (pinMessageIds, messageId) {
-        console.log(pinMessageIds, messageId);
         if (
             pinMessageIds.findIndex(
                 (pinMessageId) => pinMessageId + '' == messageId,

@@ -69,6 +69,36 @@ const messageUtils = {
         };
     },
 
+    convertMessageSignle: function (message) {
+        const { _id, userId, isDeleted } = message;
+        const user = userId;
+        let { replyMessageId } = message;
+
+        if (isDeleted)
+            return {
+                id: _id,
+                isDeleted,
+                user,
+                createdAt: message.createdAt,
+            };
+
+        if (replyMessageId)
+            message.replyMessageId = this.checkReplyMessage(replyMessageId);
+
+        message.id = message._id;
+        delete message._id;
+        delete message.isDeleted;
+        delete message.userId;
+        delete message.__v;
+        delete message.updatedAt;
+        delete message.conversationId;
+
+        return {
+            ...message,
+            user,
+        };
+    },
+
     getUserDualConversation: (conversation, userId) => {
         let members = conversation.members.find(
             (member) => member.id == userId,
