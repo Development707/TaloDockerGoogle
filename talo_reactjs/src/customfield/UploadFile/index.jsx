@@ -29,10 +29,7 @@ const UploadFile = (props) => {
         try {
             await messageApi.sendFileThroughMessage(
                 fmData,
-                currentConversation,
-                (percentCompleted) => {
-                    // console.log('value', percentCompleted);
-                }
+                currentConversation
             );
             message.success(`Đã tải lên ${file.name}`);
         } catch (e) {

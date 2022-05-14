@@ -81,7 +81,7 @@ function NavigationChatBox(props) {
                 <span className="item-menu-poll">Tạo cuộc bình chọn</span>
             </Menu.Item>
             <Menu.Item key="VIEW_NEWS" icon={<BsNewspaper />}>
-                <span className="item-menu-poll"> Xem bảng tin nhóm</span>
+                <span className="item-menu-poll">Xem bảng tin nhóm</span>
             </Menu.Item>
         </Menu>
     );
@@ -135,7 +135,7 @@ function NavigationChatBox(props) {
                 </li>
 
                 <li className="item-chat-box">
-                    <UploadFile typeOfFile="File">
+                    <UploadFile typeOfFile="file">
                         <Button
                             title="Gửi file"
                             type="text"
@@ -145,6 +145,7 @@ function NavigationChatBox(props) {
                         </Button>
                     </UploadFile>
                 </li>
+
                 <li className="item-chat-box">
                     <div
                         title="Định dạng tin nhắn"
@@ -153,6 +154,7 @@ function NavigationChatBox(props) {
                         <FontColorsOutlined />
                     </div>
                 </li>
+
                 {checkIsGroup === 'GROUP' && (
                     <li className="item-chat-box">
                         <Dropdown

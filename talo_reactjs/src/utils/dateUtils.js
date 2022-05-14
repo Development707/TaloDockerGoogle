@@ -17,13 +17,14 @@ const dateUtils = {
         const dateWasMinus7day = nowTempt.setDate(nowTempt.getDate() - 7);
 
         if (date < dateWasMinus7day)
-            return `0${date.getDate()}/${date.getMonth() + 1}`.slice(-2);
+            return `0${date.getDate()}/${date.getMonth() + 1}`.slice(-3);
 
         const now = new Date();
         const numberMiliseconds = now - date;
 
         // tính ngày
         const day = Math.floor(numberMiliseconds / DAY_MILISECONDS);
+
         if (day > 0) return `0${day}`.slice(-2) + ` ngày`;
 
         // tính giờ
