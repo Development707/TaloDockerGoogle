@@ -160,7 +160,12 @@ const TypeDocument = [
     'application/vnd.ms-powerpoint',
     'application/vnd.openxmlformats-officedocument.presentationml.presentation',
     'application/vnd.rar',
+    'application/x-rar-compressed',
+    'application/octet-stream',
     'application/zip',
+    'application/octet-stream',
+    'application/x-zip-compressed',
+    'multipart/x-zip',
 ];
 const TypeFiles = [...TypeImage, ...TypeVideo, ...TypeDocument];
 
