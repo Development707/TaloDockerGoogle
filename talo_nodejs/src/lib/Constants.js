@@ -22,7 +22,7 @@ const ErrorType = {
     PROFILE_INVALID: 'Profile không hợp lệ',
     DATE_INVALID: 'Ngày không hợp lệ',
     GENDER_INVALID: 'Giới tính không hợp lệ',
-    FILE_INVALID: ' không hợp lệ. Loại file không được cho phép: PNG, JPEG',
+    FILE_INVALID: ' file không hợp lệ.',
     AVATAR_INVALID: 'File: Ảnh đại diện không hợp lệ (png,jpeg)',
     CONTACTS_INVALID: 'Contacts: danh sách số điện thoại không hợp lệ',
     PHONE_INVALID: 'Phone: số điện thoạt không hợp lệ',
