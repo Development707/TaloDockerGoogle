@@ -2,13 +2,13 @@
 
 ## Cách chạy
 
-- npm install
-- npm start
+-   npm install
+-   npm start
 
 Chạy trên cổng 3000
 
-## `Home`
+## `Talo`
 
 -   `/`: trang login.
--   `/account/registry`: đăng kí.
--   `/account/forgot`: quên mật khẩu.
+-   `/registry`: đăng kí.
+-   `/forgot`: quên mật khẩu.
