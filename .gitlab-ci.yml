@@ -5,6 +5,7 @@ services:
 before_script:
     - docker version
     - docker-compose version
+
 build:
     stage: build
     only:
