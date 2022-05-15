@@ -80,11 +80,11 @@ function LoginPage(props) {
             await firebaseApi.signInToken(username, accessToken).then((res) => {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('refreshToken', res.data.refreshToken);
-                dispatch(setLogin(true));
-                const { role } = unwrapResult(dispatch(fetchUserProfile()));
-                if (role === 'USER') navigate('/chat', { replace: true });
-                else navigate('/admin', { replace: true });
             });
+            dispatch(setLogin(true));
+            const { role } = unwrapResult(await dispatch(fetchUserProfile()));
+            if (role === 'USER') navigate('/chat', { replace: true });
+            else navigate('/admin', { replace: true });
         } catch (error) {}
     };
 
