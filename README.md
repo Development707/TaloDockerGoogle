@@ -102,7 +102,9 @@ Xem file bằng docker extension
 
 1. Download the binary for your system
 
-    - `sudo curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64`
+    ```
+    sudo curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+    ```
 
 2. Give it permissions to execute
 
@@ -256,7 +258,3 @@ Doc
 -   `docker ps -a`: Xem certbot lấy chức chỉ Exist có bằng 0 không
 -   `docker-compose logs certbot`: Check coi lấy chứng chỉ thành công không ( " Congratulations! " )
 -   `openssl dhparam -out talo-nginx/dhparam-2048.pem 2048`: tạo khóa bí mật để client vs Server trao đổi với nhau
-
-```
-
-```
