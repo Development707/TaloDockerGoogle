@@ -65,9 +65,9 @@ services:
     build: 
       context: ./talo_reactjs
       args:
-        - REACT_APP_API_URL=http://34.143.190.208/api
-        - REACT_APP_URL=http://34.143.190.208
-        - REACT_APP_SOCKET_URL=http://34.143.190.208
+        - REACT_APP_API_URL=https://talo.dev/api
+        - REACT_APP_URL=https://talo.dev
+        - REACT_APP_SOCKET_URL=https://talo.dev
     ports:
       - 3000:3000
     depends_on:
