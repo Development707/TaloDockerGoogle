@@ -51,6 +51,7 @@ services:
     restart: on-failure:3
     build: 
       context: ./talo_reactjs
+      dockerfile: Dockerfile.dev
       args:
         - REACT_APP_API_URL=http://localhost/api
         - REACT_APP_URL=http://localhost
