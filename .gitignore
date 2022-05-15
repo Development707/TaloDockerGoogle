@@ -1,2 +1,2 @@
-talo-mongo/*
-talo-redis/*
+/talo-mongo
+/talo-redis
