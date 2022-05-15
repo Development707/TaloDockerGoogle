@@ -14,4 +14,4 @@ build:
         - docker-compose -f docker-compose.yml up -d --build
         - docker rmi -f $(docker images -f dangling=true -q)
     variables:
-        GIT_STRATEGY: fetch
+        GIT_STRATEGY: none
