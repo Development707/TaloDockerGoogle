@@ -106,33 +106,59 @@ Xem file bằng docker extension
 
 2. Give it permissions to execute
 
-    - `sudo chmod +x /usr/local/bin/gitlab-runner`
+    ```
+    sudo chmod +x /usr/local/bin/gitlab-runner
+    ```
 
 3. Create a GitLab CI user
 
-    - `sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash`
+    ```
+    sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+    ```
 
 4. Install and run as service
 
-    - `sudo gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner`
-    - `sudo gitlab-runner start`
+    ```
+    sudo gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+    ```
+
+    ```
+    sudo gitlab-runner start
+    ```
 
 5. Register a runner
 
-    - `sudo gitlab-runner register --url https://gitlab.com/ --registration-token "registration_token"`
+    ```
+    sudo gitlab-runner register --url https://gitlab.com/ --registration-token "registration_token"
+    ```
 
 6. Add gitlab-runner to the docker group
 
-    - `sudo usermod -aG docker gitlab-runner`
+    ```
+    sudo usermod -aG docker gitlab-runner
+    ```
 
 7. Grant sudo permissions to the gitlab-runner user.
 
-    - `sudo nano /etc/sudoers`
-    - `gitlab-runner ALL=(ALL) NOPASSWD: ALL`
+    ```
+    sudo nano /etc/sudoers
+    ```
+
+    ```
+    gitlab-runner ALL=(ALL) NOPASSWD: ALL
+    ```
 
 8. Fix bug.
 
-    - `sudo nano /home/gitlab-runner/.bash_logout`
+    ```
+    sudo nano /home/gitlab-runner/.bash_logout
+    ```
+
+9. Verify that gitlab-runner has access to Docker
+
+    ```
+    sudo -u gitlab-runner -H docker info
+    ```
 
 # 6 CI CD Google Cloud
 
@@ -230,3 +256,7 @@ Doc
 -   `docker ps -a`: Xem certbot lấy chức chỉ Exist có bằng 0 không
 -   `docker-compose logs certbot`: Check coi lấy chứng chỉ thành công không ( " Congratulations! " )
 -   `openssl dhparam -out talo-nginx/dhparam-2048.pem 2048`: tạo khóa bí mật để client vs Server trao đổi với nhau
+
+```
+
+```
