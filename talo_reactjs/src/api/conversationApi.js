@@ -66,7 +66,6 @@ const conversationApi = {
         );
     },
     leaveGroup: (conversationId) => {
-        // console.log('API conversationId', conversationId);
         return axiosClient.delete(`${API_URL}/${conversationId}/members`);
     },
     deleteMember: (conversationId, userId) => {

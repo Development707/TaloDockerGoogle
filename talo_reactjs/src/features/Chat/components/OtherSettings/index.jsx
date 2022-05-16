@@ -5,8 +5,8 @@ import {
 } from '@ant-design/icons';
 import { message, Modal } from 'antd';
 import conversationApi from 'api/conversationApi';
-import { fetchListMessages, leaveGroup } from 'features/Chat/slice/chatSlice';
-import React, { useState } from 'react';
+import { fetchListMessages, leftGroup } from 'features/Chat/slice/chatSlice';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
 
@@ -74,7 +74,7 @@ const OtherSettings = ({ socket }) => {
 
                     socket.emit('ConversationLeft', currentConversation);
 
-                    dispatch(leaveGroup(currentConversation));
+                    dispatch(leftGroup(currentConversation));
                     message.success(`Rời nhóm thành công`);
                 } catch (error) {
                     message.error(`Rời nhóm thất bại`);

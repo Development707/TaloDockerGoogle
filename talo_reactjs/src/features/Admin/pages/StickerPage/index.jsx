@@ -223,7 +223,7 @@ const StickerPage = () => {
                     </Link>
                     <Link onClick={() => showDrawerCreateEmoji(data.id)}>
                         <PlusCircleTwoTone />
-                        Thêm sticker{' '}
+                        Thêm emoji{' '}
                     </Link>
 
                     <Link

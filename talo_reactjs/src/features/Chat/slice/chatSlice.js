@@ -252,7 +252,7 @@ const chatSlice = createSlice({
 
             state.totalChannelNotify = notify;
         },
-        leaveGroup: (state, action) => {
+        leftGroup: (state, action) => {
             const conversationId = action.payload;
             const newConvers = state.conversations.filter(
                 (ele) => ele.id !== conversationId
@@ -736,7 +736,7 @@ export const {
     setCurrentChannel,
     updatePoll,
     setTotalChannelNotify,
-    leaveGroup,
+    leftGroup,
     setRollUpPage,
     addMessage,
     updateAvatarWhenUpdateMember,

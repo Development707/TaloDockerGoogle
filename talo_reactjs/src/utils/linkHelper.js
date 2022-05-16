@@ -10,7 +10,6 @@ export const replaceConentWithouLink = (content, replace) => {
 
 export const replaceContentToLink = (content, replaceArray) => {
     let tempContent = content.split(' ');
-    // let summaryText = [];
 
     tempContent.forEach((temp, i, theArray) => {
         for (let index = 0; index < replaceArray.length; index++) {

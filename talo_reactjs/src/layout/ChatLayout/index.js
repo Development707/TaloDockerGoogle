@@ -11,7 +11,6 @@ import {
     fetchConversationById,
     fetchListClassify,
     fetchListConversations,
-    fetchMembersConversation,
     updateAvatarWhenUpdateMember,
     updateFriendChat,
 } from 'features/Chat/slice/chatSlice';
@@ -211,15 +210,11 @@ const ChatLayout = () => {
                             element={
                                 <Chat
                                     socket={socket}
-                                    authed={true}
                                     idNewMessage={idNewMessage}
                                 />
                             }
                         />
-                        <Route
-                            path="friends"
-                            element={<Friend authed={true} />}
-                        />
+                        <Route path="friends" element={<Friend />} />
 
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>

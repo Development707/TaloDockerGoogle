@@ -23,9 +23,13 @@ import {
     fetchListRequestFriend,
     fetchSuggestFriend,
 } from './friendSlice';
-import FRIEND_STYLE from './friendStyle';
 import './style.scss';
 
+const BUTTON_FILTER = {
+    background: '#f7f7fa',
+    paddingLeft: 0,
+    paddingRight: 0,
+};
 function Friend() {
     const { user } = useSelector((state) => state.global);
     const {
@@ -327,7 +331,7 @@ function Friend() {
                                                                 }
                                                                 type="text"
                                                                 style={
-                                                                    FRIEND_STYLE.BUTTON_FILTER
+                                                                    BUTTON_FILTER
                                                                 }
                                                             >
                                                                 {` ${getValueFromKey(
@@ -351,7 +355,7 @@ function Friend() {
                                                                 }
                                                                 type="text"
                                                                 style={
-                                                                    FRIEND_STYLE.BUTTON_FILTER
+                                                                    BUTTON_FILTER
                                                                 }
                                                             >
                                                                 {` ${getValueFromKey(
