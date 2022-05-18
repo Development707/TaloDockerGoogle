@@ -1,18 +1,21 @@
 import { Col, message, Modal, Row } from 'antd';
 import conversationApi from 'api/conversationApi';
+import { leftGroup } from 'features/Chat/slice/chatSlice';
 import { fetchListGroup } from 'features/Friend/friendSlice';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { socket } from 'utils/socketClient';
 import GroupCard from '../GroupCard';
 
 const ListGroup = ({ data }) => {
     const dispatch = useDispatch();
-
+    const { currentConversation } = useSelector((state) => state.chat);
     const handleOkModal = async (id) => {
         try {
             await conversationApi.leaveGroup(id);
             message.success(`Rời nhóm thành công`);
+            socket.emit('ConversationLeft', id);
             dispatch(fetchListGroup({ name: '', type: 'GROUP' }));
+            dispatch(leftGroup(currentConversation));
         } catch (error) {
             message.error(`Không thể rời nhóm vì bạn là trưởng nhóm`);
         }

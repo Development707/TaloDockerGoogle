@@ -31,7 +31,6 @@ function HeaderChatContainer({ isOpenInfo, onPopUpInfo, onOpenDrawer }) {
             }
         }
     }, [currentConversation, conversations]);
-    console.log('detailConver.type', detailConver.type);
     return (
         <div id="header-main">
             <HeaderOptional
