@@ -1,18 +1,16 @@
-import { LikeOutlined, LockFilled, SendOutlined } from '@ant-design/icons';
+import { LikeOutlined, SendOutlined } from '@ant-design/icons';
 import { Mentions } from 'antd';
 import { Option } from 'antd/lib/mentions';
-import NavigationChatBox from 'features/Chat/components/NavigationChatBox';
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import MENTION_STYLE from './MentionStyle.js';
-import PersonalIcon from 'features/Chat/components/PersonalIcon';
-import { useEffect } from 'react';
 import messageApi from 'api/messageApi';
-import './style.scss';
+import NavigationChatBox from 'features/Chat/components/NavigationChatBox';
+import PersonalIcon from 'features/Chat/components/PersonalIcon';
 import ReplyBlock from 'features/Chat/components/ReplyBlock/index.jsx';
 import TextEditor from 'features/Chat/components/TextEditor/index.jsx';
+import PropTypes from 'prop-types';
+import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import MENTION_STYLE from './MentionStyle.js';
+import './style.scss';
 
 FooterChatContainer.propTypes = {
     onScrollWhenSentText: PropTypes.func,
@@ -203,7 +201,6 @@ function FooterChatContainer({
             .then((res) => {
                 const { id } = res;
                 handleOnScroll(id);
-                // console.log('Send Message Success');
             })
             .catch((err) => console.log('Send Message Fail'));
 

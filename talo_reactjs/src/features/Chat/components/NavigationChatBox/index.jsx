@@ -5,17 +5,16 @@ import {
     LinkOutlined,
     SmileOutlined,
 } from '@ant-design/icons';
-import PropTypes from 'prop-types';
 import { Button, Dropdown, Menu, Popover } from 'antd';
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { BsNewspaper } from 'react-icons/bs';
-import { FcBarChart } from 'react-icons/fc';
-
-import './style.scss';
-import { useSelector } from 'react-redux';
+import { CgPoll } from 'react-icons/cg';
 import UploadFile from 'customfield/UploadFile';
-import Sticker from '../Sticker';
+import { useSelector } from 'react-redux';
 import ModalCreatePoll from '../ModalCreatePoll';
+import Sticker from '../Sticker';
+import './style.scss';
 
 NavigationChatBox.propTypes = {
     onClickTextFormat: PropTypes.func,
@@ -77,7 +76,7 @@ function NavigationChatBox(props) {
 
     const menu = (
         <Menu onClick={handleOnClick}>
-            <Menu.Item key="POLL" icon={<FcBarChart />}>
+            <Menu.Item key="POLL" icon={<CgPoll />}>
                 <span className="item-menu-poll">Tạo cuộc bình chọn</span>
             </Menu.Item>
             <Menu.Item key="VIEW_NEWS" icon={<BsNewspaper />}>
@@ -164,7 +163,7 @@ function NavigationChatBox(props) {
                             arrow
                         >
                             <Button
-                                title="Vote"
+                                title="Poll"
                                 type="text"
                                 style={styleButton}
                             >

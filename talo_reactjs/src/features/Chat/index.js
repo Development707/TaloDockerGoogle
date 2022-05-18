@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import renderWidthDrawer from 'utils/DrawerResponsive';
+import renderWidthDrawer from 'utils/drawerResponsive';
 import DrawerPinMessage from './components/DrawerPinMessage';
 import FilterContainer from './components/FilterContainer';
 import GroupNews from './components/GroupNews';
@@ -78,7 +78,7 @@ function Chat({ socket, idNewMessage }) {
         channels,
         pinMessages,
     } = useSelector((state) => state.chat);
-    const { isJoinChatLayout, user } = useSelector((state) => state.global);
+    const { user } = useSelector((state) => state.global);
     //=========================================
     const location = useLocation();
     const [isOpenInfo, setIsOpenInfo] = useState(true);
