@@ -20,13 +20,3 @@ export function equalsArray(a, b) {
         }
     });
 }
-
-export function checkArrayUndefined(array) {
-    array.forEach((ele) => {
-        if (Object.keys(ele).length === 0) {
-            return true;
-        }
-    });
-
-    return false;
-}

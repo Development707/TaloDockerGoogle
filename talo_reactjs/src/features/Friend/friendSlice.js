@@ -1,4 +1,3 @@
-import contactsApi from 'api/contactsApi';
 import conversationApi from 'api/conversationApi';
 import friendApi from 'api/friendApi';
 
@@ -19,14 +18,6 @@ export const fetchFriends = createAsyncThunk(
     async (params, thunkApi) => {
         const { name } = params;
         const data = await friendApi.fetchFriends(name);
-        return data;
-    }
-);
-
-export const fetchContacts = createAsyncThunk(
-    `${KEY}/fetchContacts`,
-    async (params, thunkApi) => {
-        const data = await contactsApi.fetchContacts();
         return data;
     }
 );
@@ -129,17 +120,6 @@ const friendSlice = createSlice({
             state.friends = action.payload;
         },
         [fetchFriends.rejected]: (state, action) => {
-            state.isLoading = false;
-        },
-
-        [fetchContacts.pending]: (state, action) => {
-            state.isLoading = true;
-        },
-        [fetchContacts.fulfilled]: (state, action) => {
-            state.isLoading = false;
-            state.contacts = action.payload;
-        },
-        [fetchContacts.rejected]: (state, action) => {
             state.isLoading = false;
         },
 

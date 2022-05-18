@@ -1,4 +1,4 @@
-const commonFunc = {
+const tableSttFunc = {
     addSTTForList: (arr, start) => {
         if (!arr) return [];
         return arr.map((ele, index) => ({
@@ -9,4 +9,4 @@ const commonFunc = {
     },
 };
 
-export default commonFunc;
+export default tableSttFunc;

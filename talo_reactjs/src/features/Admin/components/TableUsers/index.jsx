@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown, Menu, Popconfirm, Table, Tag } from 'antd';
-import commonFunc from 'utils/commonFunc';
+import commonFunc from 'utils/tableSttFunc';
 import Text from 'antd/lib/typography/Text';
 
 TableUsers.propTypes = {

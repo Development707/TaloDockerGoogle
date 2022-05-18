@@ -17,7 +17,6 @@ import {
     setCurrentConversation,
 } from 'features/Chat/slice/chatSlice';
 import {
-    fetchContacts,
     fetchFriends,
     fetchListMyRequestFriend,
     fetchListRequestFriend,
@@ -96,7 +95,6 @@ function UserCard({ title, isVisible, user, onCancel }) {
     const handleCancelRequest = async () => {
         await friendApi.deleteSentRequestFriend(user.id);
         dispatch(fetchListMyRequestFriend());
-        dispatch(fetchContacts());
         handleOnCancle();
     };
 
@@ -114,7 +112,7 @@ function UserCard({ title, isVisible, user, onCancel }) {
         await friendApi.deleteRequestFriend(value.id);
         dispatch(setAmountNotify(amountNotify - 1));
         dispatch(fetchListRequestFriend());
-        dispatch(fetchContacts());
+
         handleOnCancle();
     };
     const handleDeleteFriend = () => {
@@ -143,7 +141,6 @@ function UserCard({ title, isVisible, user, onCancel }) {
             dispatch(fetchFriends({ name: '' }));
             message.success('Hủy kết bạn thành công');
             handleOnCancle();
-            dispatch(fetchContacts());
         } catch (error) {
             message.error('Hủy kết bạn thất bại');
         }
