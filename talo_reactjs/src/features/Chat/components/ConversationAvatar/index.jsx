@@ -9,7 +9,7 @@ ConversationAvatar.propTypes = {
     isGroupCard: PropTypes.bool,
     totalMembers: PropTypes.number.isRequired,
     members: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
     name: PropTypes.string.isRequired,
     avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     isActived: PropTypes.bool,

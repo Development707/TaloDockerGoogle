@@ -17,20 +17,19 @@ import {
 import useWindowSize from 'hooks/useWindowSize';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { BiArrowBack } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import dateUtils from 'utils/dateUtils';
 import ConversationAvatar from '../ConversationAvatar';
 import ModalAddMember from '../ModalAddMember';
-import { RiArrowGoBackFill } from 'react-icons/ri';
 import './style.scss';
-import { BiArrowBack } from 'react-icons/bi';
 
 HeaderOptional.propTypes = {
     avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     totalMembers: PropTypes.number,
     members: PropTypes.array,
     name: PropTypes.string,
-    typeConver: PropTypes.string.isRequired,
+    typeConver: PropTypes.string,
     isLogin: PropTypes.bool,
     lastLogin: PropTypes.object,
     isOpenInfo: PropTypes.bool,
