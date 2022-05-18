@@ -94,16 +94,14 @@ function SearchContainer({
         setIsModalCreateGroupVisible(true);
     };
 
-    const handleCancelModalCreatGroup = (value) => {
+    const handleCancelModalCreateGroup = (value) => {
         setIsModalCreateGroupVisible(value);
     };
 
-    const handleOklModalCreatGroup = (value) => {
+    const handleOklModalCreateGroup = (value) => {
         try {
-            // console.log(value);
             setConfirmLoading(true);
             dispatch(createGroup(value));
-            // dispatch(fetchListConversations());
             setConfirmLoading(false);
             setIsModalCreateGroupVisible(false);
             message.success('Tạo nhóm thành công');
@@ -186,21 +184,6 @@ function SearchContainer({
                         {!(valueText.trim().length > 0) && (
                             <div className="search-bottom">
                                 <div className="classify-title">
-                                    {/* <Scrollbars
-                                        autoHide={true}
-                                        autoHideTimeout={1000}
-                                        autoHideDuration={200}
-                                        style={{
-                                            height: '30px',
-                                            width: '100%',
-                                        }}
-                                    >
-                                        <Radio.Group size="small">
-                                            <Radio value={'0'}>Tất cả</Radio>
-                                            <Radio value={'1'}>Chưa đọc</Radio>
-                                        </Radio.Group>
-                                    </Scrollbars> */}
-
                                     <div
                                         className="add-classify"
                                         onClick={handleCreateClasify}
@@ -260,8 +243,8 @@ function SearchContainer({
             <ModalCreateGroup
                 loading={confirmLoading}
                 isVisible={isModalCreateGroupVisible}
-                onCancel={handleCancelModalCreatGroup}
-                onOk={handleOklModalCreatGroup}
+                onCancel={handleCancelModalCreateGroup}
+                onOk={handleOklModalCreateGroup}
             />
 
             <ModalClassify

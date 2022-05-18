@@ -5,10 +5,11 @@ import {
 } from '@ant-design/icons';
 import { message, Modal, Switch } from 'antd';
 import conversationApi from 'api/conversationApi';
+import { fetchListConversations } from 'features/Chat/slice/chatSlice';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { GrGroup } from 'react-icons/gr';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
 
 InfoMember.propTypes = {
@@ -32,19 +33,24 @@ function InfoMember({ viewMemberClick, quantity }) {
         (state) => state.chat
     );
     const [isDrop, setIsDrop] = useState(true);
-    const [isStatus, setIsSatus] = useState(false);
+    const [isStatus, setIsStatus] = useState(false);
     const [checkLeader, setCheckLeader] = useState(false);
     const { confirm } = Modal;
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const tempStatus = conversations.find(
             (ele) => ele.id === currentConversation
         ).isJoinFromLink;
+        setIsStatus(tempStatus);
+
         const tempCheck =
             conversations.find((ele) => ele.id === currentConversation)
                 .leaderId === user.id;
         setCheckLeader(tempCheck);
-        setIsSatus(tempStatus);
+
+        //eslint-disable-next-line
     }, [currentConversation]);
 
     const handleOnClick = () => {
@@ -68,6 +74,8 @@ function InfoMember({ viewMemberClick, quantity }) {
                 currentConversation,
                 checked
             );
+            setIsStatus(!isStatus);
+            dispatch(fetchListConversations({}));
             message.success('Cập nhật trạng thái thành công');
         } catch (error) {
             message.error('Cập nhật trạng thái thất bại');
@@ -80,7 +88,6 @@ function InfoMember({ viewMemberClick, quantity }) {
         } else {
             showConfirm(checked);
         }
-        setIsSatus(!isStatus);
     };
 
     function showConfirm(checked) {
