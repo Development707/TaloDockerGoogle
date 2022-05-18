@@ -357,7 +357,6 @@ function Chat({ socket, idNewMessage }) {
 
     //Socket
     useEffect(() => {
-        console.log('isJoinChatLayout', isJoinChatLayout);
         if (!isJoinChatLayout) {
             socket.on(
                 'ConversationChangeName',
