@@ -8,6 +8,7 @@ import {
     Spin,
 } from 'antd';
 import conversationApi from 'api/conversationApi';
+import { setJoinChatLayout } from 'app/globalSlice';
 import ModalJoinGroupFromLink from 'components/ModalJoinGroupFromLink';
 import Slider from 'components/Slider';
 import useWindowSize from 'hooks/useWindowSize';
@@ -356,241 +357,264 @@ function Chat({ socket, idNewMessage }) {
 
     //Socket
     useEffect(() => {
-        socket.on('ConversationDelete', (conversationId) => {
-            const conver = refConversations.current.find(
-                (ele) => ele.id === conversationId
+        console.log('isJoinChatLayout', isJoinChatLayout);
+        if (!isJoinChatLayout) {
+            socket.on(
+                'ConversationChangeName',
+                (conversationId, name, message) => {
+                    dispatch(updateNameOfConver({ conversationId, name }));
+                    dispatch(addMessage({ conversationId, message }));
+                }
             );
 
-            if (conver.leaderId !== user.id) {
+            socket.on('ConversationDelete', (conversationId) => {
+                const conver = refConversations.current.find(
+                    (ele) => ele.id === conversationId
+                );
+
+                if (conver.leaderId !== user.id) {
+                    notification.info({
+                        placement: 'topRight',
+                        bottom: 50,
+                        duration: 3,
+                        rtl: true,
+                        message: (
+                            <span>
+                                Nhóm <strong>{conver.name}</strong> đã bị giải
+                                tán
+                            </span>
+                        ),
+                    });
+                }
+                dispatch(deleteConversation(conversationId));
+            });
+
+            socket.on(
+                'MessageViewLast',
+                ({ conversationId, userId, lastView, channelId }) => {
+                    if (userId !== user.id) {
+                        dispatch(
+                            updateMessageViewLast({
+                                conversationId,
+                                userId,
+                                lastView,
+                                channelId,
+                            })
+                        );
+                    }
+                }
+            );
+
+            socket.on('ConversationMemberUpdate', async (conversationId) => {
+                if (conversationId === refCurrentConversation.current) {
+                    dispatch(getLastViewOfMembers({ conversationId }));
+                    const newMember =
+                        await conversationApi.getMemberInConversation(
+                            refCurrentConversation.current
+                        );
+                    dispatch(
+                        updateMemberInConver({ conversationId, newMember })
+                    );
+                }
+            });
+            socket.on(
+                'ChannelCreate',
+                ({ id, name, description, conversationId, createdAt }) => {
+                    if (conversationId === refCurrentConversation.current) {
+                        dispatch(
+                            updateChannel({ id, name, description, createdAt })
+                        );
+                    }
+                }
+            );
+
+            socket.on(
+                'ChannelUpdate',
+                ({ id, name, description, conversationId }) => {
+                    if (refCurrentConversation.current === conversationId) {
+                        dispatch(
+                            updateInfoChannel({
+                                channelId: id,
+                                name,
+                                description,
+                            })
+                        );
+                    }
+                }
+            );
+
+            socket.on(
+                'ChannelDelete',
+                async ({ conversationId, channelId }) => {
+                    const actionAfterDelete = async () => {
+                        dispatch(setCurrentChannel(''));
+                        dispatch(
+                            fetchListMessages({
+                                conversationId: refCurrentConversation.current,
+                                size: 20,
+                            })
+                        );
+                        dispatch(
+                            getLastViewOfMembers({
+                                conversationId: refCurrentConversation.current,
+                            })
+                        );
+                    };
+
+                    await actionAfterDelete();
+
+                    if (refCurrentConversation.current === conversationId) {
+                        dispatch(deleteChannel({ channelId }));
+                    }
+                }
+            );
+
+            socket.on('ConsersationRemoveYou', (conversationId) => {
+                const conversation = refConversations.current.find(
+                    (ele) => ele.id === conversationId
+                );
                 notification.info({
                     placement: 'topRight',
                     bottom: 50,
                     duration: 3,
-                    rtl: true,
+                    rlt: true,
                     message: (
                         <span>
-                            Nhóm <strong>{conver.name}</strong> đã bị giải tán
+                            Bạn đã bị xóa khỏi nhóm{' '}
+                            <strong>{conversation.name}</strong>
                         </span>
                     ),
                 });
-            }
-            dispatch(deleteConversation(conversationId));
-        });
-        socket.on('ConsersationRemoveYou', (conversationId) => {
-            const conversation = refConversations.current.find(
-                (ele) => ele.id === conversationId
-            );
-            notification.info({
-                placement: 'topRight',
-                bottom: 50,
-                duration: 3,
-                rlt: true,
-                message: (
-                    <span>
-                        Bạn đã bị xóa khỏi nhóm{' '}
-                        <strong>{conversation.name}</strong>
-                    </span>
-                ),
+
+                if (conversationId === refCurrentConversation.current) {
+                    dispatch(setCurrentConversation(''));
+                }
+                dispatch(isDeletedFromGroup(conversationId));
+                socket.emit('ConversationLeft', conversationId);
             });
 
-            if (conversationId === refCurrentConversation.current) {
-                dispatch(setCurrentConversation(''));
-            }
-            dispatch(isDeletedFromGroup(conversationId));
-            socket.emit('ConversationLeft', conversationId);
-        });
-        socket.on(
-            'MessageViewLast',
-            ({ conversationId, userId, lastView, channelId }) => {
-                if (userId !== user.id) {
-                    dispatch(
-                        updateMessageViewLast({
-                            conversationId,
-                            userId,
-                            lastView,
-                            channelId,
-                        })
-                    );
+            socket.on(
+                'ConversationChangeAvatar',
+                (conversationId, conversationAvatar) => {
+                    if (refCurrentConversation.current === conversationId) {
+                        dispatch(
+                            updateAvavarConver({
+                                conversationId,
+                                conversationAvatar,
+                            })
+                        );
+                    }
                 }
-            }
-        );
-        socket.on('ConversationChangeName', (conversationId, name, message) => {
-            dispatch(updateNameOfConver({ conversationId, name }));
-            dispatch(addMessage({ conversationId, message }));
-        });
-
-        socket.on('ConversationMemberUpdate', async (conversationId) => {
-            if (conversationId === refCurrentConversation.current) {
-                dispatch(getLastViewOfMembers({ conversationId }));
-                const newMember = await conversationApi.getMemberInConversation(
-                    refCurrentConversation.current
-                );
-                dispatch(updateMemberInConver({ conversationId, newMember }));
-            }
-        });
-        socket.on(
-            'ChannelCreate',
-            ({ id, name, description, conversationId, createdAt }) => {
-                if (conversationId === refCurrentConversation.current) {
-                    dispatch(
-                        updateChannel({ id, name, description, createdAt })
-                    );
-                }
-            }
-        );
-
-        socket.on(
-            'ChannelUpdate',
-            ({ id, name, description, conversationId }) => {
-                if (refCurrentConversation.current === conversationId) {
-                    dispatch(
-                        updateInfoChannel({
-                            channelId: id,
-                            name,
-                            description,
-                        })
-                    );
-                }
-            }
-        );
-
-        socket.on('ChannelDelete', async ({ conversationId, channelId }) => {
-            const actionAfterDelete = async () => {
-                dispatch(setCurrentChannel(''));
-                dispatch(
-                    fetchListMessages({
-                        conversationId: refCurrentConversation.current,
-                        size: 20,
-                    })
-                );
-                dispatch(
-                    getLastViewOfMembers({
-                        conversationId: refCurrentConversation.current,
-                    })
-                );
-            };
-
-            await actionAfterDelete();
-
-            if (refCurrentConversation.current === conversationId) {
-                dispatch(deleteChannel({ channelId }));
-            }
-        });
-
-        socket.on(
-            'ConversationChangeAvatar',
-            (conversationId, conversationAvatar) => {
-                if (refCurrentConversation.current === conversationId) {
-                    dispatch(
-                        updateAvavarConver({
-                            conversationId,
-                            conversationAvatar,
-                        })
-                    );
-                }
-            }
-        );
-
-        socket.on('ConversationManagerAdd', (conversationId, managerIds) => {
-            dispatch(addManagers({ conversationId, managerIds }));
-        });
-        socket.on('ConversationManagerDelete', (conversationId, managerIds) => {
-            dispatch(
-                deleteManager({
-                    conversationId,
-                    managerIds,
-                })
             );
-        });
-        socket.on('ConversationTyping', (conversationId, user) => {
-            if (conversationId === refCurrentConversation.current) {
-                const index = usersTyping.findIndex(
-                    (item) => item.id === user.id
-                );
 
-                if (usersTyping.length === 0 || index < 0) {
-                    setUsersTyping([...usersTyping, user]);
+            socket.on(
+                'ConversationManagerAdd',
+                (conversationId, managerIds) => {
+                    dispatch(addManagers({ conversationId, managerIds }));
                 }
-            }
-        });
-        socket.on('ConversationTypingFinish', (conversationId, user) => {
-            if (conversationId === refCurrentConversation.current) {
-                const newUserTyping = usersTyping.filter(
-                    (item) => item.id !== user.id
-                );
-                setUsersTyping(newUserTyping);
-            }
-        });
-
-        socket.on('ConversationMemberAdd', (conversationId) => {
-            dispatch(fetchConversationById({ conversationId }));
-        });
-
-        socket.on(
-            'MessageReactAdd',
-            ({ conversationId, channelId, messageId, user, type }) => {
-                if (
-                    refCurrentConversation.current === conversationId &&
-                    refCurrentChannel.current === channelId
-                ) {
-                    dispatch(setReactionMessage({ messageId, user, type }));
+            );
+            socket.on(
+                'ConversationManagerDelete',
+                (conversationId, managerIds) => {
+                    dispatch(
+                        deleteManager({
+                            conversationId,
+                            managerIds,
+                        })
+                    );
                 }
+            );
+            socket.on('ConversationTyping', (conversationId, user) => {
+                if (conversationId === refCurrentConversation.current) {
+                    const index = usersTyping.findIndex(
+                        (item) => item.id === user.id
+                    );
 
-                if (
-                    !channelId &&
-                    refCurrentConversation.current === conversationId
-                ) {
-                    dispatch(setReactionMessage({ messageId, user, type }));
+                    if (usersTyping.length === 0 || index < 0) {
+                        setUsersTyping([...usersTyping, user]);
+                    }
                 }
-            }
-        );
+            });
+            socket.on('ConversationTypingFinish', (conversationId, user) => {
+                if (conversationId === refCurrentConversation.current) {
+                    const newUserTyping = usersTyping.filter(
+                        (item) => item.id !== user.id
+                    );
+                    setUsersTyping(newUserTyping);
+                }
+            });
 
-        socket.on(
-            'MessageDelete',
-            ({ conversationId, channelId, messageId }) => {
-                if (
-                    refCurrentConversation.current === conversationId &&
-                    refCurrentChannel.current === channelId
-                ) {
-                    dispatch(setUndoMessage({ messageId }));
-                }
-                if (
-                    !channelId &&
-                    refCurrentConversation.current === conversationId
-                ) {
-                    dispatch(setUndoMessage({ messageId, conversationId }));
-                }
-            }
-        );
+            socket.on('ConversationMemberAdd', (conversationId) => {
+                dispatch(fetchConversationById({ conversationId }));
+            });
 
-        socket.on('MessagePinAdd', (conversationId) => {
-            if (conversationId === refCurrentConversation.current) {
-                dispatch(fetchPinMessages({ conversationId }));
-            }
-        });
-        socket.on('MessagePinDelete', (conversationId) => {
-            if (conversationId === refCurrentConversation.current) {
-                dispatch(fetchPinMessages({ conversationId }));
-            }
-        });
-        socket.on('PollChooseUpdate', (conversationId, pollMessage) => {
-            if (refCurrentConversation.current === conversationId) {
-                dispatch(
-                    updatePollMessage({
-                        pollMessage,
-                    })
-                );
-            }
-        });
-        socket.on('PollOptionUpdate', (conversationId, pollMessage) => {
-            if (refCurrentConversation.current === conversationId) {
-                dispatch(
-                    updatePollMessage({
-                        pollMessage,
-                    })
-                );
-            }
-        });
+            socket.on(
+                'MessageReactAdd',
+                ({ conversationId, channelId, messageId, user, type }) => {
+                    if (
+                        refCurrentConversation.current === conversationId &&
+                        refCurrentChannel.current === channelId
+                    ) {
+                        dispatch(setReactionMessage({ messageId, user, type }));
+                    }
+
+                    if (
+                        !channelId &&
+                        refCurrentConversation.current === conversationId
+                    ) {
+                        dispatch(setReactionMessage({ messageId, user, type }));
+                    }
+                }
+            );
+
+            socket.on(
+                'MessageDelete',
+                ({ conversationId, channelId, messageId }) => {
+                    if (
+                        refCurrentConversation.current === conversationId &&
+                        refCurrentChannel.current === channelId
+                    ) {
+                        dispatch(setUndoMessage({ messageId }));
+                    }
+                    if (
+                        !channelId &&
+                        refCurrentConversation.current === conversationId
+                    ) {
+                        dispatch(setUndoMessage({ messageId, conversationId }));
+                    }
+                }
+            );
+
+            socket.on('MessagePinAdd', (conversationId) => {
+                if (conversationId === refCurrentConversation.current) {
+                    dispatch(fetchPinMessages({ conversationId }));
+                }
+            });
+            socket.on('MessagePinDelete', (conversationId) => {
+                if (conversationId === refCurrentConversation.current) {
+                    dispatch(fetchPinMessages({ conversationId }));
+                }
+            });
+            socket.on('PollChooseUpdate', (conversationId, pollMessage) => {
+                if (refCurrentConversation.current === conversationId) {
+                    dispatch(
+                        updatePollMessage({
+                            pollMessage,
+                        })
+                    );
+                }
+            });
+            socket.on('PollOptionUpdate', (conversationId, pollMessage) => {
+                if (refCurrentConversation.current === conversationId) {
+                    dispatch(
+                        updatePollMessage({
+                            pollMessage,
+                        })
+                    );
+                }
+            });
+        }
+        dispatch(setJoinChatLayout(true));
 
         //eslint-disable-next-line
     }, []);

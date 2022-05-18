@@ -79,7 +79,7 @@ const EmojiPage = () => {
     return (
         <div>
             <div className="ant-col-xs-8">
-                <h1>DANH SÁCH STICKER</h1>
+                <h1>DANH SÁCH EMOJI</h1>
             </div>
             <Divider />
             <div>
