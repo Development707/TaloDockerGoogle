@@ -1,5 +1,8 @@
 export default function renderWidthDrawer(width) {
-    if (width > 1199) {
+    if (width > 1600) {
+        return 20;
+    }
+    if (width >= 1200 && width <= 1599) {
         return 30;
     }
     if (width >= 992 && width <= 1199) {
