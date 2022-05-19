@@ -1,3 +1,29 @@
+# 0 How to run code
+
+Request
+Ram: 4GB
+CPU: Core I3 6th
+App: Docker, Docker compose
+
+## 1. Clone code
+
+Open terminal
+
+    ```
+        git clone https://github.com/Development707/TaloDockerGoogle.git
+    ```
+
+## 2. Run code
+
+    ```
+        cd .\TaloDockerGoogle\
+        docker-compose -f docker-compose.dev.yml up --build
+    ```
+
+## 3. View App
+
+Open Web browser http://localhost
+
 # 1 Docker local
 
 ## Tao Dockerfile
