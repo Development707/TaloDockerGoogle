@@ -9,16 +9,16 @@ App: Docker, Docker compose
 
 Open terminal
 
-    ```
-        git clone https://github.com/Development707/TaloDockerGoogle.git
-    ```
+```
+git clone https://github.com/Development707/TaloDockerGoogle.git
+```
 
 ## 2. Run code
 
-    ```
-        cd .\TaloDockerGoogle\
-        docker-compose -f docker-compose.dev.yml up --build
-    ```
+```
+cd .\TaloDockerGoogle\
+docker-compose -f docker-compose.dev.yml up --build
+```
 
 ## 3. View App
 
