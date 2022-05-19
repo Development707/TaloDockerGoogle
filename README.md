@@ -1,3 +1,32 @@
+# How to run code
+
+Request
+
+-   Ram: 4GB
+-   CPU: Core I3 6th
+-   App:
+    -   Docker ('https://docs.docker.com/engine/install')
+    -   Docker compose ('https://docs.docker.com/compose/install')
+
+## 1. Clone code
+
+Open terminal
+
+```
+git clone https://github.com/Development707/TaloDockerGoogle.git
+```
+
+## 2. Run code
+
+```
+cd .\TaloDockerGoogle\
+docker-compose -f docker-compose.dev.yml up --build
+```
+
+## 3. View App
+
+Open Web browser http://localhost
+
 # 1 Docker local
 
 ## Tao Dockerfile
@@ -237,11 +266,9 @@ https://www.mongodb.com/docs/manual/reference/method/js-collection/
 
 # 9 Fix Password Login Google Nodejs
 
--   Stackoverflow
-    -   `https://stackoverflow.com/questions/60701936/error-invalid-login-application-specific-password-required`
--   Google doc
-    -   `https://support.google.com/mail/answer/185833?hl=en#zippy=%2Cwhy-you-may-need-an-app-password`
-    -   1. `https://myaccount.google.com/`
+-   Stackoverflow: https://stackoverflow.com/questions/60701936/error-invalid-login-application-specific-password-required
+-   Google doc: https://support.google.com/mail/answer/185833?hl=en#zippy=%2Cwhy-you-may-need-an-app-password
+    -   1. truy cập https://myaccount.google.com/
     -   2. Bảo mật
     -   3. Đăng nhập Google -> Mật khẩu ứng dụng
     -   4. Ứng dụng Thư , Thiết bị khác
@@ -249,10 +276,8 @@ https://www.mongodb.com/docs/manual/reference/method/js-collection/
 
 # 10 Add SSL
 
-Youtube
-`https://www.youtube.com/watch?v=pDl3vPAAES8&list=PLs4co9a6NhMxUDVu92c8_bAPZ27kkd-sq&index=7`
-Doc
-`https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose`
+Youtube: https://www.youtube.com/watch?v=pDl3vPAAES8&list=PLs4co9a6NhMxUDVu92c8_bAPZ27kkd-sq&index=7
+Doc: https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose
 
 -   Cd vào thư mục chưa docer-compose file
 -   `docker ps -a`: Xem certbot lấy chức chỉ Exist có bằng 0 không
