@@ -1,9 +1,12 @@
-# 0 How to run code
+# How to run code
 
 Request
-Ram: 4GB
-CPU: Core I3 6th
-App: Docker, Docker compose
+
+-   Ram: 4GB
+-   CPU: Core I3 6th
+-   App:
+    -   Docker ('https://docs.docker.com/engine/install')
+    -   Docker compose ('https://docs.docker.com/compose/install')
 
 ## 1. Clone code
 
