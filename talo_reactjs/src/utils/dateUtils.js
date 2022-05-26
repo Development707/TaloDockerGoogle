@@ -17,7 +17,7 @@ const dateUtils = {
         const dateWasMinus7day = nowTempt.setDate(nowTempt.getDate() - 7);
 
         if (date < dateWasMinus7day)
-            return `0${date.getDate()}/${date.getMonth() + 1}`.slice(-3);
+            return `0${date.getDate()}/${date.getMonth() + 1}`.slice(-4);
 
         const now = new Date();
         const numberMiliseconds = now - date;
