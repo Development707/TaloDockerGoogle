@@ -7,9 +7,9 @@ class FirebaseService {
     async verifyByEmail(userFirebase, password, userAgent) {
         let user = await User.findOne({
             username: userFirebase.email,
-            isActived: true,
-            isDeleted: false,
         }).lean();
+        if (user.isDeleted == true || user.isActived == false)
+            throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
         if (!user) {
             if (!password) password = userFirebase.email;
             user = await new User({
@@ -29,9 +29,9 @@ class FirebaseService {
     async verifyByPhone(userFirebase, password, userAgent) {
         let user = await User.findOne({
             username: userFirebase.phone_number,
-            isActived: true,
-            isDeleted: false,
         }).lean();
+        if (user.isDeleted == true || user.isActived == false)
+            throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
         if (!user) {
             if (!password) password = userFirebase.phone_number;
             user = await new User({
