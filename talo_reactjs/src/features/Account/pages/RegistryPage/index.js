@@ -46,9 +46,6 @@ function RegistryPage(props) {
             onOk: () => {
                 navigate('/');
             },
-            onCancel: () => {
-                navigate('/');
-            },
         });
     }
 

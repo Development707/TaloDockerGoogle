@@ -44,6 +44,11 @@ const PhoneLogin = () => {
         };
         notification.info(args);
     };
+
+    const openMessageError = () => {
+        message.error('Tài khoản của bạn đã bị khóa', 5);
+    };
+
     const convertPhoneNumber = (phoneNumber) => {
         return phoneNumber.replace('0', '+84');
     };
@@ -55,16 +60,9 @@ const PhoneLogin = () => {
         dispatch(setLoading(true));
         if (isSubmit) {
             try {
-                window.confirmationResult
-                    .confirm(otpValue)
-                    .then((result) => {
-                        handleConfirmOTP(phoneNumber, result.user.accessToken);
-                    })
-                    .catch((error) => {
-                        message.error(
-                            'Mã OTP đã hết hạn. vui lòng đăng nhập lại'
-                        );
-                    });
+                window.confirmationResult.confirm(otpValue).then((result) => {
+                    handleConfirmOTP(phoneNumber, result.user.accessToken);
+                });
             } catch (error) {
                 message.error('Mã OTP đã hết hạn. vui lòng đăng nhập lại');
             }
@@ -100,7 +98,9 @@ const PhoneLogin = () => {
             const { role } = unwrapResult(await dispatch(fetchUserProfile()));
             if (role === 'USER') navigate('/chat', { replace: true });
             else navigate('/admin', { replace: true });
-        } catch (error) {}
+        } catch (error) {
+            openMessageError();
+        }
         dispatch(setLoadingAccount(false));
     };
     return (

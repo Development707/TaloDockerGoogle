@@ -5,7 +5,16 @@ import {
     PhoneOutlined,
 } from '@ant-design/icons';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Button, Col, Divider, notification, Row, Tag, Typography } from 'antd';
+import {
+    Button,
+    Col,
+    Divider,
+    message,
+    notification,
+    Row,
+    Tag,
+    Typography,
+} from 'antd';
 import firebaseApi from 'api/firebaseApi';
 import loginApi from 'api/loginAPI';
 import { fetchUserProfile, setLogin } from 'app/globalSlice';
@@ -28,7 +37,7 @@ const { Text, Title } = Typography;
 
 LoginPage.propTypes = {};
 
-function LoginPage(props) {
+function LoginPage() {
     const [isError, setError] = useState(false);
     const dispatch = useDispatch();
 
@@ -41,6 +50,10 @@ function LoginPage(props) {
                 : 'Xác thực OTP để hoàn tất việc kích hoạt tài khoản',
         };
         notification.info(args);
+    };
+
+    const openMessageError = () => {
+        message.error('Tài khoản của bạn đã bị khóa', 5);
     };
 
     const handleSubmit = async (values) => {
@@ -85,7 +98,10 @@ function LoginPage(props) {
             const { role } = unwrapResult(await dispatch(fetchUserProfile()));
             if (role === 'USER') navigate('/chat', { replace: true });
             else navigate('/admin', { replace: true });
-        } catch (error) {}
+        } catch (error) {
+            openMessageError();
+        }
+        dispatch(setLoadingAccount(false));
     };
 
     const signInFacebook = async () => {
