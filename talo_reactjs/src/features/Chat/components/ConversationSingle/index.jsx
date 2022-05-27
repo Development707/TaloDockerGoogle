@@ -43,9 +43,12 @@ function ConversationSingle({ conversation, onClick, deleteGroup }) {
             } else {
                 setClassify(null);
             }
+        } else {
+            setClassify(null);
         }
         // eslint-disable-next-line
     }, [conversation, conversations, classifies]);
+
     const handleClick = () => {
         if (onClick) onClick(id);
     };
