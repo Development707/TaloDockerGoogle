@@ -9,10 +9,8 @@ class FirebaseService {
             username: userFirebase.email,
         }).lean();
         if (
-            user.isDeleted != null ||
-            user.isDeleted == true ||
-            user.isActived != null ||
-            user.isActived == false
+            (user.isDeleted != null && user.isDeleted == true) ||
+            (user.isActived != null && user.isActived == false)
         )
             throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
         if (!user) {
@@ -36,10 +34,8 @@ class FirebaseService {
             username: userFirebase.phone_number,
         }).lean();
         if (
-            user.isDeleted != null ||
-            user.isDeleted == true ||
-            user.isActived != null ||
-            user.isActived == false
+            (user.isDeleted != null && user.isDeleted == true) ||
+            (user.isActived != null && user.isActived == false)
         )
             throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
         if (!user) {
