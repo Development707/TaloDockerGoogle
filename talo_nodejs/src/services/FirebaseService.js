@@ -8,12 +8,10 @@ class FirebaseService {
         let user = await User.findOne({
             username: userFirebase.email,
         }).lean();
-        if (
-            (user.isDeleted != null && user.isDeleted == true) ||
-            (user.isActived != null && user.isActived == false)
-        )
-            throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
-        if (!user) {
+        if (user) {
+            if (user.isDeleted == true || user.isActived == false)
+                throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
+        } else {
             if (!password) password = userFirebase.email;
             user = await new User({
                 name: userFirebase.name,
@@ -33,12 +31,10 @@ class FirebaseService {
         let user = await User.findOne({
             username: userFirebase.phone_number,
         }).lean();
-        if (
-            (user.isDeleted != null && user.isDeleted == true) ||
-            (user.isActived != null && user.isActived == false)
-        )
-            throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
-        if (!user) {
+        if (user) {
+            if (user.isDeleted == true || user.isActived == false)
+                throw new NotFoundError(ErrorType.USERNAME_NOT_FOUND);
+        } else {
             if (!password) password = userFirebase.phone_number;
             user = await new User({
                 name: userFirebase.phone_number,
