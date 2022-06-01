@@ -2,6 +2,8 @@ const Report = require('../models/Report');
 
 const CustomError = require('../exceptions/CustomError');
 const { ErrorType } = require('../lib/Constants');
+const validateConversation = require('../validate/ConversationValidate');
+const redisUtils = require('../utils/redisUtils');
 
 class ReportService {
     async findAll() {
@@ -23,6 +25,7 @@ class ReportService {
                 if (!userIsReport)
                     throw new CustomError(ErrorType.REPORT_USER_INVALID);
                 this.validateId(userIsReport);
+                await redisUtils.getUserProfile(userIsReport);
                 await new Report({
                     userId,
                     title,
@@ -37,7 +40,14 @@ class ReportService {
                     throw new CustomError(
                         ErrorType.REPORT_CONVERSATION_INVALID,
                     );
-                this.validateId(conversationId);
+                validateConversation.validateId(conversationId);
+                const conversation = await redisUtils.getConversation(
+                    conversationId,
+                );
+                validateConversation.validateIsExistUserId(
+                    conversation,
+                    userId,
+                );
                 await new Report({
                     userId,
                     title,
@@ -49,14 +59,6 @@ class ReportService {
 
             default:
                 throw new CustomError(ErrorType.REPORT_TILE_INVALID);
-        }
-    }
-
-    validateId(id) {
-        try {
-            ObjectId(id);
-        } catch (error) {
-            throw new CustomError(ErrorType.REPORT_ID_INVALID);
         }
     }
 }

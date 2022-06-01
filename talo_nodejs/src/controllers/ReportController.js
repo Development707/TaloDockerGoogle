@@ -26,6 +26,7 @@ class ReportController {
     }
     // [POST] /conversation
     async conversation(req, res, next) {
+        const userId = req.id;
         try {
             const report = await ReportService.createReport(
                 userId,
@@ -39,6 +40,7 @@ class ReportController {
     }
     // [POST] /user
     async user(req, res, next) {
+        const userId = req.id;
         try {
             const report = await ReportService.createReport(
                 userId,

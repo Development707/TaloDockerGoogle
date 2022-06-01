@@ -3,7 +3,9 @@ const StatisticController = require('../controllers/StatisticController');
 
 const { roles } = require('../middlewares/permission');
 
+// [GET] /statistic
 router.get('/', roles(['ADMIN']), StatisticController.general);
+
 router.delete(
     '/clear-cache',
     roles(['ADMIN', 'USER']),
