@@ -10,7 +10,12 @@ class ReportService {
         let reports = await Report.find().sort({ createdAt: -1 }).lean();
         const result = await Promise.all(
             reports.map(async (report) => {
-                const user = await redisUtils.getShortUserInfo(report.userId);
+                let user;
+                try {
+                    user = await redisUtils.getShortUserInfo(report.userId);
+                } catch (error) {
+                    user = { id: report.userId, name: 'Talo User', avatar: {} };
+                }
                 return {
                     id: report._id,
                     user: user,
