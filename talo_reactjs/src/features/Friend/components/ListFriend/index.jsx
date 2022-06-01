@@ -10,6 +10,8 @@ import { fetchFriends } from '../../friendSlice';
 import friendApi from 'api/friendApi';
 import userApi from 'api/userApi';
 import UserCard from 'components/UserCard';
+import ModalReportConversation from 'features/Chat/components/ModalReportConversation';
+import reportApi from 'api/reportApi';
 
 ListFriend.propTypes = {
     data: PropTypes.array,
@@ -22,21 +24,43 @@ ListFriend.defaultProps = {
 function ListFriend({ data }) {
     const [isVisible, setIsVisible] = useState(false);
     const [userIsFind, setUserIsFind] = useState({});
+    const [visible, setVisible] = useState(false);
+    const [idUser, setIdUser] = useState('');
     const dispatch = useDispatch();
 
     const handleOnClickMenu = async (key, id) => {
         if (key === '2') {
             confirm(id);
-        } else {
+        }
+
+        if (key === '1') {
             setIsVisible(true);
             const tempUser = data.find((item) => item.id === id);
             const realUser = await userApi.fetchUser(tempUser.username);
             setUserIsFind(realUser);
         }
+        if (key === '3') {
+            setVisible(true);
+            setIdUser(id);
+        }
     };
 
     const handleCancelModalUserCard = () => {
         setIsVisible(false);
+    };
+
+    const handleOnOk = async (titleReport) => {
+        try {
+            await reportApi.reportUser(titleReport, idUser);
+            message.success('Báo cáo thành công');
+        } catch (error) {
+            message.error('Đã có lỗi xảy ra');
+        }
+        handleCancelModal();
+    };
+    const handleCancelModal = () => {
+        setVisible(false);
+        setIdUser('');
     };
 
     function confirm(id) {
@@ -86,6 +110,12 @@ function ListFriend({ data }) {
                 user={userIsFind}
                 isVisible={isVisible}
                 onCancel={handleCancelModalUserCard}
+            />
+
+            <ModalReportConversation
+                visible={visible}
+                onCancel={handleCancelModal}
+                onOk={handleOnOk}
             />
         </Scrollbars>
     );

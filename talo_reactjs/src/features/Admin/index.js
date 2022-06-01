@@ -4,6 +4,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import SiderBar from './components/SiderBar';
 import EmojiPage from './pages/EmojiPage';
+import ReportPage from './pages/ReportPage';
 import StickerPage from './pages/StickerPage';
 import UserPage from './pages/UserPage';
 import './style.scss';
@@ -33,15 +34,20 @@ const Admin = () => {
                             }}
                         >
                             <Routes>
-                                <Route path="/" element={<UserPage />} />
+                                <Route
+                                    path="/stickers/:id"
+                                    element={<EmojiPage />}
+                                />
                                 <Route
                                     path="/stickers"
                                     element={<StickerPage />}
                                 />
                                 <Route
-                                    path="/stickers/:id"
-                                    element={<EmojiPage />}
+                                    path="/reports"
+                                    element={<ReportPage />}
                                 />
+
+                                <Route path="/" element={<UserPage />} />
                             </Routes>
                         </div>
                     </Content>

@@ -6,6 +6,7 @@ import {
 import { Button, Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
 import React from 'react';
+import { MdReportGmailerrorred } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 const SiderBar = () => {
@@ -43,7 +44,10 @@ const SiderBar = () => {
                 </Menu.Item>
 
                 <Menu.Item key="2" icon={<AliwangwangOutlined />}>
-                    <Link to="/admin/stickers"> Quản lý sticker</Link>
+                    <Link to="/admin/stickers"> Quản lý nhãn dán</Link>
+                </Menu.Item>
+                <Menu.Item key="3" icon={<MdReportGmailerrorred />}>
+                    <Link to="/admin/reports"> Danh sách báo cáo</Link>
                 </Menu.Item>
             </Menu>
         </Sider>

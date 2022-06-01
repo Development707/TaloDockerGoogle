@@ -14,12 +14,14 @@ ConversationSingle.propTypes = {
     conversation: PropTypes.object,
     onClick: PropTypes.func,
     deleteGroup: PropTypes.func,
+    report: PropTypes.func,
 };
 ConversationSingle.defaultProps = {
     onClick: null,
     deleteGroup: null,
+    report: null,
 };
-function ConversationSingle({ conversation, onClick, deleteGroup }) {
+function ConversationSingle({ conversation, onClick, deleteGroup, report }) {
     const {
         id,
         name,
@@ -56,15 +58,13 @@ function ConversationSingle({ conversation, onClick, deleteGroup }) {
         <Menu>
             <SubMenuClassify data={classifies} idConver={id} />
             {user.id === leaderId && (
-                <Menu.Item
-                    onClick={(e) => deleteGroup(e, id)}
-                    danger
-                    key="1"
-                    icon={<DeleteFilled />}
-                >
+                <Menu.Item onClick={(e) => deleteGroup(e, id)} danger key="1">
                     Xoá hội thoại
                 </Menu.Item>
             )}
+            <Menu.Item key="2" onClick={(e) => report(e, id)}>
+                Báo cáo
+            </Menu.Item>
         </Menu>
     );
 

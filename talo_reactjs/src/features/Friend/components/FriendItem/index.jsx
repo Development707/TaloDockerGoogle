@@ -29,6 +29,9 @@ function FriendItem({ data, onClickMenu }) {
             <Menu.Item key="2" danger>
                 <span className="menu-item--highlight">Xóa bạn</span>
             </Menu.Item>
+            <Menu.Item key="3" danger>
+                <span className="menu-item--highlight">Báo cáo</span>
+            </Menu.Item>
         </Menu>
     );
 

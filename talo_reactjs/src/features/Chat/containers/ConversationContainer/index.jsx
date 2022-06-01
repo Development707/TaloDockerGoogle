@@ -1,8 +1,9 @@
-import { DeleteFilled } from '@ant-design/icons';
 import { Dropdown, Menu, message, Modal } from 'antd';
 import conversationApi from 'api/conversationApi';
+import reportApi from 'api/reportApi';
 import SubMenuClassify from 'components/SubMenuClassify';
 import ConversationSingle from 'features/Chat/components/ConversationSingle';
+import ModalReportConversation from 'features/Chat/components/ModalReportConversation';
 import {
     fetchChannels,
     fetchListMessages,
@@ -11,6 +12,7 @@ import {
     setCurrentChannel,
 } from 'features/Chat/slice/chatSlice';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
 
@@ -24,6 +26,8 @@ ConversationContainer.defaultProps = {
 function ConversationContainer({ valueClassify }) {
     const { user } = useSelector((state) => state.global);
     const { conversations, classifies } = useSelector((state) => state.chat);
+    const [visible, setVisible] = useState(false);
+    const [idConversation, setIdConversation] = useState('');
     const dispatch = useDispatch();
 
     const tempClassify =
@@ -53,6 +57,28 @@ function ConversationContainer({ valueClassify }) {
         if (e.key === '1') {
             confirm(id);
         }
+    };
+
+    const handleOnClickReport = (e, id) => {
+        if (e.key === '2') {
+            setVisible(true);
+            setIdConversation(id);
+        }
+    };
+
+    const handleCancelModal = () => {
+        setVisible(false);
+        setIdConversation('');
+    };
+
+    const handleOnOk = async (titleReport) => {
+        try {
+            await reportApi.reportConversation(titleReport, idConversation);
+            message.success('Báo cáo thành công');
+        } catch (error) {
+            message.error('Đã có lỗi xảy ra');
+        }
+        handleCancelModal();
     };
 
     const deleteConver = async (id) => {
@@ -110,11 +136,21 @@ function ConversationContainer({ valueClassify }) {
                                                         }
                                                         danger
                                                         key="1"
-                                                        icon={<DeleteFilled />}
                                                     >
                                                         Xoá hội thoại
                                                     </Menu.Item>
                                                 )}
+                                                <Menu.Item
+                                                    onClick={(e) =>
+                                                        handleOnClickReport(
+                                                            e,
+                                                            conversationEle.id
+                                                        )
+                                                    }
+                                                    key="2"
+                                                >
+                                                    Báo cáo
+                                                </Menu.Item>
                                             </Menu>
                                         }
                                         trigger={['contextMenu']}
@@ -133,6 +169,7 @@ function ConversationContainer({ valueClassify }) {
                                                     handleConversationClick
                                                 }
                                                 deleteGroup={handleOnClickItem}
+                                                report={handleOnClickReport}
                                             />
                                         </li>
                                     </Dropdown>
@@ -142,6 +179,12 @@ function ConversationContainer({ valueClassify }) {
                     })}
                 </ul>
             </div>
+
+            <ModalReportConversation
+                visible={visible}
+                onCancel={handleCancelModal}
+                onOk={handleOnOk}
+            />
         </>
     );
 }

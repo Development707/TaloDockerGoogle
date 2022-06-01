@@ -103,18 +103,18 @@ const StickerPage = () => {
             await stickerApi.createSticker(name, description);
             setDataSource(await handleGetAllSticker());
             onCloseCreate();
-            message.success('Đã tạo sticker thành công');
+            message.success('Đã tạo nhãn dán thành công');
         } catch (error) {
-            message.error('Tạo sticker thất bại');
+            message.error('Tạo nhãn dán thất bại');
         }
     };
     const handleDeleteSticker = async (id) => {
         try {
             await stickerApi.deleteSticker(id);
-            message.success('Đã xoá sticker');
+            message.success('Đã xoá nhãn dán');
             setDataSource(await handleGetAllSticker());
         } catch (error) {
-            message.error('Xóa thất bại vì sticker có chứa emoji');
+            message.error('Xóa thất bại vì nhãn dán có chứa emoji');
         }
     };
     const onCancel = () => {};
@@ -129,11 +129,11 @@ const StickerPage = () => {
         const { name, description } = values;
         try {
             await stickerApi.updateSticker(temp, name, description);
-            message.success('Chỉnh sửa sticker hoàn tất');
+            message.success('Chỉnh sửa nhãn dán hoàn tất');
             setDataSource(await handleGetAllSticker());
             onCloseUpdate();
         } catch (error) {
-            message.error('Chỉnh sửa sticker đã xảy ra lỗi');
+            message.error('Chỉnh sửa nhãn dán đã xảy ra lỗi');
         }
     };
 
@@ -159,11 +159,11 @@ const StickerPage = () => {
                 frmData.append('file', item);
                 await stickerApi.addEmoji(temp, frmData);
             }
-            message.success('Thêm emoji vào sticker hoàn tất');
+            message.success('Thêm emoji vào nhãn dán hoàn tất');
 
             handleCloseAddEmoji();
         } catch (error) {
-            message.error('Thêm emoji vào sticker đã xảy ra lỗi');
+            message.error('Thêm emoji vào nhãn dán đã xảy ra lỗi');
         }
 
         const listSticker = await stickerApi.fetchAllSticker();
@@ -203,7 +203,7 @@ const StickerPage = () => {
                         okText="Xóa"
                         cancelText="Hủy"
                     >
-                        <Link alt="xoá sticker">
+                        <Link alt="xoá nhãn dán">
                             <DeleteOutlined />
                             Xoá{' '}
                         </Link>
@@ -240,10 +240,10 @@ const StickerPage = () => {
 
     return (
         <div className="sticker-page" style={{ padding: '10px 20px' }}>
-            <Divider orientation="left">Quản lý sticker</Divider>
+            <Divider orientation="left">Quản lý nhãn dán</Divider>
             <div style={{ textAlign: 'center' }}>
                 <Search
-                    placeholder="Sticker"
+                    placeholder="Nhãn dán"
                     onSearch={onSearch}
                     enterButton
                     style={{ width: '40%' }}
@@ -258,11 +258,11 @@ const StickerPage = () => {
                     icon={<PlusOutlined />}
                     style={{ marginBottom: '1rem' }}
                 >
-                    Tạo Sticker
+                    Tạo Nhãn dán
                 </Button>
             </Col>
             <Drawer
-                title="Tạo sticker"
+                title="Tạo nhãn dán"
                 width={720}
                 onClose={onCloseCreate}
                 visible={visibleCreate}
@@ -282,16 +282,16 @@ const StickerPage = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập tên sticker',
+                                        message: 'Vui lòng nhập tên nhãn dán',
                                     },
                                     {
                                         min: 5,
                                         message:
-                                            'Tên sticker phải có ít nhất 5 ký tự',
+                                            'Tên nhãn dán phải có ít nhất 5 ký tự',
                                     },
                                 ]}
                             >
-                                <Input placeholder="Nhập tên sticker" />
+                                <Input placeholder="Nhập tên nhãn dán" />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -322,7 +322,7 @@ const StickerPage = () => {
 
             <Drawer
                 visible={visibleUpdate}
-                title="Chỉnh sửa sticker"
+                title="Chỉnh sửa nhãn dán"
                 width={720}
                 bodyStyle={{ paddingBottom: 80 }}
                 onClose={onCloseUpdate}
@@ -345,16 +345,16 @@ const StickerPage = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập tên sticker',
+                                        message: 'Vui lòng nhập tên nhãn dán',
                                     },
                                     {
                                         min: 5,
                                         message:
-                                            'Tên sticker phải có ít nhất 5 ký tự',
+                                            'Tên nhãn dán phải có ít nhất 5 ký tự',
                                     },
                                 ]}
                             >
-                                <Input placeholder="Nhập tên sticker mới" />
+                                <Input placeholder="Nhập tên nhãn dán mới" />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -383,7 +383,7 @@ const StickerPage = () => {
 
             <Drawer
                 visible={visibleAddEmoji}
-                title="Thêm emoji vào sticker"
+                title="Thêm emoji vào nhãn dán"
                 width={720}
                 onClose={handleCloseAddEmoji}
                 bodyStyle={{ paddingBottom: 80 }}
