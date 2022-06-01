@@ -43,7 +43,6 @@ class ReportService {
                 if (!userIsReport)
                     throw new CustomError(ErrorType.REPORT_USER_INVALID);
                 validateConversation.validateId(userIsReport);
-                await redisUtils.getUserProfile(userIsReport);
                 await new Report({
                     userId,
                     title,
