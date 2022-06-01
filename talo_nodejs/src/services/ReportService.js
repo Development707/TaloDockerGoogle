@@ -7,8 +7,21 @@ const redisUtils = require('../utils/redisUtils');
 
 class ReportService {
     async findAll() {
-        let reports = await Report.find().lean();
-        return reports;
+        let reports = await Report.find().sort({ createdAt: -1 }).lean();
+        const result = await Promise.all(
+            reports.map(async (report) => {
+                const user = await redisUtils.getShortUserInfo(report.userId);
+                return {
+                    id: report._id,
+                    user: user,
+                    type: report.type,
+                    title: report.title,
+                    description: report.description,
+                    date: report.createdAt,
+                };
+            }),
+        );
+        return result;
     }
 
     async createReport(userId, body, type) {
