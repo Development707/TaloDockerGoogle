@@ -18,7 +18,7 @@ class ReportService {
                 }
                 return {
                     id: report._id,
-                    user: user,
+                    user,
                     type: report.type,
                     title: report.title,
                     description: report.description,
@@ -42,7 +42,7 @@ class ReportService {
                 const userIsReport = body.userId;
                 if (!userIsReport)
                     throw new CustomError(ErrorType.REPORT_USER_INVALID);
-                this.validateId(userIsReport);
+                validateConversation.validateId(userIsReport);
                 await redisUtils.getUserProfile(userIsReport);
                 await new Report({
                     userId,
