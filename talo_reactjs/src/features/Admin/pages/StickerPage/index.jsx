@@ -159,11 +159,11 @@ const StickerPage = () => {
                 frmData.append('file', item);
                 await stickerApi.addEmoji(temp, frmData);
             }
-            message.success('Thêm emoji vào nhãn dán hoàn tất');
+            message.success('Thêm cảm xúc vào nhãn dán hoàn tất');
 
             handleCloseAddEmoji();
         } catch (error) {
-            message.error('Thêm emoji vào nhãn dán đã xảy ra lỗi');
+            message.error('Thêm cảm xúc vào nhãn dán đã xảy ra lỗi');
         }
 
         const listSticker = await stickerApi.fetchAllSticker();
@@ -223,15 +223,15 @@ const StickerPage = () => {
                     </Link>
                     <Link onClick={() => showDrawerCreateEmoji(data.id)}>
                         <PlusCircleTwoTone />
-                        Thêm emoji{' '}
+                        Thêm cảm xúc{' '}
                     </Link>
 
                     <Link
-                        alt="xem emoji"
+                        alt="xem cảm xúc"
                         onClick={() => handleViewEmoji(data.id, data.emojis)}
                     >
                         <EyeTwoTone />
-                        Xem emoji{' '}
+                        Xem cảm xúc{' '}
                     </Link>
                 </Space>
             ),
@@ -258,7 +258,7 @@ const StickerPage = () => {
                     icon={<PlusOutlined />}
                     style={{ marginBottom: '1rem' }}
                 >
-                    Tạo Nhãn dán
+                    Tạo nhãn dán
                 </Button>
             </Col>
             <Drawer
@@ -383,7 +383,7 @@ const StickerPage = () => {
 
             <Drawer
                 visible={visibleAddEmoji}
-                title="Thêm emoji vào nhãn dán"
+                title="Thêm cảm xúc vào nhãn dán"
                 width={720}
                 onClose={handleCloseAddEmoji}
                 bodyStyle={{ paddingBottom: 80 }}

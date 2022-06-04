@@ -116,7 +116,7 @@ function NavigationChatBox(props) {
                     placement="topLeft"
                 >
                     <li className="item-chat-box">
-                        <div title="Gửi sticker">
+                        <div title="Gửi nhãn dán">
                             <SmileOutlined />
                         </div>
                     </li>

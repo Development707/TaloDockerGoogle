@@ -94,7 +94,7 @@ function InfoMember({ viewMemberClick, quantity }) {
         confirm({
             title: 'Cảnh báo',
             content:
-                'Link hiện tại sẽ không sử dụng được nữa. Tắt link tham gia nhóm?',
+                'Liên kết hiện tại sẽ không sử dụng được nữa. Tắt liên kết tham gia nhóm?',
             onOk: () => handleChangeApi(checked),
             okText: 'Xác nhận',
             cancelText: 'Hủy',
@@ -139,7 +139,7 @@ function InfoMember({ viewMemberClick, quantity }) {
                             <LinkOutlined />
                         </div>
                         <div className="info_member-interact-item-text">
-                            <span>Cho phép dùng link tham gia nhóm</span>
+                            <span>Cho phép dùng liên kết tham gia</span>
                         </div>
                         <div className={`info_member-interact_button`}>
                             <Switch
@@ -159,7 +159,7 @@ function InfoMember({ viewMemberClick, quantity }) {
 
                     <div className="info_member-interact-item-text">
                         <div className="info_member-interact_link-title">
-                            Link tham gia nhóm
+                            Liên kết tham gia nhóm
                         </div>
 
                         <div className="info_member-interact_link-join">
