@@ -31,7 +31,8 @@ function Sticker({ data, onClose, onScroll }) {
                 <TabPane
                     tab={
                         <span className="menu-item">
-                            <GiftOutlined /> STICKER
+                            <GiftOutlined />
+                            Nhãn dán
                         </span>
                     }
                     key="1"
