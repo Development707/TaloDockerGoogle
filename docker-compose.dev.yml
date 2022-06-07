@@ -2,14 +2,25 @@ version: '3.3'
 
 services:
 
+  talo-mongo:
+    image: mongo
+    container_name: talo-mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./talo-mongo:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: talo
+    networks:
+      - talo
+
   talo-redis:
     image: redis
     container_name: talo-redis
     restart: always
     ports:
       - 6379:6379
-    volumes:
-      - ./talo-redis:/data
     networks:
       - talo
 
@@ -22,7 +33,7 @@ services:
       - 5000:5000
     environment:
       - PORT=5000
-      - DATABASE_URL=mongodb+srv://talo:talo123456@cluster0.dezz0.mongodb.net/TALO?retryWrites=true&w=majority
+      - DATABASE_URL=mongodb://talo-mongo:27017/talo
       - REDIS_URL=redis://talo-redis:6379
       - JWT_SECRET_KEY=TALO
       - JWT_LIFE_ACCESS_TOKEN=3d
@@ -43,6 +54,7 @@ services:
       - CLOUD_BUCKET_STICKER=talo-sticker
     depends_on:
       - talo-redis
+      - talo-mongo
     networks:
       - talo
 
@@ -81,4 +93,4 @@ networks:
   talo:
     driver: bridge
 volumes:
-    talo-redis:
+    talo-mongo:
