@@ -40,11 +40,11 @@ services:
       - JWT_LIFE_REFRESH_TOKEN=60d
       - OTP_EXPIRE_MINUTE=2
       - EMAIL=talo.noreply@gmail.com
-      - EMAIL_PASSWORD=tonksblarlatvhqd
-      - TWILIO_ACCOUNT_SID=ACdebfc34a65c640e56367c2f5da6319ed
-      - TWILIO_AUTH_TOKEN=8ad8aa82c62ff8029e51330db09f48ba
+      - EMAIL_PASSWORD=
+      - TWILIO_ACCOUNT_SID=
+      - TWILIO_AUTH_TOKEN=
       - MAX_SIZE_FILE=52428800
-      - GOOGLE_CLOUD_PROJECT=talo-342211
+      - GOOGLE_CLOUD_PROJECT=talo
       - CLOUD_BUCKET_AVATAR=talo-avatar
       - CLOUD_BUCKET_COVER_PHOTO=talo-cover-photo
       - CLOUD_BUCKET_GROUP_AVATAR=talo-group-avatar
